@@ -149,19 +149,18 @@
 
 <p>You can also set up PHLO to alert you in case of important notifications, and take actions on those notifications based on the key pressed.</p>
 
-<h2 id="use-case-outline">Use Case Outline</h2>
-<iframe width="700" height="380" src="https://www.youtube.com/embed/_3cACu1oTxE" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen=""></iframe>
-
 <h1 id="creating-the-use-case-using-phlo">Creating the Use Case using PHLO</h1>
+
+<h1 id="creating-the-use-case-using-phlo-1">Creating the Use Case using PHLO</h1>
 
 <p>With PHLO, you can quickly create a workflow that suits your use case. To use PHLO, make sure to register and log on to <a href="http://console.plivo.com/">Plivo Console</a>.</p>
 
 <p>Use the following components to create this PHLO:</p>
-
 <ul>
   <li>Initiate Call</li>
   <li>IVR Menu</li>
   <li>Play Audio</li>
+  <li>HTTP Request</li>
 </ul>
 
 <p>When you send an API request to the PHLO, it triggers a call to the user using the <strong>Initiate Call</strong> component. Once the user answers the call, the <strong>Play Audio</strong> component plays an audio to the user. The call will disconnect automatically after the playback audio is completed.</p>
@@ -169,17 +168,15 @@
 <p><strong>Note:</strong> The Callback function provides the user details required to make the call.</p>
 
 <p>To create this PHLO</p>
-
 <ol>
   <li>On the top navigation bar, click <strong>PHLO</strong>.
 The PHLO page will appear and display your existing PHLOs, if any. If this is your first PHLO, then the PHLO page will be empty.</li>
   <li>Click <strong>CREATE NEW PHLO</strong> to build a new PHLO.</li>
-  <li>On the <strong>Choose your use-case</strong> window, click <strong>Build my own</strong>.
+  <li>From the <strong>CREATE A NEW PHLO</strong> window, select <strong>Build on a blank canvas</strong>, and then click <strong>CREATE PHLO</strong>.
 The PHLO canvas will appear with the <strong>Start</strong> node.
 <strong>Note:</strong> The Start node is the starting point of any PHLO. You can choose between the four available trigger states of the Start node; Incoming SMS, Incoming Call, Endpoint Call, and API Request. For this PHLO, we will use the <strong>API Request</strong> trigger state.</li>
   <li>Click the <strong>Start</strong> node to open the Configurations tab, and then enter the information to retrieve from the HTTP Request payload. For example, this could be a list of numbers to call.</li>
-  <li>Click <strong>Validate</strong> to save the configurations for the node.
-<img src="/static/assets/images/phlo/voice-alerts/start.gif" alt="image alt text" /></li>
+  <li>Click <strong>Validate</strong> to save the configurations for the node.</li>
   <li>From the list of components, on the left hand side, drag and drop the <strong>Initiate Call</strong> component onto the canvas.
 This will add a Initiate call node onto the canvas.</li>
   <li>Connect the <strong>Start</strong> node with the <strong>Initiate Call</strong> node, using the <strong>API Request</strong> trigger state.</li>
@@ -190,47 +187,34 @@ This will add a Initiate call node onto the canvas.</li>
       <li>The values for the <strong>From</strong> and <strong>To</strong> numbers are picked from the HTTP Request Payload. Make sure to clearly define the variables in the Start node.</li>
     </ul>
   </li>
+  <li>Rename the <strong>Initiate Call</strong> node to <strong>Call_Customer</strong>.
+<strong>Note:</strong> You can rename the nodes as per your requirements. We are using specific names in this example to help you relate to the different nodes used in this use case.</li>
   <li>Click <strong>Validate</strong> to save the configurations for the node.</li>
   <li>Similarly, create a node for the <strong>IVR Menu</strong> component and connect it to the Initiate Call node using the <strong>Answered</strong> trigger state.</li>
   <li>Click the <strong>IVR Menu</strong> node to open the Configurations tab.</li>
   <li>Configure the choices for the IVR Menu from the <strong>Configurations</strong> tab. In this example, we will select <strong>1</strong> and <strong>2</strong> as the allowed choices and enter a message to play to the user.</li>
-  <li>Rename the <strong>IVR Menu</strong> node to <strong>Gather_Input</strong>.
-<strong>Note:</strong> You can rename the nodes as per your requirements. We are using specific names to help you relate to the different nodes used in this use case.
-<img src="/static/assets/images/phlo/voice-alerts/gather_input.gif" alt="image alt text" /></li>
+  <li>Rename the <strong>IVR Menu</strong> node to <strong>Question_1</strong>, and then click <strong>Validate</strong> to save the configurations for the node.</li>
+  <li>Similarly, create another <strong>IVR Menu</strong> node and rename it to <strong>Question_2</strong>.</li>
+  <li>Connect <strong>Question_2</strong> node to the <strong>Question_1 **node using the **1</strong> and <strong>2</strong> trigger states.</li>
+  <li>Configure the choices for <strong>Question_2</strong> from the <strong>Configurations</strong> tab. In this example, we will select <strong>1</strong> and <strong>2</strong> as the allowed choices, and enter a message to play to the user.</li>
   <li>Enter a message in the Speak Text field.
 The caller will be greeted with this message.
 <strong>Note:</strong> You can also configure the Language and Voice for the message.</li>
-  <li>Click <strong>Validate</strong> to to save the configurations of the node.</li>
-  <li>Similarly, create three nodes for the <strong>Play Audio</strong> component.
-<strong>Note:</strong> In this example, we will need three Play Audio nodes; one node for each option (Wrong Input, 1, and 2).</li>
-  <li>Rename these nodes to <strong>Invalid_Input_Prompt</strong>, <strong>Resolved_Prompt</strong>, and** Escalation_Prompt** using the Configurations tab.</li>
-  <li>Connect <strong>Invalid_Input_Prompt</strong> node to the <strong>Gather_Input</strong> using the <strong>Wrong Input</strong> trigger state.
-<img src="/static/assets/images/phlo/voice-alerts/invalid_input_prompt.gif" alt="image alt text" /></li>
-  <li>Connect the <strong>Prompt Completed</strong> trigger state of <strong>Invalid_Input_Prompt</strong> node to the <strong>IVR Menu.</strong>
-This will send the user back to the IVR Menu if they press an incorrect option, or if they do not press any key.</li>
-  <li>Connect <strong>Resolved_Prompt</strong> and <strong>Escalation_Prompt</strong> nodes to the <strong>Gather_Input</strong> using the <strong>1</strong> and <strong>2</strong> trigger states.</li>
-  <li>Next, configure the <strong>Play Audio</strong> nodes to play a specific message to the user.
-<strong>Note:</strong> The audio playback can either be static or dynamic. In this example, we will use a combination of a static message along with some dynamic message for the <strong>Resolved_Prompt</strong> and <strong>Escalation_Prompt</strong> nodes.</li>
-  <li>On the Play Audio Configurations tab, enter a static message (For example, Your Database status is: ) in the <strong>Speak Text</strong> field, followed by a variable to include the dynamic text.
-<strong>Note:</strong> You can choose a variable by entering two curly brackets in the Speak Text field.</li>
-  <li>Click <strong>Validate</strong> to save the configurations for the node.
-<img src="/static/assets/images/phlo/voice-alerts/resolved_prompt.gif" alt="image alt text" /></li>
-  <li>Configure** Resolved_Prompt** and <strong>Escalation_Prompt</strong> nodes to speak a fixed message in case of a wrong input or no input.</li>
-  <li>Click <strong>Validate</strong> to save the configurations for the node.
-<img src="/static/assets/images/phlo/voice-alerts/escalation_prompt.gif" alt="image alt text" /></li>
-  <li>Next, create a node for <strong>Initiate Call</strong> component and rename it to <strong>Escalation_Call</strong>.</li>
-  <li>Connect the <strong>Escalation_Prompt</strong> node to the <strong>Escalation_Call</strong> node using the <strong>Prompt Completed</strong> trigger state.
-This will call a second phone number and announce the alert. You can set up any number of escalation numbers by creating similar nodes for each phone number.</li>
-  <li>Connect the <strong>Escalation_Call</strong> node back to the <strong>Escalation_Prompt</strong> node using the <strong>Answered</strong> trigger state.
-This will play the same prompt to the second user and the process will repeat.
-<img src="/static/assets/images/phlo/voice-alerts/escalation_call.gif" alt="image alt text" /></li>
+  <li>Click <strong>Validate</strong> to save the configurations of the node.</li>
+  <li>Create a node for the <strong>Play Audio</strong> component.</li>
+  <li>Rename the node to <strong>Acknowledge_Participation</strong> using the Configurations tab.</li>
+  <li>Connect <strong>Acknowledge_Participation</strong> node to the <strong>Question_2 **node using the **1</strong> and <strong>2</strong> trigger states.
+This will acknowledge the customer’s participation in the survey.</li>
+  <li>Next, create a node for <strong>HTTP Request</strong> component and rename it to <strong>Handle_Callback</strong>.</li>
+  <li>Connect the <strong>Handle_Callback</strong> node to the <strong>Acknowledge_Participation</strong> node using the <strong>Prompt Completed</strong> trigger state.</li>
+  <li>Configure the **HTTP Request_1 **node to post the survey results to a website.</li>
+  <li>In the Params tab, add <strong>answer1</strong> and <strong>answer2</strong> as <strong>Key</strong>.</li>
+  <li>For <strong>answer1</strong>, enter two curly braces and select <strong>Question_1.digits</strong>.</li>
+  <li>For <strong>answer2</strong>, enter two curly braces and select <strong>Question_2.digits</strong>.</li>
+  <li>Click <strong>Validate</strong> to save the configurations of the node.</li>
   <li>After you complete the configurations, click <strong>Save</strong>.
-You can trigger your PHLO using the PHLO URL to test it out.
-Your complete PHLO will look like this:</li>
+You can trigger your PHLO using the PHLO URL to test it out.</li>
 </ol>
-
-<!-- ![](/static/assets/images/phlo/voice-alert.jpg) -->
-<p><img src="/static/assets/images/phlo/voice-alert.jpg" /></p>
 
 <p>For more information on using PHLO, see the <a href="/phlo-reference/">PHLO User Guide</a>.</p>
 
