@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!--
+
+  -->
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>Get started with Recording | Plivo Developers</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+
+  <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/static/css/highlight/atom-one-light.css">
+  <link rel="stylesheet" href="/static/css/home.css">
+  <script src="/static/js/utils.js"></script>
+
+  
+  <link rel="stylesheet" href="/static/css/mini-home.css">
+  
+
+  <script src="/static/js/angular.min.js"></script>
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-23474761-11"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-23474761-11');
+  </script>
+
+  <script type="text/javascript">
+    window.heap=window.heap||[],heap.load=function(e,t){window.heap.appid=e,window.heap.config=t=t||{};var r=t.forceSSL||"https:"===document.location.protocol,a=document.createElement("script");a.type="text/javascript",a.async=!0,a.src=(r?"https:":"http:")+"//cdn.heapanalytics.com/js/heap-"+e+".js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(a,n);for(var o=function(e){return function(){heap.push([e].concat(Array.prototype.slice.call(arguments,0)))}},p=["addEventProperties","addUserProperties","clearEventProperties","identify","removeEventProperty","setEventProperties","track","unsetEventProperty"],c=0;c<p.length;c++)heap[p[c]]=o(p[c])};
+      heap.load("1587892843");
+</script><
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-MXJNN5');</script>
+  <!-- End Google Tag Manager -->
+
+  <link rel="stylesheet" href="/static/css/two-column.css" />
+  <link rel="stylesheet" href="/static/css/syntax.css" < head />
+
+</head><body class="ng-scope" ng-app="plivoDevApp">
+    <nav class="navbar navbar-default navbar-fixed-top" ng-controller="plivoDevNavCtrl">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false" ng-click='openMenu()'>
+        <span class="sr-only">Toggle navigation</span>
+        <span ng-show='toggleMenu' class="glyphicon glyphicon-menu-hamburger"></span>
+        <span ng-hide="toggleMenu" class="glyphicon glyphicon-remove"></span>
+      </button>
+        <div class="center">
+          <a class="navbar-brand" href="/">
+            <img src="/static/assets/images/plivo-logo.png" />
+          </a>
+          <a class="navbar-brand" href="/">Docs</a>
+        </div>
+      </div>
+
+      <div class="hideMenu" ng-class="{showMenu: showMenu, hideMenu: !showMenu}">
+        <ul class="nav navbar-nav">
+          <li><a href="/use-cases">Use Cases</a></li>
+          <li><a href="/phlo-reference">PHLO Reference</a></li>
+          <li><a href="https://api-reference.plivo.com" target="_blank">API Reference</a></li>
+
+          <li class="dropdown">
+            <a href="/server-side-sdks" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Server-side SDKs <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="/server-side-sdks/python-sdk/">Python SDK</a></li>
+              <li><a href="/server-side-sdks/node-sdk/">Node JS SDK</a></li>
+              <li><a href="/server-side-sdks/ruby-sdk/">Ruby SDK</a></li>
+              <li><a href="/server-side-sdks/java-sdk/">Java SDK</a></li>
+              <li><a href="/server-side-sdks/php-sdk/">PHP SDK</a></li>
+              <li><a href="/server-side-sdks/net-sdk/">.NET / C# SDK</a></li>
+              <li><a href="/server-side-sdks/go-sdk/">Go SDK</a></li>
+              <li role="separator" class="divider"></li>
+              <li><a href="/server-side-sdks">View All</a></li>
+            </ul>
+          </li>
+
+          <li class="dropdown">
+            <a href="/client-side-sdks" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Client-side SDKs <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="/client-side-sdks/android-sdk">Android SDK</a></li>
+              <li><a href="/client-side-sdks/ios-sdk">iOS SDK</a></li>
+              <li><a href="/client-side-sdks/browser-sdk">Browser SDK</a></li>
+              <li role="separator" class="divider"></li>
+              <li><a href="/client-side-sdks">View All</a></li>
+            </ul>
+          </li>
+        </ul>
+
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="//manage.plivo.com/dashboard/" target="_blank">Dashboard</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="two-div">
+    <div class="full container-fluid">
+      <div id="sidebar" class="col-md-2 hidden-sm hidden-xs sidebar">
+        <div id="scroller-anchor"></div>
+        <div class="nav-container">
+          <nav>
+            <ul class="nav nav-stacked">
+              
+              <li>
+                <a href="#recording-a-call-using-the-api">Recording a call using the API</a></li>
+              
+              <li>
+                <a href="#recording-a-conference-using-the-api">Recording a conference using the API</a></li>
+              
+              <li>
+                <a href="#recording-a-call-using-plivo-xml">Recording a call using Plivo XML</a></li>
+              
+              <li>
+                <a href="#accessing-created-recordings">Accessing created recordings</a></li>
+              
+              <li>
+                <a href="#next-steps">Next Steps</a></li>
+              
+              <li>
+                <a href="#related-links">Related Links</a></li>
+              
+            </ul>
+          </nav>
+        </div>
+        </div>
+
+        <section id='content ' class="col-md-10 content">
+          <ol class="breadcrumb">
+              
+                
+                <li><a href="/">Home</a></li>
+              
+              
+                
+                <li><a href="/getting-started/">Getting Started</a></li>
+              
+              
+                
+                <li>Recordings</li>
+              
+              
+          </ol>
+          <div class="container full" data-cms-content-wrapper="/_layouts/two-column.html">
+            <h1 id="getting-started-with-recording">Getting Started with Recording</h1>
+<p>Plivo provides you the ability to record both outgoing calls from and incoming calls to Plivo. You can choose to record the entire call or record only specific portions of the call. The recording can be initiated by using either an API or using Plivo XML.</p>
+
+<p>We already know how to <a href="/getting-started/calls/">make calls</a> and how to <a href="/getting-started/calls/incoming-calls/">handle incoming calls</a>, we will now look at recording an entire call using Plivo XML and using the API.</p>
+
+<h2 id="recording-a-call-using-the-api">Recording a call using the API</h2>
+<p>You can record an ongoing call using the <a href="https://api-reference.plivo.com/latest/python/resources/conference/record-conference">Record API of calls</a>. If you need to record the call from start, call the Record API immediately after the conference is created. It is recommended to use a <code class="highlighter-rouge">Record</code> XML element if you are creating your conference using an XML.</p>
+
+<h2 id="recording-a-conference-using-the-api">Recording a conference using the API</h2>
+<p>You can record an ongoing call using the <a href="https://api-reference.plivo.com/latest/python/resources/call/record-calls">Record API of conferences</a>. If you need to record the call from start, call the Record API before rendering the XML on your <code class="highlighter-rouge">answer_url</code>.</p>
+
+<h2 id="recording-a-call-using-plivo-xml">Recording a call using Plivo XML</h2>
+<p>To record a call, we just need to add an record element to the XML which is used to control the call flow. This will ensure that the call will be recorded.</p>
+
+<p>For example, consider the following XML.</p>
+
+<figure class="highlight"><pre><code class="language-xml" data-lang="xml"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+2
+3
+4
+5
+6</pre></td><td class="code"><pre><span class="nt">&lt;Response&gt;</span>
+    <span class="nt">&lt;Record</span> <span class="na">action =</span><span class="s">"http://c3bb61b6.ngrok.io/record_action/"</span> <span class="na">redirect=</span><span class="s">"false"</span> <span class="na">startOnDialAnswer=</span><span class="s">"true"</span> <span class="na">maxLength=</span><span class="s">"14400"</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;Dial</span> <span class="na">callerId=</span><span class="s">"1415xxxxxxxx"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;Number&gt;</span>number_to_be_called<span class="nt">&lt;/Number&gt;</span>
+    <span class="nt">&lt;/Dial&gt;</span>
+<span class="nt">&lt;/Response&gt;</span><span class="w">
+</span></pre></td></tr></tbody></table></code></pre></figure>
+
+<p>Once this XML is successfully fetched from the <code class="highlighter-rouge">answer_url</code> it will be executed. The <code class="highlighter-rouge">Record</code> element records the call that is being dialled by the <code class="highlighter-rouge">Dial</code> tag.</p>
+
+<h2 id="accessing-created-recordings">Accessing created recordings</h2>
+<p>The recording URL will be POSTed to the URL specified in the <code class="highlighter-rouge">action</code> attribute of <code class="highlighter-rouge">Record</code> XML or the API request as soon as the recording is completed. You can use this URL to access the recording.</p>
+
+<p>You can also retrieve the created recordings at a later point of time in two ways.</p>
+<ul>
+  <li>From <a href="https://console.plivo.com/voice/logs/recordings/">Recordings</a> section in the Plivo Dashboard</li>
+  <li>Using our <a href="https://api-reference.plivo.com/latest/python/resources/recording">Recordings API</a> Endpoint. This allows you to list and manage all the recordings in your account.</li>
+</ul>
+
+<h3 id="to-retrieve-recordings-if-authentication-is-disabled-on-the-recording-url-default">To retrieve recordings, if authentication is disabled on the recording URL (default)</h3>
+<p>Use the recording URL to fetch the recording file. The recording file is of either a .mp3 or a .wav file format. The recording will be streamed as a response to your request.</p>
+
+<p>Possible error code(s)</p>
+<ul>
+  <li>403 - Recording does not exist or is deleted.</li>
+</ul>
+
+<p>Example of the recording URL</p>
+
+<p><code class="highlighter-rouge">https://media.plivo.com/v1/Account/{auth_id}/Recording/{recording_id}/</code></p>
+
+<h4 id="code-samples">Code Samples</h4>
+<div class="container">
+
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs code-navs" role="tablist">
+      <li class="active">
+          <a href="#cURL" role="tab" data-toggle="tab">
+              <icon class="fa fa-home"></icon> cURL
+          </a>
+      </li>
+      <li><a href="#Java" role="tab" data-toggle="tab">
+          <i class="fa fa-user"></i> Java
+          </a>
+      </li>
+      <li>
+          <a href="#Python" role="tab" data-toggle="tab">
+              <i class="fa fa-envelope"></i> Python
+          </a>
+      </li>
+      <li>
+          <a href="#PHP" role="tab" data-toggle="tab">
+              <i class="fa fa-cog"></i> PHP
+          </a>
+      </li>
+      <li>
+          <a href="#Node" role="tab" data-toggle="tab">
+              <i class="fa fa-cog"></i> Node
+          </a>
+      </li>
+      <li>
+          <a href="#Ruby" role="tab" data-toggle="tab">
+              <i class="fa fa-cog"></i> Ruby
+          </a>
+      </li>
+    </ul>
+
+    <!-- Tab panes -->
+    <div class="tab-content">
+      <div class="tab-pane fade active in" id="cURL">
+        <div class="highlighter-rouge">
+          <pre class="highlight">
+            <code>
+curl -X GET \
+  https://media.plivo.com/AUTH_ID/Recording/RECORDING_UUID.mp3 \
+  -H 'cache-control: no-cache'
+            </code>
+          </pre>
+        </div>
+      </div>
+      <div class="tab-pane fade" id="Java">
+        <div class="highlighter-rouge">
+          <pre class="highlight">
+            <code>
+OkHttpClient client = new OkHttpClient();
+Request request = new Request.Builder()
+  .url("https://media.plivo.com/AUTH_ID/Recording/RECORDING_UUID.mp3")
+  .get()
+  .build();
+Response response = client.newCall(request).execute();
+FileOutputStream fos = new FileOutputStream("/var/tmp/file.mp3");
+fos.write(response.body().bytes());
+fos.close();
+            </code>
+          </pre>
+        </div>
+      </div>
+      <div class="tab-pane fade" id="Python">
+        <div class="highlighter-rouge">
+          <pre class="highlight">
+            <code>
+import requests
+url = "https://media.plivo.com/AUTH_ID/Recording/RECORDING_UUID.mp3"
+r = requests.get(url, stream=True)
+with open(local_filename, 'wb') as f:
+    for chunk in r.iter_content(chunk_size=1024):
+        if chunk: # filter out keep-alive new chunks
+            f.write(chunk)
+    return local_filename
+            </code>
+          </pre>
+        </div>
+      </div>
+      <div class="tab-pane fade" id="PHP">
+        <div class="highlighter-rouge">
+          <pre class="highlight">
+            <code>
+&lt;?php
+$request = new HttpRequest();
+$request-&gt;setUrl('https://media.plivo.com/AUTH_ID/Recording/RECORDING_UUID.mp3');
+$request-&gt;setMethod(HTTP_METH_GET);
+try {
+  $response = $request-&gt;send();
+  echo $response-&gt;getBody();
+} catch (HttpException $ex) {
+  echo $ex;
+}
+          </code>
+        </pre>
+      </div>
+    </div>
+    <div class="tab-pane fade" id="Node">
+      <div class="highlighter-rouge">
+        <pre class="highlight">
+          <code>
+var request = require("request");
+var fs = require('fs');
+var url = "https://media.plivo.com/AUTH_ID/Recording/RECORDING_UUID.mp3";
+var file = fs.createWriteStream("file.mp3");
+var request = http.get(url, function(response) {
+    response.pipe(file);
+    file.on('finish', function() {
+        file.close(cb); // close() is async, call cb after close completes.
+        });
+    }).on('error', function(err) { // Handle errors
+        fs.unlink(dest); // Delete the file async. (But we don't check the result)
+        if (cb) cb(err.message);
+    });
+};
+            </code>
+          </pre>
+        </div>
+      </div>
+      <div class="tab-pane fade" id="Ruby">
+        <div class="highlighter-rouge">
+          <pre class="highlight">
+            <code>
+require 'open-uri'
+download = open(https://media.plivo.com/AUTH_ID/Recording/RECORDING_UUID.mp3)
+IO.copy_stream(download, '~/my_file.mp3')
+            </code>
+          </pre>
+        </div>
+      </div>
+
+</div>
+</div>
+
+<h3 id="to-retrieve-recordings-if-authentication-is-enabled-on-the-recording-url">To retrieve recordings, if authentication is enabled on the recording URL</h3>
+
+<p>Use the recording URL to fetch the recording file. Make sure to use your AUTH ID and AUTH TOKEN for authentication.
+To access recordings on a sub-account, you must use the sub-account credentials for authentication. Once authenticated, the recording will be streamed as a response to your request.</p>
+
+<p>Possible error codes</p>
+<ul>
+  <li>401 - Unauthorized. Authentication failed.</li>
+  <li>403 - Recording does not exist or is deleted.</li>
+</ul>
+
+<h4 id="code-samples-1">Code Samples</h4>
+<div class="container">
+
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs code-navs" role="tablist">
+      <li class="active">
+          <a href="#cURL-enabled" role="tab" data-toggle="tab">
+              <icon class="fa fa-home"></icon> cURL
+          </a>
+      </li>
+      <li><a href="#Java-enabled" role="tab" data-toggle="tab">
+          <i class="fa fa-user"></i> Java
+          </a>
+      </li>
+      <li>
+          <a href="#Python-enabled" role="tab" data-toggle="tab">
+              <i class="fa fa-envelope"></i> Python
+          </a>
+      </li>
+      <li>
+          <a href="#PHP-enabled" role="tab" data-toggle="tab">
+              <i class="fa fa-cog"></i> PHP
+          </a>
+      </li>
+      <li>
+          <a href="#Node-enabled" role="tab" data-toggle="tab">
+              <i class="fa fa-cog"></i> Node
+          </a>
+      </li>
+      <li>
+          <a href="#Ruby-enabled" role="tab" data-toggle="tab">
+              <i class="fa fa-cog"></i> Ruby
+          </a>
+      </li>
+    </ul>
+
+    <!-- Tab panes -->
+    <div class="tab-content">
+      <div class="tab-pane fade active in" id="cURL-enabled">
+        <div class="highlighter-rouge">
+          <pre class="highlight">
+            <code>
+curl -i --user AUTH_ID:AUTH_TOKEN \
+https://media.plivo.com/v1/Account/AUTH_ID/Recording/RECORDING.mp3 \
+-H 'cache-control: no-cache'
+            </code>
+          </pre>
+        </div>
+      </div>
+      <div class="tab-pane fade" id="Java-enabled">
+        <div class="highlighter-rouge">
+          <pre class="highlight">
+            <code>
+OkHttpClient client = new OkHttpClient();
+String authString = AUTH_ID + ":" + AUTH_TOKEN;
+String authStringEnc = new BASE64Encoder().encode(authString.getBytes());
+Request request = new Request.Builder()
+
+.url("https://media.plivo.com/v1/Account/AUTH_ID/Recording/RECORDING.mp3")
+  .get()
+  .addHeader("Authorization", "Basic " + authStringEnc)
+  .build();
+
+Response response = client.newCall(request).execute();
+FileOutputStream fos = new FileOutputStream("sample.mp3");
+fos.write(response.body().bytes());
+fos.close();
+            </code>
+          </pre>
+        </div>
+      </div>
+      <div class="tab-pane fade" id="Python-enabled">
+        <div class="highlighter-rouge">
+          <pre class="highlight">
+            <code>
+import requests
+def download_file():    
+  url = "https://media.plivo.com/v1/Account/AUTH_ID/Recording/RECORDING.mp3"
+  local_filename = url.split('/')[-1]    
+  r = requests.get(url, stream=True, auth=('AUTH_ID', 'AUTH_TOKEN'))
+  with open(local_filename, 'wb') as f:
+    for chunk in r.iter_content(chunk_size=1024):
+      if chunk: # filter out keep-alive new chunks
+        f.write(chunk)
+  return local_filename
+if __name__ == "__main__":
+  download_file()
+            </code>
+          </pre>
+        </div>
+      </div>
+      <div class="tab-pane fade" id="PHP-enabled">
+        <div class="highlighter-rouge">
+          <pre class="highlight">
+            <code>
+&lt;?PHP
+$request = new HttpRequest();
+$username = "AUTH_ID";
+$password = "AUTH_TOKEN";
+$request-&gt;setUrl('https://media.plivo.com/v1/Account/AUTH_ID/Recording/RECORDING.mp3');
+$request-&gt;setMethod(HTTP_METH_GET);
+$request-&gt;setHeaders(array(
+  'header' =&gt; "Authorization: Basic " . base64_encode("$username:$password")                 
+));
+try {
+  $response = $request-&gt;send();
+
+  if ($r-&gt;getResponseCode() == 200) {
+    file_put_contents('sample.mp3', $r-&gt;getResponseBody());
+    }
+} catch (HttpException $ex) {
+    echo $ex;
+}
+          </code>
+        </pre>
+      </div>
+    </div>
+    <div class="tab-pane fade" id="Node-enabled">
+      <div class="highlighter-rouge">
+        <pre class="highlight">
+          <code>
+var fs = require('fs'),
+  request = require('request');
+
+request
+  .get('https://media.plivo.com/v1/Account/AUTH_ID/Recording/RECORDING.mp3', {
+  'auth': {
+    'user': 'AUTH_ID',
+    'pass': 'AUTH_TOKEN',
+  }
+})
+  .on('error', function(err) {
+    // handle error
+  })
+  .pipe(fs.createWriteStream('sample.mp3'));
+            </code>
+          </pre>
+        </div>
+      </div>
+      <div class="tab-pane fade" id="Ruby-enabled">
+        <div class="highlighter-rouge">
+          <pre class="highlight">
+            <code>
+require 'open-uri'
+  File.open('sample.mp3', "wb") do |file|
+    file.write open('https://media.plivo.com/v1/Account/MAMTK2MGFHNTVINWQYZT/Recording/98b8aece-93d6-11e8-9476-06f687d7a22c.mp3',
+      :http_basic_authentication =&gt; ['MAMTK2MGFHNTVINWQYZT', 'N2FmNzdhMTc2ZmY5MWEyNzhhMDk1YWEwODM4NzIx']).read
+    puts 'file is downloaded'
+end
+            </code>
+          </pre>
+        </div>
+      </div>
+
+</div>
+</div>
+
+<p>You can enable authentication for accessing the recording URL using Plivo Console.</p>
+
+<h4 id="to-enable-authentication">To enable authentication</h4>
+<ol>
+  <li>Login to your Plivo Console account.</li>
+  <li>On the top navigation bar, click Voice, and then click Settings.</li>
+  <li>On the Setting page, click Recordings.
+<!-- ![Basic Auth on Recording URLs](/static/assets/images/getting-started/recording-auth-enabled.png) -->
+<img src="/static/assets/images/getting-started/recording-auth-enabled.png" style="max-height:none; width:none;" /></li>
+  <li>Under the Basic Auth for Recording URLs section, check the Enabled checkbox.
+  <strong>Note:</strong> By default, the Enabled checkbox is unchecked.
+  Your basic authentication on your recording URL is now enabled.</li>
+</ol>
+
+<h2 id="related-links">Related Links</h2>
+<ul>
+  <li><a href="/getting-started/calls/">Getting started with outgoing calls</a></li>
+  <li><a href="/getting-started/applications/">Getting started with applications</a></li>
+  <li><a href="https://api-reference.plivo.com/latest/python/elements/conference">Conference XML</a></li>
+</ul>
+
+          </div>
+        </section>
+      </div>
+      <footer id='footer'>
+  <div class="one-fifth">
+    <h6>GETTING STARTED</h6>
+    <ul>
+      <li><a href="/use-cases/2-factor-authentication/">2 Factor Authentication</a></li>
+      <li><a href="/use-cases/ivrs/">IVRS</a></li>
+      <li><a href="/use-cases/voice-otp/">Voice OTP</a></li>
+      <li><a href="/use-cases/voice-alerts-broadcasting/">Voice Alerts &amp; Broadcasting</a></li>
+      <li><a href="/use-cases/number-masking/">Number Masking</a></li>
+      <li><a href="/use-cases/call-tracking/">Call Tracking</a></li>
+    </ul>
+
+  <h6>QUICKSTART GUIDES</h6>
+  <ul>
+    <li><a href="/getting-started/setting-up-dev-environment">Setting up Dev Servers</a></li>
+    <li><a href="/getting-started/signature-validation">Signature Validation</a></li>
+  </ul>
+</div>
+
+  <div class="one-fifth">
+    <h6>PHLO REFERENCES</h6>
+    <ul>
+      <li><a href="/phlo-reference/#phlo-basics">PHLO Basics</a></li>
+      <li><a href="/phlo-reference/#creating-phlos">Creating PHLOs</a></li>
+      <li><a href="/phlo-reference/#connecting-phlo-components">Connecting PHLO Components</a></li>
+      <li><a href="/phlo-reference/#configuring-phlo-components">Configuring PHLO Components</a></li>
+      <li><a href="/phlo-reference/#triggering-a-phlo">Triggering a PHLO</a></li>
+      <li><a href="/phlo-reference/#components-library">Components Library</a></li>
+    </ul>
+
+
+    <h6>PHLO USE CASES</h6>
+    <ul>
+      <li><a href="/use-cases/phlo/voice-notification">Voice Notification</li>
+      <li><a href="/use-cases/phlo/voice-alerts">Voice Alert</li>
+      <li><a href="/use-cases/phlo/sms-alert">SMS Alert</li>
+      <li><a href="/use-cases/phlo/sms-survey">SMS Survey</li>
+      <li><a href="/use-cases/phlo/call-conference">Pinless Conference</li>
+      <li><a href="/use-cases/phlo/conference-with-pin">Conference with PIN</li>
+      <li><a href="/use-cases/phlo/ivr">Phone System IVR</li>
+      <li><a href="/use-cases/phlo/call-forwarding">Call Forwarding</li>
+    </ul>
+
+  </div>
+
+  <div class="one-fifth">
+    <h6>Client-side SDKs</h6>
+    <ul>
+      <li><a href="/client-side-sdks/browser-sdk">Browser SDK</a></li>
+      <li><a href="/client-side-sdks/android-sdk">Android SDK</a></li>
+      <li><a href="/client-side-sdks/ios-sdk">iOS SDK</a></li>
+    </ul>
+
+    <h6>INTEGRATIONS</h6>
+    <ul>
+      <li><a href="/integrations/zapier">Zapier</a></li>
+      <li><a href="/integrations/microsoft-flow">Microsoft Flow</a></li>
+      <li><a href="/integrations/integromat">Integromat</a></li>
+    </ul>
+  </div>
+
+  <div class="one-fifth">
+    <h6>Server-side SDKs</h6>
+    <ul>
+      <li><a href="/server-side-sdks/python-sdk">Python</a></li>
+      <li><a href="/server-side-sdks/node-sdk">NodeJS</a></li>
+      <li><a href="/server-side-sdks/ruby-sdk">Ruby</a></li>
+      <li><a href="/server-side-sdks/java-sdk">Java</a></li>
+      <li><a href="/server-side-sdks/php-sdk">PHP</a></li>
+      <li><a href="/server-side-sdks/net-sdk">.NET (C#)</a></li>
+      <li><a href="/server-side-sdks/go-sdk">Go</a></li>
+    </ul>
+  </div>
+
+  <div class="one-fifth">
+    <h6>API REFERENCE</h6>
+    <ul>
+      <li><a href="https://api-reference.plivo.com/latest/python/resources/account">Account</a></li>
+      <li><a href="https://api-reference.plivo.com/latest/python/resources/account-phone-number">Account Phone Number</a></li>
+      <li><a href="https://api-reference.plivo.com/latest/python/resources/application">Application</a></li>
+      <li><a href="https://api-reference.plivo.com/latest/python/resources/call">Call</a></li>
+      <li><a href="https://api-reference.plivo.com/latest/python/resources/conference">Conference</a></li>
+      <li><a href="https://api-reference.plivo.com/latest/python/resources/endpoint">Endpoint</a></li>
+      <li><a href="https://api-reference.plivo.com/latest/python/resources/incoming-carrier">Incoming Carrier</a></li>
+      <li><a href="https://api-reference.plivo.com/latest/python/resources/message">Message</a></li>
+      <li><a href="https://api-reference.plivo.com/latest/python/resources/phone-number">Phone Number</a></li>
+      <li><a href="https://api-reference.plivo.com/latest/python/resources/pricing">Pricing</a></li>
+      <li><a href="https://api-reference.plivo.com/latest/python/resources/recording">Recording</a></li>
+      <li><a href="https://api-reference.plivo.com/latest/python/resources/subaccount">Subaccount</a></li>
+    </ul>
+  </div>
+</footer>
+
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="/static/js/bootstrap.min.js"></script>
+<script src="/static/js/main.js"></script>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MXJNN5"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+    <script>
+  $(document).ready(function() {
+    $('body').scrollspy({
+      target: '#sidebar',
+      offset: 100
+    })
+
+    function scrollNav() {
+      $('#sidebar .nav a').click(function(e) {
+        //Toggle Class
+        $(".active").removeClass("active");
+        $(this).closest('li').addClass("active");
+        var theClass = $(this).attr("class");
+        $('.' + theClass).parent('li').addClass('active');
+        //Animate
+        $('html, body').stop().animate({
+          scrollTop: $($(this).attr('href')).offset().top - 70
+        }, 10);
+        return false;
+      });
+    }
+    scrollNav();
+    $(".active a").trigger('click');
+
+
+    var stickySidebar = function() {
+      var b = $(window).scrollTop();
+      var d = $("#scroller-anchor").offset().top;
+      var f = $("#footer").offset().top;
+      var c = $(".nav-container");
+      var h = c.height() + 50; // margin
+
+      if (b > 0) {
+        var myTop = $(window).scrollTop();
+        if (myTop > f - h) myTop = f - h;
+        c.css({
+          position: "absolute",
+          top: myTop,
+          bottom: ""
+        })
+      } else {
+        if (b <= d) {
+          c.css({
+            position: "absolute",
+            top: "",
+            bottom: ""
+          })
+        }
+      }
+    };
+    $(window).scroll(stickySidebar);
+    stickySidebar()
+  });
+</script>
+
+  </body>
+</html>

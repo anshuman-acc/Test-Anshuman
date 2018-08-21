@@ -1,0 +1,1374 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!--
+
+  -->
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>Get started with Plivo PHLO | Plivo Docs</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+
+  <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/static/css/highlight/atom-one-light.css">
+  <link rel="stylesheet" href="/static/css/home.css">
+  <script src="/static/js/utils.js"></script>
+
+  
+  <link rel="stylesheet" href="/static/css/mini-home.css">
+  
+
+  <script src="/static/js/angular.min.js"></script>
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-23474761-11"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-23474761-11');
+  </script>
+
+  <script type="text/javascript">
+    window.heap=window.heap||[],heap.load=function(e,t){window.heap.appid=e,window.heap.config=t=t||{};var r=t.forceSSL||"https:"===document.location.protocol,a=document.createElement("script");a.type="text/javascript",a.async=!0,a.src=(r?"https:":"http:")+"//cdn.heapanalytics.com/js/heap-"+e+".js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(a,n);for(var o=function(e){return function(){heap.push([e].concat(Array.prototype.slice.call(arguments,0)))}},p=["addEventProperties","addUserProperties","clearEventProperties","identify","removeEventProperty","setEventProperties","track","unsetEventProperty"],c=0;c<p.length;c++)heap[p[c]]=o(p[c])};
+      heap.load("1587892843");
+</script><
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-MXJNN5');</script>
+  <!-- End Google Tag Manager -->
+
+  <link rel="stylesheet" href="/static/css/two-column.css" />
+  <link rel="stylesheet" href="/static/css/syntax.css" < head />
+
+</head><body class="ng-scope" ng-app="plivoDevApp">
+    <nav class="navbar navbar-default navbar-fixed-top" ng-controller="plivoDevNavCtrl">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false" ng-click='openMenu()'>
+        <span class="sr-only">Toggle navigation</span>
+        <span ng-show='toggleMenu' class="glyphicon glyphicon-menu-hamburger"></span>
+        <span ng-hide="toggleMenu" class="glyphicon glyphicon-remove"></span>
+      </button>
+        <div class="center">
+          <a class="navbar-brand" href="/">
+            <img src="/static/assets/images/plivo-logo.png" />
+          </a>
+          <a class="navbar-brand" href="/">Docs</a>
+        </div>
+      </div>
+
+      <div class="hideMenu" ng-class="{showMenu: showMenu, hideMenu: !showMenu}">
+        <ul class="nav navbar-nav">
+          <li><a href="/use-cases">Use Cases</a></li>
+          <li><a href="/phlo-reference">PHLO Reference</a></li>
+          <li><a href="https://api-reference.plivo.com" target="_blank">API Reference</a></li>
+
+          <li class="dropdown">
+            <a href="/server-side-sdks" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Server-side SDKs <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="/server-side-sdks/python-sdk/">Python SDK</a></li>
+              <li><a href="/server-side-sdks/node-sdk/">Node JS SDK</a></li>
+              <li><a href="/server-side-sdks/ruby-sdk/">Ruby SDK</a></li>
+              <li><a href="/server-side-sdks/java-sdk/">Java SDK</a></li>
+              <li><a href="/server-side-sdks/php-sdk/">PHP SDK</a></li>
+              <li><a href="/server-side-sdks/net-sdk/">.NET / C# SDK</a></li>
+              <li><a href="/server-side-sdks/go-sdk/">Go SDK</a></li>
+              <li role="separator" class="divider"></li>
+              <li><a href="/server-side-sdks">View All</a></li>
+            </ul>
+          </li>
+
+          <li class="dropdown">
+            <a href="/client-side-sdks" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Client-side SDKs <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="/client-side-sdks/android-sdk">Android SDK</a></li>
+              <li><a href="/client-side-sdks/ios-sdk">iOS SDK</a></li>
+              <li><a href="/client-side-sdks/browser-sdk">Browser SDK</a></li>
+              <li role="separator" class="divider"></li>
+              <li><a href="/client-side-sdks">View All</a></li>
+            </ul>
+          </li>
+        </ul>
+
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="//manage.plivo.com/dashboard/" target="_blank">Dashboard</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="two-div">
+    <div class="full container-fluid">
+      <div id="sidebar" class="col-md-2 hidden-sm hidden-xs sidebar">
+        <div id="scroller-anchor"></div>
+        <div class="nav-container">
+          <nav>
+            <ul class="nav nav-stacked">
+              
+              <li>
+                <a href="#features">Features</a></li>
+              
+              <li>
+                <a href="#phlo-basics">PHLO Basics</a></li>
+              
+              <li>
+                <a href="#creating-phlos">Creating PHLOs</a></li>
+              
+              <li>
+                <a href="#connecting-phlo-components">Connecting PHLO Components</a></li>
+              
+              <li>
+                <a href="#configuring-phlo-components">Configuring PHLO Components</a></li>
+              
+              <li>
+                <a href="#triggering-a-phlo-using-a-phone-number">Triggering a PHLO using a Phone Number</a></li>
+              
+              <li>
+                <a href="#triggering-a-phlo-using-an-api-request">Triggering a PHLO using an API Request</a></li>
+              
+              <li>
+                <a href="#components-library">Components Library</a></li>
+              
+            </ul>
+          </nav>
+        </div>
+        </div>
+
+        <section id='content ' class="col-md-10 content">
+          <ol class="breadcrumb">
+              
+                
+                <li><a href="/">Home</a></li>
+              
+              
+                
+                <li>PHLO User Guide</li>
+              
+              
+          </ol>
+          <div class="container full" data-cms-content-wrapper="/_layouts/two-column.html">
+            <h1 id="overview">Overview</h1>
+
+<p>PHLO stands for Plivo High-Level Objects. It is a collection of building blocks that allows you to create custom communication workflows (including Voice and SMS) based on your requirements. With PHLO, you can build applications with much lesser code. It provides you with a graphical user interface where you can place components and create custom workflows to better suit your needs.</p>
+
+<p>We have put together the following collection of use cases guides to help you get started:</p>
+
+<ul>
+  <li><a href="/use-cases/phlo/voice-notification/">Voice Notification</a></li>
+  <li><a href="/use-cases/phlo/voice-alerts/">Voice Alert</a></li>
+  <li><a href="/use-cases/phlo/sms-alert/">SMS Alert</a></li>
+  <li><a href="/use-cases/phlo/sms-survey/">SMS Survey</a></li>
+  <li><a href="/use-cases/phlo/conference-with-pin/">Conference with Pin</a></li>
+  <li><a href="/use-cases/phlo/call-conference/">Pinless Conference</a></li>
+  <li><a href="/use-cases/phlo/call-forwarding/">Call Forwarding</a></li>
+  <li><a href="/use-cases/phlo/ivr/">Phone System IVR</a></li>
+</ul>
+
+<p>The above use cases are also available on Plivo Console as PHLO Templates. PHLO Templates are predefined workflows that you can use to build and ship your capabilities faster. Depending on the template, all necessary nodes and connections will be available for you to configure and deploy.</p>
+
+<h2 id="features">Features</h2>
+
+<p>PHLO has the following features:</p>
+
+<ul>
+  <li>Complete parity with Plivo APIs</li>
+  <li>Interface to drag and drop components and create workflows</li>
+  <li>Build applications and ship capabilities faster with much lesser code, using PHLO Templates</li>
+  <li>Create custom integrations with third-party applications</li>
+  <li>Create Voice and SMS based capabilities</li>
+</ul>
+
+<h2 id="phlo-basics">PHLO Basics</h2>
+
+<p><strong>PHLO</strong></p>
+
+<p>Pronounced as “flow”, PHLO stands for Plivo High-Level Objects. It is a combination of components that make a workflow.</p>
+
+<p>The following components are available in PHLO:</p>
+
+<ul>
+  <li>Send SMS</li>
+  <li>IVR Menu</li>
+  <li>Get Input</li>
+  <li>Initiate Call</li>
+  <li>Call forward</li>
+  <li>Hangup</li>
+  <li>Conference</li>
+  <li>Play Audio</li>
+  <li>Record Audio</li>
+  <li>Multi-Party Call</li>
+  <li>HTTP Request</li>
+  <li>Counter</li>
+  <li>Branch</li>
+</ul>
+
+<p><strong>Canvas</strong></p>
+
+<p>Canvas is the space where you place and connect different components to create a PHLO. It is an infinitely scrollable space which allows the user to create and view the PHLOs.</p>
+
+<p><strong>Top Navigation Bar</strong></p>
+
+<p>The Top Navigation Bar lists the available Plivo Products for your account. It helps you switch between Plivo Products.</p>
+
+<p><strong>Components</strong></p>
+
+<p>Components are the building blocks used to create a PHLO. Based on the workflow, you can piece together different components to create a PHLO.</p>
+
+<p><strong>States</strong></p>
+
+<p>States are properties that the component is set to or based on for each action. Each component has one input state and at least one output state.</p>
+
+<p><strong>Node</strong></p>
+
+<p>Node is an instance of a component when placed on the canvas. Drag and drop components to the canvas to create their nodes. Each node must have a unique name within the PHLO.</p>
+
+<p><strong>Configurations tab</strong></p>
+
+<p>Every node has a set of default configurations associated with it. Click the node to view the configurations for the node. To view the list of configuration options available for the node, click the <strong>Information</strong> tab.</p>
+
+<p>Make sure you validate the node after the configuration. The side panel will display validation errors, if any. Make sure you correct all validation errors before saving the PHLO.</p>
+
+<p><strong>Information tab</strong></p>
+
+<p>The information tab gives you more information about the node. You can also view all the default variables available for each node, along with node specific options and states.</p>
+
+<p><strong>Triggers</strong></p>
+
+<p>Triggers provide you the ability to manage an ongoing call. There are four types of triggers:</p>
+
+<ul>
+  <li>Call</li>
+  <li>Hold</li>
+  <li>Transfer</li>
+  <li>Hangup</li>
+</ul>
+
+<p>For more information, see the <a href="/phlo-reference/#components-library">Components Library</a>.</p>
+
+<h1 id="creating-phlos">Creating PHLOs</h1>
+
+<p>Creating a PHLO is a very simple process. You can create a PHLO by either using a blank canvas, or by using one of our packaged templates.</p>
+
+<h2 id="building-the-phlo-structure-using-a-blank-canvas">Building the PHLO structure using a Blank Canvas</h2>
+
+<p>To build a PHLO structure using a blank canvas</p>
+
+<ol>
+  <li>On the top navigation bar, click <strong>PHLO</strong>.
+The PHLO page will appear and display any of your existing PHLOs. If this is your first PHLO, then the PHLO page will be empty.</li>
+  <li>Click <strong>CREATE NEW PHLO</strong> to build a new PHLO.
+The <strong>Choose your use-case</strong> screen appears.</li>
+  <li>On the <strong>Choose your use-case</strong> window, click <strong>Build my own</strong>.
+The PHLO canvas will appear with the <strong>Start</strong> node.
+<strong>Note:</strong> The Start node is the starting point of any PHLO. You can choose between the three available trigger states of the Start node; Incoming SMS, Incoming Call, API Req   uest.</li>
+  <li>From the Components list, drag and drop the components you wish to add to your PHLO based on your use case.
+A node will be created for the component, on the canvas, and the Configurations tab will appear.</li>
+  <li>Connect the nodes in a logical sequence. For more information, see <a href="/phlo-reference/#connecting-phlo-components">Configuring PHLO Components</a>.</li>
+  <li>Click the node to configure it. For more information, see <a href="/phlo-reference/#configuring-phlo-components">Configuring PHLO Components</a>.</li>
+  <li>Click <strong>Validate</strong> to save the configurations for the node.</li>
+  <li>Enter a unique name for the PHLO, and then click <strong>Save</strong>.
+Your PHLO will be saved. Add the PHLO to a Phone Number, if it is based on an incoming call or SMS, or link it to your application using the PHLO URL to trigger the PHLO.</li>
+</ol>
+
+<h2 id="building-the-phlo-structure-using-a-template">Building the PHLO structure using a template</h2>
+
+<p>To build a PHLO structure using a template</p>
+
+<ol>
+  <li>On the top navigation bar, click <strong>PHLO</strong>.
+The PHLO page will appear and display any of your existing PHLOs. If this is your first PHLO, then the PHLO page will be empty.</li>
+  <li>Click <strong>CREATE NEW PHLO</strong> to build a new PHLO.
+The <strong>Choose your use-case</strong> screen will appear.</li>
+  <li>On the <strong>Choose your use-case</strong> screen, select one of the available templates.
+The PHLO Canvas appears with the Start node, and all other required nodes. Components that are a part of the template will be connected appropriately by default.</li>
+  <li>If you need to add more components to the PHLO, from the Components list, drag and drop the components based on your use case.</li>
+  <li>Create the necessary connections between the nodes. For more information, see <a href="/phlo-reference/#connecting-phlo-components">Configuring PHLO Components</a>.</li>
+  <li>Configure the individual nodes based on your use case. For more information, see <a href="/phlo-reference/#configuring-phlo-components">Configuring PHLO Components</a>.</li>
+  <li>Enter a unique name for the PHLO, and then click <strong>Save</strong>.
+Your PHLO will be saved and available for you to assign to a Phone Number.</li>
+</ol>
+
+<h2 id="connecting-phlo-components">Connecting PHLO Components</h2>
+<p>Once you have all the required components added to the PHLO Canvas, you must create a connection between the nodes to complete the workflow.
+Defining a command to a response is as simple as connecting the output state of one node to the input state of another node. The output state is the command and the input state is the response. This will also define the workflow transition for each command, in the PHLO. Each node has a predefined set of output states.
+To connect PHLO components, on the PHLO Canvas, click and drag the output state of a node to the input state of another node. Below is an example of an IVR menu that shows the connection between the input and output states.</p>
+
+<p>In the above example, the <strong>IVR Menu_1</strong> node has the following output states:</p>
+<ul>
+  <li>No Input</li>
+  <li>Wrong Input</li>
+  <li>1</li>
+  <li>2</li>
+</ul>
+
+<p>Similarly, the <strong>Play Audio_1</strong> node has <strong>Prompt completed</strong> as the output state and <strong>Hangup_1</strong> has <strong>Hangup Complete</strong> as the output state.
+The <strong>No Input</strong> state of the IVR Menu_1 node is connected to the Play Audio_1 using the input state at the top of the node. Every node has a input state, except the Start node.
+Once you have connected all the nodes on your PHLO canvas, make sure to configure the components. For more information, see <a href="/phlo-reference/#configuring-phlo-components">Configuring PHLO Components</a>.</p>
+
+<h2 id="configuring-phlo-components">Configuring PHLO Components</h2>
+<p>Every component must be configured to make sure the workflow works as intended. You can access the Configurations tab for the components by clicking on their nodes on the canvas. You can also access the Information tab to know more about the default configurations and variables available for each node.
+In a PHLO, there are two types of variables that you can use.</p>
+<ol>
+  <li>Global Variables</li>
+  <li>Variables specific to Components</li>
+</ol>
+
+<p><strong>Global Variables</strong>
+Global variables can be configured in the Start node of the PHLO. To use Global Variables, make sure you define the key and value pairs in the <strong>Start</strong> node. Connect the Start node to the component in which you wish to use the global variables. Once the nodes are connected, use two curly brackets to view all available variables. Scroll through the list of variables, and then select the variable that is applicable for your use.</p>
+
+<p><strong>Note:</strong> Make sure you define specific values for your variables.</p>
+
+<p><strong>Variables specific to Components</strong>
+Each component has a list of predefined variables. You may choose to use any of the predefined variables. For more information on the components and their default variables and configurations, see <a href="/phlo-reference/#components-library">PHLO Components Library</a>.</p>
+
+<p>Once you have configured the node, click <strong>Validate</strong> to make sure there are no errors in the configuration. In case of any validation errors, a message will be displayed with an error message.</p>
+
+<h2 id="navigating-through-the-phlo">Navigating through the PHLO</h2>
+<p>If the PHLO becomes very big and covers the visible canvas completely, you can scroll the canvas in all directions to help declutter the PHLO. Use the trackpad on your laptops to navigate around the canvas.</p>
+
+<h2 id="triggering-a-phlo">Triggering a PHLO</h2>
+<p>A PHLO can be triggered using an outgoing API Call or with an incoming Call or SMS. To trigger a PHLO for an Incoming Call or SMS, you must add the PHLO to a Plivo Number.</p>
+
+<h3 id="triggering-a-phlo-using-a-phone-number">Triggering a PHLO using a Phone Number</h3>
+
+<p>Once you have created and configured your PHLO, assign your PHLO to a number.
+To assign a PHLO to a number</p>
+<ol>
+  <li>On the Product Navigation bar, click <strong>PHONE NUMBER</strong>.</li>
+  <li>On the Numbers page, under YOUR NUMBERS, click the phone number you wish to use for the PHLO.</li>
+  <li>In the EDIT NUMBERS window, select <strong>PHLO</strong> from the <strong>APP TYPE</strong> list.</li>
+  <li>From the PHLO list, select the PHLO you wish to use with the phone number, and then click <strong>UPDATE</strong>.</li>
+</ol>
+
+<p>You can now call or send an SMS, depending on the type of PHLO, to your phone number to test your PHLO.</p>
+
+<p>If you have not purchased a phone number yet, you must buy a number to use with your PHLO.</p>
+
+<p>To buy a phone number</p>
+<ol>
+  <li>On the Numbers page, click <strong>Buy New Number</strong>.</li>
+  <li>On the Search &amp; Buy Phone Numbers page, search for available Phone Numbers based on your location, and then click <strong>Buy Number</strong> against the phone number that you wish to purchase.</li>
+</ol>
+
+<p>Once you have completed the purchase, follow the instructions in the section above to assign the PHLO to your Phone Number.</p>
+
+<h3 id="triggering-a-phlo-using-an-api-request">Triggering a PHLO using an API Request</h3>
+
+<p>Once you have created and configured your PHLO, copy the PHLO Run URL. You can integrate a PHLO into your application workflow by making an API request to the PHLO URL with the required payload.</p>
+
+<p>You can find the PHLO Run URLs on the <a href="https://console.plivo.com/phlo/list/">PHLO Listing</a> page.</p>
+
+<p>You can download the latest Python SDK from <a href="https://github.com/plivo/plivo-python/releases/tag/v4.2-alpha3">here</a>.</p>
+
+<h4 id="code-samples">Code Samples</h4>
+<div class="container">
+
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs code-navs" role="tablist">
+      <li class="active">
+          <a href="#python" role="tab" data-toggle="tab">
+              Python
+          </a>
+      </li>
+      <li>
+          <a href="#curl" role="tab" data-toggle="tab">
+              cURL
+          </a>
+      </li>
+    </ul>
+
+    <!-- Tab panes -->
+    <div class="tab-content">
+      <div class="tab-pane fade active in" id="python">
+        <div class="highlighter-rouge">
+          <pre class="highlight">
+            <code>
+import plivo
+
+auth_id = 'Your AUTH ID'
+auth_token = 'Your AUTH Token'
+phlo_uuid = 'Your PHLO UUID' # https://console.plivo.com/phlo/list/ 
+phlo_client = plivo.phlo.RestClient(auth_id=auth_id, auth_token=auth_token)
+phlo = phlo_client.phlo.get(phlo_uuid)
+phlo.run()
+            </code>
+          </pre>
+        </div>
+      </div>
+      <div class="tab-pane fade" id="curl">
+        <div class="highlighter-rouge">
+          <pre class="highlight">
+            <code>
+curl -i --user AUTH_ID:AUTH_TOKEN \  
+  https://phlorunner.plivo.com/v1/account/MAMTK2MGFHNTVINWQYZT/phlo/Your_PHLO_UUID \
+  -H 'cache-control: no-cache'
+            </code>
+          </pre>
+        </div>
+      </div>
+</div>
+</div>
+
+<h1 id="components-library">Components Library</h1>
+
+<p>Below is the list of all PHLO components and their respective default variables:</p>
+
+<h3 id="start"><strong>Start</strong></h3>
+
+<p>PHLO starts executing from this node. Every PHLO has only one start node. Voice PHLOs have <strong>Incoming Voice</strong> and <strong>HTTP Request</strong> states, while SMS PHLO’s have <strong>Incoming SMS</strong> and <strong>HTTP Request</strong> states.</p>
+
+<p><strong>Configuration Parameters</strong></p>
+
+<ul>
+  <li>Key</li>
+  <li>Value</li>
+</ul>
+
+<p><strong>Options:</strong></p>
+
+<ul>
+  <li><strong>HTTP Request Payload</strong>
+Payload should be a key-value pair. In the bulk edit mode, only a valid JSON accepted.</li>
+</ul>
+
+<p><strong>States:</strong></p>
+
+<p>Start component is set to Incoming Call state on receiving a call to a phone number/endpoint attached to a PHLO. The Incoming SMS state is set on receiving an SMS to a phone number attached to a PHLO, and a HTTP Request to the PHLO URL will set the HTTP Request state.</p>
+
+<p><strong>Variables:</strong></p>
+
+<p><strong>request_type</strong></p>
+
+<p>Request type is set to call for an incoming call, sms for an incoming SMS, http for an HTTP request.</p>
+
+<p>The below variables are set when an incoming <strong>call</strong> triggers a PHLO.</p>
+
+<ul>
+  <li><strong>call.uuid</strong>
+UUID of the incoming call</li>
+  <li><strong>call.to</strong>
+Phone number or SIP endpoint to which the call is made. Generally, it is the SIP endpoint / phone number which triggered the PHLO.</li>
+  <li><strong>call.from</strong>
+Phone number or SIP endpoint from which the call is made</li>
+  <li><strong>call.start_time</strong>
+Time when the call started</li>
+  <li><strong>call.answer_time</strong>
+UTC time when the call is answered</li>
+  <li><strong>call.end_time</strong>
+UTC time when the call ended</li>
+  <li><strong>call.direction</strong>
+The direction of the call is set to inbound</li>
+  <li><strong>call.to_iso2</strong>
+ISO2 code of the country to which the to phone number belongs</li>
+  <li><strong>call.from_iso2</strong>
+ISO2 code of the country to which the from phone number belongs</li>
+  <li><strong>call.to_country</strong>
+Country to which the to phone number belongs</li>
+  <li><strong>call.from_country</strong>
+Country to which the from phone number belongs</li>
+  <li><strong>call.leg</strong>
+The leg for the inbound call is set to ALeg</li>
+  <li><strong>call.hangup_cause</strong>
+Code of Hangup cause corresponding to the reason for the hangup.</li>
+  <li><strong>call.duration</strong>
+Duration (in seconds) of the call since the dial</li>
+  <li><strong>call.bill_duration</strong>
+Duration (in seconds) of the call that is billed</li>
+  <li><strong>call.bill_rate</strong>
+Unit rate applicable for the call</li>
+  <li><strong>call.bill_amount</strong>
+Amount billed for the call.</li>
+</ul>
+
+<p>The below variables are set when an incoming <strong>SMS</strong> triggers a PHLO.</p>
+<ul>
+  <li><strong>sms.message_uuid</strong>
+UUID of the incoming SMS</li>
+  <li><strong>sms.time</strong>
+UTC time when the message is received</li>
+  <li><strong>sms.direction</strong>
+Direction of the SMS is set to inbound</li>
+  <li><strong>sms.status</strong>
+Status is set to received</li>
+  <li><strong>sms.to</strong>
+Phone number to which the SMS is sent</li>
+  <li><strong>sms.from</strong>
+Phone number from which the SMS is sent</li>
+  <li><strong>sms.to_iso2</strong>
+ISO2 code of the country to which the to phone number belongs</li>
+  <li><strong>sms.from_iso2</strong>
+ISO2 code of the country to which the from phone number belongs</li>
+  <li><strong>sms.to_country</strong>
+Country to which the to phone number belongs</li>
+  <li><strong>sms.from_country</strong>
+Country to which the from phone number belongs</li>
+  <li><strong>sms.msg</strong>
+The content of the SMS that is received</li>
+  <li><strong>sms.units</strong>
+The number of SMS required to send the message</li>
+  <li><strong>sms.total_rate</strong>
+Unit rate applicable for the SMS</li>
+  <li><strong>sms.total_amount</strong>
+Amount billed for the SMS.</li>
+</ul>
+
+<p>The below variables are set when a <strong>HTTP Request</strong> triggers a PHLO.</p>
+<ul>
+  <li><strong>http.uuid</strong>
+Unique identifier for the API request</li>
+  <li><strong>http.params</strong>
+Payload sent in the API Request. The keys present in the payload can be configured in the child nodes.</li>
+</ul>
+
+<h3 id="send-sms"><strong>Send SMS</strong></h3>
+
+<p>The Send SMS component sends an SMS to users.
+<strong>Configuration Parameters</strong></p>
+<ul>
+  <li>From</li>
+  <li>To</li>
+  <li>Message</li>
+  <li>Settings</li>
+</ul>
+
+<p><strong>Options:</strong></p>
+<ul>
+  <li><strong>From (required)</strong>
+Sender Id to display to the recipient of the SMS</li>
+  <li><strong>To (required)</strong>
+List of phone numbers to send the SMS</li>
+  <li><strong>Message</strong>
+The text message that will be sent. By default, the text are logged by Plivo. Deselect the log message content option, to change the logging behaviour.</li>
+</ul>
+
+<p><strong>States:</strong></p>
+
+<p>Send SMS component is set to Sent state, when an SMS is sent. If the status is failed, undelivered, rejected, the component is to Failed state.</p>
+
+<p><strong>Variables:</strong></p>
+
+<ul>
+  <li><strong>message_uuid</strong>
+Unique identifier for the SMS</li>
+  <li><strong>from</strong>
+Phone number from which the SMS is sent</li>
+  <li><strong>to</strong>
+Phone number to which the SMS is sent</li>
+  <li><strong>to.iso2</strong>
+ISO2 code of the country to which the to phone number belongs</li>
+  <li><strong>from.iso2</strong>
+ISO2 code of the country to which the from phone number belongs</li>
+  <li><strong>to_country</strong>
+Country to which the to phone number belongs</li>
+  <li><strong>from_country</strong>
+Country to which the from phone number belongs</li>
+  <li><strong>msg</strong>
+The content of the SMS to be sent</li>
+  <li><strong>units</strong>
+The number of SMS required to send the message</li>
+  <li><strong>total_rate</strong>
+Unit rate applicable for the SMS</li>
+  <li><strong>total_amount</strong>
+Amount billed for the SMS.</li>
+  <li><strong>direction</strong>
+Direction of the SMS is set to outbound</li>
+  <li><strong>status</strong>
+Delivery status of the SMS. Possible Values are queued, sent, failed, delivered, undelivered or `rejected.</li>
+  <li><strong>error_code</strong>
+Delivery response code returned by the carrier attempting the SMS delivery. Possible error codes are available <a href="https://www.plivo.com/docs/api/message/#standard-plivo-error-codes">here</a>.</li>
+</ul>
+
+<h3 id="ivr-menu"><strong>IVR Menu</strong></h3>
+<p>The IVR Menu component receives input on an ongoing-call and branches the execution by evaluating the input. Optionally, it can play a message before receiving the input.</p>
+
+<p><strong>Configuration Parameters</strong></p>
+
+<ul>
+  <li>Allowed Choices</li>
+  <li>IVR Menu</li>
+</ul>
+
+<p><strong>Options:</strong></p>
+
+<ul>
+  <li><strong>Prompts</strong>
+List of messages to be played on the call. Speak Text and Play Audio are the types of messages. In a Speak Text message, the message to speak, language and voice can be configured. In a Play Audio message, a url to an audio or an audio file can be configured.</li>
+  <li><strong>Input</strong>
+Allowed Choices is the list of choices that the IVR menu can accept. The choices are limited to 0-9 digits, #, *.
+Input Timeout is the time (in seconds) within which a user should start giving an input. Default value is 5 seconds.
+By default, the message played will be interrupted when an input is entered. Deselect the Interrupt Audio on Input option to play the complete message before the accepting the input.
+<strong>States</strong>
+A new state (with the choice as the name) is added to the node for each choice selected in Allowed Choices.
+No Input and Wrong Input states present by default. No Input is set when an input is not provided within the input timeout. Wrong Input is set when the provided input is not in allowed choices.</li>
+</ul>
+
+<p><strong>Variables:</strong></p>
+
+<ul>
+  <li><strong>digits</strong>
+Input entered by user.</li>
+  <li><strong>input_type</strong>
+Input type is set to digits.</li>
+</ul>
+
+<h3 id="get-input"><strong>Get Input</strong></h3>
+
+<p>The Get Input component can receive input from a user on an ongoing-call. Optionally, it can play a message before receiving the input.</p>
+
+<p><strong>Configuration Parameters</strong></p>
+
+<ul>
+  <li>Speak Text</li>
+  <li>Settings</li>
+</ul>
+
+<p><strong>Options</strong></p>
+
+<ul>
+  <li>
+    <p><strong>Prompt</strong>
+Message to play on the call. Speak Text and Play Audio are the types of messages. In a Speak Text message, the message to speak, language and voice can be configured. In a Play Audio message, a url to an audio or an audio file can be configured.</p>
+  </li>
+  <li>
+    <p><strong>Input</strong>
+Max Input Size is the maximum number of digits that a user can input. Any additional input entered would be ignored. Default value is 99.
+Input Timeout is the time (in seconds) within which a user should start giving an input. If multiple digits are accepted, the timeout between entering consecutive digits is set to Input Timeout. Default value is 5 seconds.</p>
+  </li>
+</ul>
+
+<p><strong>States:</strong>
+The component is set to Successful Input state when an input is entered. If input is not provided within the input timeout, No Input state is set.</p>
+
+<p><strong>Variables:</strong></p>
+<ul>
+  <li><strong>input</strong>
+Input entered by user.</li>
+  <li><strong>input_type</strong>
+Input type is set to digits.</li>
+</ul>
+
+<h3 id="initiate-call"><strong>Initiate Call</strong></h3>
+<p>The Initiate call component makes a single call or bulk outbound calls to Phone numbers or SIP endpoints.</p>
+
+<p><strong>Configuration Parameters</strong></p>
+<ul>
+  <li>From</li>
+  <li>To</li>
+  <li>Settings</li>
+  <li>Events</li>
+</ul>
+
+<p><strong>Options:</strong></p>
+
+<ul>
+  <li><strong>From (required)</strong>
+Caller Id to display to the recipient of the call.</li>
+  <li><strong>To (required)</strong>
+List of phone numbers and SIP endpoints that need to be dialled.</li>
+  <li><strong>Call Settings</strong>
+Ring timeout is the time period (in seconds) for which an unanswered call should ring before hanging up.
+Extra headers can be configured to be sent with all the requests made by Plivo</li>
+</ul>
+
+<p><strong>States:</strong>
+Component is set to Answered state. The other states are No Answer, Busy/Rejected and Failed. When a machine detected, the component is set to Voicemail state.</p>
+
+<p><strong>Variables:</strong></p>
+
+<ul>
+  <li><strong>uuid</strong>
+Unique identifier for the outbound call</li>
+  <li><strong>to</strong>
+Phone numbers or SIP endpoints to call</li>
+  <li><strong>from</strong>
+Caller Id to set on the call</li>
+  <li><strong>start_time</strong>
+Time when the call started</li>
+  <li><strong>answer_time</strong>
+UTC time when the call is answered</li>
+  <li><strong>end_time</strong>
+UTC time when the call ended</li>
+  <li><strong>direction</strong>
+Direction of the call is set to outbound</li>
+  <li><strong>from_iso2</strong>
+ISO2 code of the country to which the phone number belongs</li>
+  <li><strong>from_country</strong>
+Country to which the phone number belongs</li>
+  <li><strong>leg</strong>
+The leg of the forwarded call is set to ALeg</li>
+  <li><strong>hangup_cause</strong>
+Code of Hangup cause corresponding to the reason for the hangup.</li>
+  <li><strong>duration</strong>
+Duration (in seconds) of the call since the dial</li>
+  <li><strong>bill_duration</strong>
+Duration (in seconds) of the call that is billed</li>
+  <li><strong>bill_rate</strong>
+Rate per unit applicable for the call</li>
+  <li><strong>bill_amount</strong>
+Amount billed for the call</li>
+  <li><strong>ring_status</strong>
+Set to True if the call rings. Allowed Values : True, False</li>
+  <li><strong>voicemail_detected</strong>
+Set to ‘true’ if machine is detected in the call</li>
+  <li><strong>call_status</strong>
+Status of the call. Possible values are ‘in-progress’</li>
+</ul>
+
+<h3 id="call-forward"><strong>Call Forward</strong></h3>
+<p>The Call Forward component bridges a phone number or SIP endpoint into an active call.</p>
+
+<p><strong>Configuration Parameters</strong></p>
+
+<ul>
+  <li>From</li>
+  <li>To</li>
+  <li>General Options</li>
+</ul>
+
+<p><strong>Options:</strong></p>
+
+<ul>
+  <li>From (required)
+Caller Id to display to the recipient of the forwarded call.</li>
+  <li>To (required)
+List of recipients to bridge into the active call. The list can contain phone numbers and SIP endpoints each separated by a comma. Based on the forwarding option selected, the recipients are sequentially or simultaneously dialled.
+The extension configured will be dialled when the call is answered.</li>
+  <li>Ring Timeout
+Time limit (in seconds) for the recipient to answer the call. The Failed state is triggered when the time limit is reached. Default value is set to 30 seconds.</li>
+  <li>Forwarding Options
+Forwarding option is applicable when multiple call recipients are provided. The sequence option dials one recipient at a time and tries the next recipient once the Ring Timeout limit is reached. The parallel option dials all recipients simultaneously and the first call that connects will cancel all the other tries. The same ring timeout is applied to all the calls irrespective of the forwarding option selected.</li>
+  <li>Call Screening
+A message can be played before the recipient answers the call. The recipient should press the confirm key to accept the call.</li>
+</ul>
+
+<p><strong>States:</strong></p>
+
+<p>Call Forward component is set to Completed state when either party hangs up the call. Other states are No Answer, Busy/Rejected, Failed.</p>
+
+<p><strong>Variables:</strong></p>
+
+<ul>
+  <li><strong>uuid</strong>
+UUID of the forwarded call</li>
+  <li><strong>to</strong>
+Phone number or SIP endpoint to which the call is forwarded</li>
+  <li><strong>from</strong>
+Caller Id set on the forwarded call</li>
+  <li><strong>start_time</strong>
+Time when the call started</li>
+  <li><strong>answer_time</strong>
+UTC time when the call is answered</li>
+  <li><strong>end_time</strong>
+UTC time when the call ended</li>
+  <li><strong>direction</strong>
+The direction of the call is set to outbound</li>
+  <li><strong>from_iso2</strong>
+ISO2 code of the country to which the phone number belongs</li>
+  <li><strong>from_country</strong>
+Country to which the phone number belongs</li>
+  <li><strong>leg</strong>
+The leg of the forwarded call is set to BLeg</li>
+  <li><strong>hangup_cause</strong>
+Code of Hangup cause corresponding to the reason for the hangup.</li>
+  <li><strong>duration</strong>
+Duration (in seconds) of the call since the dial</li>
+  <li><strong>bill_duration</strong>
+Duration (in seconds) of the call that is billed</li>
+  <li><strong>bill_rate</strong>
+Rate per unit applicable for the call</li>
+  <li><strong>bill_amount</strong>
+Amount billed for the call.</li>
+  <li><strong>ring_status</strong>
+Set to True if the call rings. Allowed Values : True, False</li>
+  <li><strong>parent_call_uuid</strong>
+UUID of the parent call that is forwarded</li>
+  <li><strong>dial_status</strong>
+Status of the call. Allowed values: completed, busy, failed, timeout or no-answer.</li>
+</ul>
+
+<h3 id="hangup"><strong>Hangup</strong></h3>
+<p>The Hangup component hangs up the current active call.
+<strong>Configuration Parameters</strong></p>
+<ul>
+  <li>Hangup Reason</li>
+</ul>
+
+<p><strong>Options:</strong></p>
+<ul>
+  <li><strong>Reason</strong>
+Reason for the call to be hung-up could be Rejected or Busy.
+<strong>States:</strong>
+After the call is hung-up, the component is set to Hangup Complete</li>
+</ul>
+
+<h3 id="conference"><strong>Conference</strong></h3>
+<p>The Conference Bridge component allows multiple parties to dial into a single call.</p>
+
+<p><strong>Configuration Parameters</strong></p>
+<ul>
+  <li>Conference ID</li>
+  <li>Announcement Message</li>
+  <li>Hold Music</li>
+  <li>Settings</li>
+  <li>Events</li>
+</ul>
+
+<p><strong>Options:</strong></p>
+
+<ul>
+  <li>conference_name (required)
+Name of the Conference bridge.</li>
+  <li>Announcement
+Message to be played when a dialler is added into the conference. Speak Text and Play Audio are the types of messages. In a Speak Text message, the message to speak, language and voice can be configured. In a Play Audio message, a URL to an audio or an audio file can be configured.</li>
+  <li>Waiting Callers
+Music can be played to users waiting for a conference to start. A URL to the audio or an audio file can be configured to be played until the moderator joins the conference</li>
+  <li>Miscellaneous
+When a new caller is added/removed from the conference, a beep or double beep can be played to all the callers on the conference. Diallers can be muted when joining a conference.</li>
+</ul>
+
+<p><strong>States:</strong>
+Conference Bridge component is set to Completed state when there are no callers on the conference bridge. The Failed state is set when an error occurs.</p>
+
+<p><strong>Variables:</strong></p>
+
+<ul>
+  <li><strong>from</strong>
+Phone number or SIP endpoint from which the call is made</li>
+  <li><strong>direction</strong>
+Direction of the call can be set to outbound or inbound.</li>
+  <li><strong>caller_name</strong>
+Name of the caller. Defaults to the from phone number or SIP endpoint.</li>
+  <li><strong>to</strong>
+Phone number or SIP endpoint to which the call is made.</li>
+  <li><strong>event</strong>
+Latest triggered event in the component. Can take the values ConferenceEnter, ConferenceExit, Redirect.</li>
+  <li><strong>bill_rate</strong>
+Unit rate applicable for the call</li>
+  <li><strong>call_status</strong>
+Status of the call. Possible values are ‘in-progress’</li>
+  <li><strong>conference_name</strong>
+Name of the Conference bridge.</li>
+  <li><strong>call_uuid</strong>
+UUID of the incoming call</li>
+  <li><strong>conference_uuid</strong>
+UUID of the conference</li>
+  <li><strong>member_id</strong>
+ID of a member in a conference. A unique ID is assigned to each member in a conference.</li>
+  <li><strong>to_iso2</strong>
+ISO2 code of the country to which the to phone number belongs</li>
+  <li><strong>from_iso2</strong>
+ISO2 code of the country to which the from phone number belongs</li>
+  <li><strong>to_country</strong>
+Country to which the to phone number belongs</li>
+  <li><strong>from_country</strong>
+Country to which the from phone number belongs</li>
+</ul>
+
+<h3 id="play-audio"><strong>Play Audio</strong></h3>
+<p>The Play Audio component plays a message on an ongoing-call.</p>
+
+<p><strong>Configuration Parameters</strong></p>
+
+<ul>
+  <li>Speak Text</li>
+  <li>Settings</li>
+</ul>
+
+<p><strong>Options:</strong></p>
+
+<ul>
+  <li><strong>Prompts</strong>
+List of messages to be played on the call. Speak Text and Play Audio are the types of messages. In a Speak Text message, the message to speak, language and voice can be configured. In a Play Audio message, a url to an audio or an audio file can be configured.</li>
+</ul>
+
+<p><strong>States:</strong></p>
+
+<p>The component is set to Prompt completed after the messages are played on the call.</p>
+
+<h3 id="record-audio"><strong>Record Audio</strong></h3>
+<p>The Record Audio component records a message from the caller. Optionally, it can play a message before recording the message.</p>
+
+<p><strong>Configuration Parameters</strong></p>
+
+<ul>
+  <li>Speak Text</li>
+</ul>
+
+<p><strong>Options:</strong></p>
+
+<ul>
+  <li>
+    <p><strong>Prompt</strong>
+Message to play on the call. Speak Text and Play Audio are the types of messages. In a Speak Text message, the message to speak, language and voice can be configured. In a Play Audio message, a url to an audio or an audio file can be configured.</p>
+  </li>
+  <li>
+    <p><strong>Record</strong>
+By default, a beep is played along with the message before the recording is initiated. Deselect the Play beep after audio option to disable it.</p>
+  </li>
+</ul>
+
+<p><strong>States:</strong></p>
+
+<p>The component is set to Recording completed after the message is recorded.</p>
+
+<p><strong>Variables:</strong></p>
+
+<ul>
+  <li>
+    <p><strong>call_uuid</strong>
+UUID of the incoming call.</p>
+  </li>
+  <li>
+    <p><strong>recording_url</strong>
+URL of the recording.</p>
+  </li>
+  <li>
+    <p><strong>recording_uuid</strong>
+Identifier for the recording.</p>
+  </li>
+  <li>
+    <p><strong>recording_duration</strong>
+Duration (in milliseconds) of the recording.</p>
+  </li>
+  <li>
+    <p><strong>recording_start_time</strong>
+Time (Unix timestamp) when the recording started.</p>
+  </li>
+  <li>
+    <p><strong>recording_end_time</strong>
+Time (Unix timestamp) when the recording ended.</p>
+  </li>
+</ul>
+
+<h3 id="multi-party-call"><strong>Multi-Party Call</strong></h3>
+
+<p>The Multi-Party Call component allows multiple users to dial-in to a single call.</p>
+
+<p><strong>Configuration Parameters</strong></p>
+
+<ul>
+  <li>From</li>
+  <li>To</li>
+  <li>Recording Options</li>
+  <li>Hold Music Configuration</li>
+  <li>Transfers</li>
+  <li>Roles</li>
+</ul>
+
+<p><strong>Options:</strong></p>
+
+<ul>
+  <li>
+    <p>conference_name (required)
+Name of the Conference bridge.</p>
+  </li>
+  <li>
+    <p>Announcement
+Message to be played when a dialler is added into the conference. Speak Text and Play Audio are the types of messages. In a Speak Text message, the message to speak, language and voice can be configured. In a Play Audio message, a URL to an audio or an audio file can be configured.</p>
+  </li>
+  <li>
+    <p>Waiting Callers
+Music can be played to users waiting for a conference to start. A URL to the audio or an audio file can be configured to be played until the moderator joins the conference</p>
+  </li>
+  <li>
+    <p>Miscellaneous
+When a new caller is added/removed from the conference, a beep or double beep can be played to all the callers on the conference. Diallers can be muted when joining a conference.</p>
+  </li>
+</ul>
+
+<p><strong>States:</strong></p>
+
+<p>Conference Bridge component is set to Completed state when there are no callers on the conference bridge. The Failed state is set when an error occurs.</p>
+
+<p><strong>Variables:</strong></p>
+
+<ul>
+  <li>
+    <p><strong>from</strong>
+Phone number or SIP endpoint from which the call is made</p>
+  </li>
+  <li>
+    <p><strong>direction</strong>
+Direction of the call can be set to outbound or inbound.</p>
+  </li>
+  <li>
+    <p><strong>caller_name</strong>
+Name of the caller. Defaults to the from phone number or SIP endpoint.</p>
+  </li>
+  <li>
+    <p><strong>to</strong>
+Phone number or SIP endpoint to which the call is made.</p>
+  </li>
+  <li>
+    <p><strong>event</strong>
+Latest triggered event in the component. Can take the values ConferenceEnter, ConferenceExit, Redirect.</p>
+  </li>
+  <li>
+    <p><strong>bill_rate</strong>
+Unit rate applicable for the call</p>
+  </li>
+  <li>
+    <p><strong>call_status</strong>
+Status of the call. Possible values are ‘in-progress’</p>
+  </li>
+  <li>
+    <p><strong>conference_name</strong>
+Name of the Conference bridge.</p>
+  </li>
+  <li>
+    <p><strong>call_uuid</strong>
+UUID of the incoming call</p>
+  </li>
+  <li>
+    <p><strong>conference_uuid</strong>
+UUID of the conference</p>
+  </li>
+  <li>
+    <p><strong>member_id</strong>
+ID of a member in a conference. A unique ID is assigned to each member in a conference.</p>
+  </li>
+  <li>
+    <p><strong>to_iso2</strong>
+ISO2 code of the country to which the to phone number belongs</p>
+  </li>
+  <li>
+    <p><strong>from_iso2</strong>
+ISO2 code of the country to which the from phone number belongs</p>
+  </li>
+  <li>
+    <p><strong>to_country</strong>
+Country to which the to phone number belongs</p>
+  </li>
+  <li>
+    <p><strong>from_country</strong>
+Country to which the from phone number belongs</p>
+  </li>
+</ul>
+
+<p><strong>Multi-Party Call - Triggers</strong></p>
+
+<p>Multi-Party Call component allows multiple users to dial-in to a single call. You have complete control over the call. Based on triggers, you can choose a specific action for each user on the call. Following are the types of Triggers:</p>
+
+<ul>
+  <li>Call</li>
+  <li>Hold</li>
+  <li>Transfer</li>
+  <li>Hangup</li>
+</ul>
+
+<p><strong>Call</strong></p>
+
+<p>With the Call trigger, you can use a phone number or a SIP endpoint to make a call. Once the call is received, you and the receiver will be added to a conference call.</p>
+
+<p><strong>SDK method &amp; Usage</strong></p>
+
+<p><strong>Python</strong></p>
+
+<p><code class="highlighter-rouge">phlo(phlo_id).multi_party_call(node_id).call(trigger_source, to, role)</code></p>
+
+<p><strong>Hold</strong></p>
+
+<p>You can use the Hold trigger to place the caller on hold. A customer-hold-music will be played while the caller is on hold. Once you end the hold, the customer-hold-music will be stopped and the caller will return back to the conference call.</p>
+
+<p><strong>SDK method &amp; Usage</strong></p>
+
+<p><strong>Python</strong></p>
+
+<ul>
+  <li><strong>Hold</strong></li>
+</ul>
+
+<p><code class="highlighter-rouge">phlo(phlo_id).multi_party_call(node_id).member(member_address).hold()</code></p>
+
+<ul>
+  <li><strong>Resume</strong></li>
+</ul>
+
+<p><code class="highlighter-rouge">phlo(phlo_id).multi_party_call(node_id).member(member_address).unhold()</code></p>
+
+<p><strong>Transfer</strong></p>
+
+<p>You can use the Transfer trigger to perform either a warm or cold transfer. In a warm transfer, the caller will be placed on hold while you connect to another agent. Once both of you are connected, the caller will be taken off the hold and will join the conference call with you and the other agent.</p>
+
+<p>In cold transfer, the customer will be placed on hold while you connect to another agent. Once the other agent connects to the call, the customer will be taken off the hold and will join the call with the other agent. Your call will hangup.</p>
+
+<p><strong>SDK method &amp; Usage</strong></p>
+
+<p><strong>Python</strong></p>
+
+<p><code class="highlighter-rouge">phlo(phlo_id).multi_party_call(node_id).warm_transfer(trigger_source, to)</code></p>
+
+<p><strong>Hangup</strong>
+You can use the hangup trigger to disconnect yourself, the customer, or any other agent from the call.</p>
+
+<p><strong>SDK Method</strong></p>
+
+<p><strong>Python</strong></p>
+
+<p>Agent 1</p>
+
+<p><code class="highlighter-rouge">phlo(phlo_id).multi_party_call(node_id).member(agent1_address).hangup()</code></p>
+
+<p>Agent 2</p>
+
+<p><code class="highlighter-rouge">phlo(phlo_id).multi_party_call(node_id).member(agent2_address).hangup()</code></p>
+
+<p>Customer</p>
+
+<p><code class="highlighter-rouge">phlo(phlo_id).multi_party_call(node_id).member(customer_address).hangup(</code>)</p>
+
+<h3 id="http-request"><strong>HTTP Request</strong></h3>
+<p>The HTTP Request component makes requests to APIs. Optionally, the data returned by the API can in the child nodes connected to it.</p>
+
+<p><strong>Options:</strong></p>
+
+<ul>
+  <li><strong>Request</strong>
+Request URL and HTTP method are mandatory. HTTP methods supported are GET, POST, PUT, DELETE.</li>
+</ul>
+
+<p>Headers, Auth, Params and Body are key-value pairs, with an option to bulk edit. Bulk edit mode accepts only a JSON.</p>
+
+<p>Authorization mechanisms can be configured in the Auth tab. Basic Auth is the only mechanism that is supported currently and it accepts Username and Password parameters.</p>
+
+<p>Params are added as query string in the request URL. Ex: Params {“key1”:”value1”, “key2”:”value2”} are added to the request URL as http://example.com/path/to/resource?key1=value1&amp;key2=value2</p>
+
+<p>Body is applicable only for POST, PUT, DELETE methods. The content types form-data, x-www-form-urlencoded and application/json are supported for body.</p>
+
+<ul>
+  <li><strong>Response</strong>
+On clicking Fetch Response, an API request is made to fetch the response and the content type &amp; response are stored. When response_type is is application/JSON, the keys in the response are available to configure in the child nodes.</li>
+</ul>
+
+<p><strong>States:</strong>
+HTTP Request Component is set to Success when a HTTP response code between 200 and 300 is returned. Else, the state is set to Failed.</p>
+
+<p><strong>Variables:</strong></p>
+
+<ul>
+  <li>
+    <p><strong>content_type</strong>
+Content type of the response from the API. For application/jsoncontent, the data/keys in the response are available to configure in the child nodes.</p>
+  </li>
+  <li>
+    <p><strong>status_code</strong>
+HTTP status code returned by the API. Additionally it is set to 400 when the content_type does not match the response type, or when all keys in response format (for an application/jsoncontent) are not present in the response .</p>
+  </li>
+  <li>
+    <p><strong>response</strong>
+Response returned by the API. For application/jsoncontent, the data/keys in the response are available to configure in the child nodes.</p>
+  </li>
+</ul>
+
+<h3 id="counter"><strong>Counter</strong></h3>
+<p>Use the Counter component to branch the flow based on the number of executions. The counter increments with every encounter of the counter node.</p>
+
+<p><strong>Options:</strong></p>
+
+<ul>
+  <li><strong>Max Count (required)</strong>
+Maximum number of the times the counter can be executed.</li>
+</ul>
+
+<p><strong>States:</strong>
+Counter component is set to Count Reached state when the component is executed Max Count number of times. Else, it is set to Count Not Reached state.</p>
+
+<h3 id="branch"><strong>Branch</strong></h3>
+<p>The Branch splits a workflow by comparing a variable with different values. Based on the conditions, The execution branches into different workflows.</p>
+
+<p><strong>Configuration Parameters</strong></p>
+
+<ul>
+  <li>Variable to compare</li>
+  <li>Condition</li>
+</ul>
+
+<p><strong>Options:</strong></p>
+
+<ul>
+  <li>lhs (required)
+The variable based on which the PHLO should branch on.</li>
+  <li>conditions
+A list of different conditions to apply on the lhs</li>
+  <li>alias (required)
+Alias for the condition</li>
+  <li>operation (required)
+Operation to be performed on the lhs and rhs</li>
+  <li>rhs (required)
+Value to compare the lhs with</li>
+</ul>
+
+<p><strong>States:</strong></p>
+
+<p>For each condition configured, a state with the condition’s alias is added to the node. Based on the condition that is met, the component is set to the corresponding state. The No Match state is available by default, and is set when none of the conditions are met.</p>
+
+          </div>
+        </section>
+      </div>
+      <footer id='footer'>
+  <div class="one-fifth">
+    <h6>GETTING STARTED</h6>
+    <ul>
+      <li><a href="/use-cases/2-factor-authentication/">2 Factor Authentication</a></li>
+      <li><a href="/use-cases/ivrs/">IVRS</a></li>
+      <li><a href="/use-cases/voice-otp/">Voice OTP</a></li>
+      <li><a href="/use-cases/voice-alerts-broadcasting/">Voice Alerts &amp; Broadcasting</a></li>
+      <li><a href="/use-cases/number-masking/">Number Masking</a></li>
+      <li><a href="/use-cases/call-tracking/">Call Tracking</a></li>
+    </ul>
+
+  <h6>QUICKSTART GUIDES</h6>
+  <ul>
+    <li><a href="/getting-started/setting-up-dev-environment">Setting up Dev Servers</a></li>
+    <li><a href="/getting-started/signature-validation">Signature Validation</a></li>
+  </ul>
+</div>
+
+  <div class="one-fifth">
+    <h6>PHLO REFERENCES</h6>
+    <ul>
+      <li><a href="/phlo-reference/#phlo-basics">PHLO Basics</a></li>
+      <li><a href="/phlo-reference/#creating-phlos">Creating PHLOs</a></li>
+      <li><a href="/phlo-reference/#connecting-phlo-components">Connecting PHLO Components</a></li>
+      <li><a href="/phlo-reference/#configuring-phlo-components">Configuring PHLO Components</a></li>
+      <li><a href="/phlo-reference/#triggering-a-phlo">Triggering a PHLO</a></li>
+      <li><a href="/phlo-reference/#components-library">Components Library</a></li>
+    </ul>
+
+
+    <h6>PHLO USE CASES</h6>
+    <ul>
+      <li><a href="/use-cases/phlo/voice-notification">Voice Notification</li>
+      <li><a href="/use-cases/phlo/voice-alerts">Voice Alert</li>
+      <li><a href="/use-cases/phlo/sms-alert">SMS Alert</li>
+      <li><a href="/use-cases/phlo/sms-survey">SMS Survey</li>
+      <li><a href="/use-cases/phlo/call-conference">Pinless Conference</li>
+      <li><a href="/use-cases/phlo/conference-with-pin">Conference with PIN</li>
+      <li><a href="/use-cases/phlo/ivr">Phone System IVR</li>
+      <li><a href="/use-cases/phlo/call-forwarding">Call Forwarding</li>
+    </ul>
+
+  </div>
+
+  <div class="one-fifth">
+    <h6>Client-side SDKs</h6>
+    <ul>
+      <li><a href="/client-side-sdks/browser-sdk">Browser SDK</a></li>
+      <li><a href="/client-side-sdks/android-sdk">Android SDK</a></li>
+      <li><a href="/client-side-sdks/ios-sdk">iOS SDK</a></li>
+    </ul>
+
+    <h6>INTEGRATIONS</h6>
+    <ul>
+      <li><a href="/integrations/zapier">Zapier</a></li>
+      <li><a href="/integrations/microsoft-flow">Microsoft Flow</a></li>
+      <li><a href="/integrations/integromat">Integromat</a></li>
+    </ul>
+  </div>
+
+  <div class="one-fifth">
+    <h6>Server-side SDKs</h6>
+    <ul>
+      <li><a href="/server-side-sdks/python-sdk">Python</a></li>
+      <li><a href="/server-side-sdks/node-sdk">NodeJS</a></li>
+      <li><a href="/server-side-sdks/ruby-sdk">Ruby</a></li>
+      <li><a href="/server-side-sdks/java-sdk">Java</a></li>
+      <li><a href="/server-side-sdks/php-sdk">PHP</a></li>
+      <li><a href="/server-side-sdks/net-sdk">.NET (C#)</a></li>
+      <li><a href="/server-side-sdks/go-sdk">Go</a></li>
+    </ul>
+  </div>
+
+  <div class="one-fifth">
+    <h6>API REFERENCE</h6>
+    <ul>
+      <li><a href="https://api-reference.plivo.com/latest/python/resources/account">Account</a></li>
+      <li><a href="https://api-reference.plivo.com/latest/python/resources/account-phone-number">Account Phone Number</a></li>
+      <li><a href="https://api-reference.plivo.com/latest/python/resources/application">Application</a></li>
+      <li><a href="https://api-reference.plivo.com/latest/python/resources/call">Call</a></li>
+      <li><a href="https://api-reference.plivo.com/latest/python/resources/conference">Conference</a></li>
+      <li><a href="https://api-reference.plivo.com/latest/python/resources/endpoint">Endpoint</a></li>
+      <li><a href="https://api-reference.plivo.com/latest/python/resources/incoming-carrier">Incoming Carrier</a></li>
+      <li><a href="https://api-reference.plivo.com/latest/python/resources/message">Message</a></li>
+      <li><a href="https://api-reference.plivo.com/latest/python/resources/phone-number">Phone Number</a></li>
+      <li><a href="https://api-reference.plivo.com/latest/python/resources/pricing">Pricing</a></li>
+      <li><a href="https://api-reference.plivo.com/latest/python/resources/recording">Recording</a></li>
+      <li><a href="https://api-reference.plivo.com/latest/python/resources/subaccount">Subaccount</a></li>
+    </ul>
+  </div>
+</footer>
+
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="/static/js/bootstrap.min.js"></script>
+<script src="/static/js/main.js"></script>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MXJNN5"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+    <script>
+  $(document).ready(function() {
+    $('body').scrollspy({
+      target: '#sidebar',
+      offset: 100
+    })
+
+    function scrollNav() {
+      $('#sidebar .nav a').click(function(e) {
+        //Toggle Class
+        $(".active").removeClass("active");
+        $(this).closest('li').addClass("active");
+        var theClass = $(this).attr("class");
+        $('.' + theClass).parent('li').addClass('active');
+        //Animate
+        $('html, body').stop().animate({
+          scrollTop: $($(this).attr('href')).offset().top - 70
+        }, 10);
+        return false;
+      });
+    }
+    scrollNav();
+    $(".active a").trigger('click');
+
+
+    var stickySidebar = function() {
+      var b = $(window).scrollTop();
+      var d = $("#scroller-anchor").offset().top;
+      var f = $("#footer").offset().top;
+      var c = $(".nav-container");
+      var h = c.height() + 50; // margin
+
+      if (b > 0) {
+        var myTop = $(window).scrollTop();
+        if (myTop > f - h) myTop = f - h;
+        c.css({
+          position: "absolute",
+          top: myTop,
+          bottom: ""
+        })
+      } else {
+        if (b <= d) {
+          c.css({
+            position: "absolute",
+            top: "",
+            bottom: ""
+          })
+        }
+      }
+    };
+    $(window).scroll(stickySidebar);
+    stickySidebar()
+  });
+</script>
+
+  </body>
+</html>

@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!--
+
+  -->
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>Get started with Plivo - Integromat integration | Plivo Developers</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+
+  <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/static/css/highlight/atom-one-light.css">
+  <link rel="stylesheet" href="/static/css/home.css">
+  <script src="/static/js/utils.js"></script>
+
+  
+  <link rel="stylesheet" href="/static/css/mini-home.css">
+  
+
+  <script src="/static/js/angular.min.js"></script>
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-23474761-11"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-23474761-11');
+  </script>
+
+  <script type="text/javascript">
+    window.heap=window.heap||[],heap.load=function(e,t){window.heap.appid=e,window.heap.config=t=t||{};var r=t.forceSSL||"https:"===document.location.protocol,a=document.createElement("script");a.type="text/javascript",a.async=!0,a.src=(r?"https:":"http:")+"//cdn.heapanalytics.com/js/heap-"+e+".js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(a,n);for(var o=function(e){return function(){heap.push([e].concat(Array.prototype.slice.call(arguments,0)))}},p=["addEventProperties","addUserProperties","clearEventProperties","identify","removeEventProperty","setEventProperties","track","unsetEventProperty"],c=0;c<p.length;c++)heap[p[c]]=o(p[c])};
+      heap.load("1587892843");
+</script><
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-MXJNN5');</script>
+  <!-- End Google Tag Manager -->
+
+  <link rel="stylesheet" href="/static/css/two-column.css" />
+  <link rel="stylesheet" href="/static/css/syntax.css" < head />
+
+</head><body class="ng-scope" ng-app="plivoDevApp">
+    <nav class="navbar navbar-default navbar-fixed-top" ng-controller="plivoDevNavCtrl">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false" ng-click='openMenu()'>
+        <span class="sr-only">Toggle navigation</span>
+        <span ng-show='toggleMenu' class="glyphicon glyphicon-menu-hamburger"></span>
+        <span ng-hide="toggleMenu" class="glyphicon glyphicon-remove"></span>
+      </button>
+        <div class="center">
+          <a class="navbar-brand" href="/">
+            <img src="/static/assets/images/plivo-logo.png" />
+          </a>
+          <a class="navbar-brand" href="/">Docs</a>
+        </div>
+      </div>
+
+      <div class="hideMenu" ng-class="{showMenu: showMenu, hideMenu: !showMenu}">
+        <ul class="nav navbar-nav">
+          <li><a href="/use-cases">Use Cases</a></li>
+          <li><a href="/phlo-reference">PHLO Reference</a></li>
+          <li><a href="https://api-reference.plivo.com" target="_blank">API Reference</a></li>
+
+          <li class="dropdown">
+            <a href="/server-side-sdks" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Server-side SDKs <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="/server-side-sdks/python-sdk/">Python SDK</a></li>
+              <li><a href="/server-side-sdks/node-sdk/">Node JS SDK</a></li>
+              <li><a href="/server-side-sdks/ruby-sdk/">Ruby SDK</a></li>
+              <li><a href="/server-side-sdks/java-sdk/">Java SDK</a></li>
+              <li><a href="/server-side-sdks/php-sdk/">PHP SDK</a></li>
+              <li><a href="/server-side-sdks/net-sdk/">.NET / C# SDK</a></li>
+              <li><a href="/server-side-sdks/go-sdk/">Go SDK</a></li>
+              <li role="separator" class="divider"></li>
+              <li><a href="/server-side-sdks">View All</a></li>
+            </ul>
+          </li>
+
+          <li class="dropdown">
+            <a href="/client-side-sdks" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Client-side SDKs <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="/client-side-sdks/android-sdk">Android SDK</a></li>
+              <li><a href="/client-side-sdks/ios-sdk">iOS SDK</a></li>
+              <li><a href="/client-side-sdks/browser-sdk">Browser SDK</a></li>
+              <li role="separator" class="divider"></li>
+              <li><a href="/client-side-sdks">View All</a></li>
+            </ul>
+          </li>
+        </ul>
+
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="//manage.plivo.com/dashboard/" target="_blank">Dashboard</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="two-div">
+    <div class="full container-fluid">
+      <div id="sidebar" class="col-md-2 hidden-sm hidden-xs sidebar">
+        <div id="scroller-anchor"></div>
+        <div class="nav-container">
+          <nav>
+            <ul class="nav nav-stacked">
+              
+              <li>
+                <a href="#getting-started">Getting started</a></li>
+              
+              <li>
+                <a href="#supported-triggers">Supported triggers</a></li>
+              
+              <li>
+                <a href="#supported-actions">Supported actions</a></li>
+              
+              <li>
+                <a href="#sample-workflows">Sample workflows</a></li>
+              
+              <li>
+                <a href="#a-few-more-details">A few more details</a></li>
+              
+              <li>
+                <a href="#next-steps">Next steps</a></li>
+              
+            </ul>
+          </nav>
+        </div>
+        </div>
+
+        <section id='content ' class="col-md-10 content">
+          <ol class="breadcrumb">
+              
+                
+                <li><a href="/">Home</a></li>
+              
+              
+                
+                <li><a href="/integrations/">Integrations</a></li>
+              
+              
+                
+                <li>Integromat Integration</li>
+              
+              
+          </ol>
+          <div class="container full" data-cms-content-wrapper="/_layouts/two-column.html">
+            <h1 id="getting-started">Getting Started</h1>
+<p>Here’s what you will need to start using Plivo Integromat integration:</p>
+<ul>
+  <li>A <a href="https://console.plivo.com/accounts/register/" target="_blank">Plivo account</a></li>
+  <li>A paid or trial <a href="https://www.integromat.com/en/register?ref=plivo-devdocs" target="_blank">Integromat account</a></li>
+</ul>
+
+<h1 id="supported-triggers">Supported triggers</h1>
+<p>You can use the following triggers to trigger your scenario on Integromat</p>
+<ul>
+  <li><strong>SMS Received <span class="label customLabel">INSTANT TRIGGER</span>:</strong> Trigger gets activated instantly when a new SMS is received</li>
+  <li><strong>SMS Received:</strong> Trigger gets activated for every new SMS that is received</li>
+  <li><strong>Call Received <span class="label customLabel">INSTANT TRIGGER</span>:</strong> Trigger gets activated instantly when there’s a new incoming call</li>
+  <li><strong>Call Received:</strong> Trigger gets activated for every new incoming call</li>
+  <li><strong>New Recording Added:</strong> Trigger gets activated for every new recording that is added to your account</li>
+</ul>
+
+<h1 id="supported-actions">Supported actions</h1>
+<p>You can perform the following actions on Integromat that are powered by Plivo</p>
+<ul>
+  <li><strong>Send SMS:</strong> Send SMS to any phone number</li>
+  <li><strong>Make call and speak text:</strong> Make a call to any phone number and speak specified text</li>
+  <li><strong>Make call and play audio:</strong> Make a call to any phone number and play an audio file</li>
+  <li><strong>Respond to incoming call:</strong> Respond to an incoming call by returning Plivo XML</li>
+</ul>
+
+<p><strong>Note:</strong> If you are using a Plivo trial account, you can send messages and make calls only to verified sandboxed numbers.</p>
+
+<h1 id="sample-workflows">Sample workflows</h1>
+<p>While there are a large number of possibilities, here are a few sample workflows that you can build using this integration:</p>
+<ul>
+  <li>Get SMS notifications on your phone number</li>
+  <li>Send SMS reminders &amp; alerts to your customers</li>
+  <li>Run a live SMS poll</li>
+  <li>Send SMS and voice OTPs to verify your users</li>
+  <li>Forward an incoming call to your personal phone number</li>
+  <li>Build an IVRS that can take orders or check an order status</li>
+  <li>And many more!</li>
+</ul>
+
+<h1 id="a-few-more-details">A few more details</h1>
+<ul>
+  <li>Instant triggers use webhooks internally are auto-assigned to the Plivo number you select while setting up the workflow. That means that any other Plivo Application that was assigned to that number previously will be removed.</li>
+  <li>Also, if you need multiple numbers to trigger the same scenario on Integromat, just assign all those numbers to the Plivo Application that is auto-created by Integromat.</li>
+  <li>You cannot have instant SMS and instant call setup simultaneously on a single Plivo number by default. However, you can achieve this by manually changing the webhook URLs - which is recommended only for advanced users.</li>
+</ul>
+
+<p>Report any feedback or problems with this integration by contacting the <a href="https://support.plivo.com" target="_blank">Plivo Support</a> team.</p>
+
+<h1 id="next-steps">Next steps</h1>
+<ul>
+  <li><a href="/integrations/integromat/live-poll-with-google-sheets/">Create a live poll powered by Plivo SMS and Google Sheets using the Plivo Integromat integration</a></li>
+</ul>
+
+          </div>
+        </section>
+      </div>
+      <footer id='footer'>
+  <div class="one-fifth">
+    <h6>GETTING STARTED</h6>
+    <ul>
+      <li><a href="/use-cases/2-factor-authentication/">2 Factor Authentication</a></li>
+      <li><a href="/use-cases/ivrs/">IVRS</a></li>
+      <li><a href="/use-cases/voice-otp/">Voice OTP</a></li>
+      <li><a href="/use-cases/voice-alerts-broadcasting/">Voice Alerts &amp; Broadcasting</a></li>
+      <li><a href="/use-cases/number-masking/">Number Masking</a></li>
+      <li><a href="/use-cases/call-tracking/">Call Tracking</a></li>
+    </ul>
+
+  <h6>QUICKSTART GUIDES</h6>
+  <ul>
+    <li><a href="/getting-started/setting-up-dev-environment">Setting up Dev Servers</a></li>
+    <li><a href="/getting-started/signature-validation">Signature Validation</a></li>
+  </ul>
+</div>
+
+  <div class="one-fifth">
+    <h6>PHLO REFERENCES</h6>
+    <ul>
+      <li><a href="/phlo-reference/#phlo-basics">PHLO Basics</a></li>
+      <li><a href="/phlo-reference/#creating-phlos">Creating PHLOs</a></li>
+      <li><a href="/phlo-reference/#connecting-phlo-components">Connecting PHLO Components</a></li>
+      <li><a href="/phlo-reference/#configuring-phlo-components">Configuring PHLO Components</a></li>
+      <li><a href="/phlo-reference/#triggering-a-phlo">Triggering a PHLO</a></li>
+      <li><a href="/phlo-reference/#components-library">Components Library</a></li>
+    </ul>
+
+
+    <h6>PHLO USE CASES</h6>
+    <ul>
+      <li><a href="/use-cases/phlo/voice-notification">Voice Notification</li>
+      <li><a href="/use-cases/phlo/voice-alerts">Voice Alert</li>
+      <li><a href="/use-cases/phlo/sms-alert">SMS Alert</li>
+      <li><a href="/use-cases/phlo/sms-survey">SMS Survey</li>
+      <li><a href="/use-cases/phlo/call-conference">Pinless Conference</li>
+      <li><a href="/use-cases/phlo/conference-with-pin">Conference with PIN</li>
+      <li><a href="/use-cases/phlo/ivr">Phone System IVR</li>
+      <li><a href="/use-cases/phlo/call-forwarding">Call Forwarding</li>
+    </ul>
+
+  </div>
+
+  <div class="one-fifth">
+    <h6>Client-side SDKs</h6>
+    <ul>
+      <li><a href="/client-side-sdks/browser-sdk">Browser SDK</a></li>
+      <li><a href="/client-side-sdks/android-sdk">Android SDK</a></li>
+      <li><a href="/client-side-sdks/ios-sdk">iOS SDK</a></li>
+    </ul>
+
+    <h6>INTEGRATIONS</h6>
+    <ul>
+      <li><a href="/integrations/zapier">Zapier</a></li>
+      <li><a href="/integrations/microsoft-flow">Microsoft Flow</a></li>
+      <li><a href="/integrations/integromat">Integromat</a></li>
+    </ul>
+  </div>
+
+  <div class="one-fifth">
+    <h6>Server-side SDKs</h6>
+    <ul>
+      <li><a href="/server-side-sdks/python-sdk">Python</a></li>
+      <li><a href="/server-side-sdks/node-sdk">NodeJS</a></li>
+      <li><a href="/server-side-sdks/ruby-sdk">Ruby</a></li>
+      <li><a href="/server-side-sdks/java-sdk">Java</a></li>
+      <li><a href="/server-side-sdks/php-sdk">PHP</a></li>
+      <li><a href="/server-side-sdks/net-sdk">.NET (C#)</a></li>
+      <li><a href="/server-side-sdks/go-sdk">Go</a></li>
+    </ul>
+  </div>
+
+  <div class="one-fifth">
+    <h6>API REFERENCE</h6>
+    <ul>
+      <li><a href="https://api-reference.plivo.com/latest/python/resources/account">Account</a></li>
+      <li><a href="https://api-reference.plivo.com/latest/python/resources/account-phone-number">Account Phone Number</a></li>
+      <li><a href="https://api-reference.plivo.com/latest/python/resources/application">Application</a></li>
+      <li><a href="https://api-reference.plivo.com/latest/python/resources/call">Call</a></li>
+      <li><a href="https://api-reference.plivo.com/latest/python/resources/conference">Conference</a></li>
+      <li><a href="https://api-reference.plivo.com/latest/python/resources/endpoint">Endpoint</a></li>
+      <li><a href="https://api-reference.plivo.com/latest/python/resources/incoming-carrier">Incoming Carrier</a></li>
+      <li><a href="https://api-reference.plivo.com/latest/python/resources/message">Message</a></li>
+      <li><a href="https://api-reference.plivo.com/latest/python/resources/phone-number">Phone Number</a></li>
+      <li><a href="https://api-reference.plivo.com/latest/python/resources/pricing">Pricing</a></li>
+      <li><a href="https://api-reference.plivo.com/latest/python/resources/recording">Recording</a></li>
+      <li><a href="https://api-reference.plivo.com/latest/python/resources/subaccount">Subaccount</a></li>
+    </ul>
+  </div>
+</footer>
+
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="/static/js/bootstrap.min.js"></script>
+<script src="/static/js/main.js"></script>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MXJNN5"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+    <script>
+  $(document).ready(function() {
+    $('body').scrollspy({
+      target: '#sidebar',
+      offset: 100
+    })
+
+    function scrollNav() {
+      $('#sidebar .nav a').click(function(e) {
+        //Toggle Class
+        $(".active").removeClass("active");
+        $(this).closest('li').addClass("active");
+        var theClass = $(this).attr("class");
+        $('.' + theClass).parent('li').addClass('active');
+        //Animate
+        $('html, body').stop().animate({
+          scrollTop: $($(this).attr('href')).offset().top - 70
+        }, 10);
+        return false;
+      });
+    }
+    scrollNav();
+    $(".active a").trigger('click');
+
+
+    var stickySidebar = function() {
+      var b = $(window).scrollTop();
+      var d = $("#scroller-anchor").offset().top;
+      var f = $("#footer").offset().top;
+      var c = $(".nav-container");
+      var h = c.height() + 50; // margin
+
+      if (b > 0) {
+        var myTop = $(window).scrollTop();
+        if (myTop > f - h) myTop = f - h;
+        c.css({
+          position: "absolute",
+          top: myTop,
+          bottom: ""
+        })
+      } else {
+        if (b <= d) {
+          c.css({
+            position: "absolute",
+            top: "",
+            bottom: ""
+          })
+        }
+      }
+    };
+    $(window).scroll(stickySidebar);
+    stickySidebar()
+  });
+</script>
+
+  </body>
+</html>

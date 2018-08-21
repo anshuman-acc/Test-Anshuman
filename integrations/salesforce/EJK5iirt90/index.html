@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!--
+
+  -->
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>Get started with Plivo Salesforce SDK | Plivo Developers</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+
+  <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/static/css/highlight/atom-one-light.css">
+  <link rel="stylesheet" href="/static/css/home.css">
+  <script src="/static/js/utils.js"></script>
+
+  
+  <link rel="stylesheet" href="/static/css/mini-home.css">
+  
+
+  <script src="/static/js/angular.min.js"></script>
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-23474761-11"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-23474761-11');
+  </script>
+
+  <script type="text/javascript">
+    window.heap=window.heap||[],heap.load=function(e,t){window.heap.appid=e,window.heap.config=t=t||{};var r=t.forceSSL||"https:"===document.location.protocol,a=document.createElement("script");a.type="text/javascript",a.async=!0,a.src=(r?"https:":"http:")+"//cdn.heapanalytics.com/js/heap-"+e+".js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(a,n);for(var o=function(e){return function(){heap.push([e].concat(Array.prototype.slice.call(arguments,0)))}},p=["addEventProperties","addUserProperties","clearEventProperties","identify","removeEventProperty","setEventProperties","track","unsetEventProperty"],c=0;c<p.length;c++)heap[p[c]]=o(p[c])};
+      heap.load("1587892843");
+</script><
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-MXJNN5');</script>
+  <!-- End Google Tag Manager -->
+
+  <link rel="stylesheet" href="/static/css/two-column.css" />
+  <link rel="stylesheet" href="/static/css/syntax.css" < head />
+
+</head><body class="ng-scope" ng-app="plivoDevApp">
+    <nav class="navbar navbar-default navbar-fixed-top" ng-controller="plivoDevNavCtrl">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false" ng-click='openMenu()'>
+        <span class="sr-only">Toggle navigation</span>
+        <span ng-show='toggleMenu' class="glyphicon glyphicon-menu-hamburger"></span>
+        <span ng-hide="toggleMenu" class="glyphicon glyphicon-remove"></span>
+      </button>
+        <div class="center">
+          <a class="navbar-brand" href="/">
+            <img src="/static/assets/images/plivo-logo.png" />
+          </a>
+          <a class="navbar-brand" href="/">Docs</a>
+        </div>
+      </div>
+
+      <div class="hideMenu" ng-class="{showMenu: showMenu, hideMenu: !showMenu}">
+        <ul class="nav navbar-nav">
+          <li><a href="/use-cases">Use Cases</a></li>
+          <li><a href="/phlo-reference">PHLO Reference</a></li>
+          <li><a href="https://api-reference.plivo.com" target="_blank">API Reference</a></li>
+
+          <li class="dropdown">
+            <a href="/server-side-sdks" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Server-side SDKs <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="/server-side-sdks/python-sdk/">Python SDK</a></li>
+              <li><a href="/server-side-sdks/node-sdk/">Node JS SDK</a></li>
+              <li><a href="/server-side-sdks/ruby-sdk/">Ruby SDK</a></li>
+              <li><a href="/server-side-sdks/java-sdk/">Java SDK</a></li>
+              <li><a href="/server-side-sdks/php-sdk/">PHP SDK</a></li>
+              <li><a href="/server-side-sdks/net-sdk/">.NET / C# SDK</a></li>
+              <li><a href="/server-side-sdks/go-sdk/">Go SDK</a></li>
+              <li role="separator" class="divider"></li>
+              <li><a href="/server-side-sdks">View All</a></li>
+            </ul>
+          </li>
+
+          <li class="dropdown">
+            <a href="/client-side-sdks" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Client-side SDKs <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="/client-side-sdks/android-sdk">Android SDK</a></li>
+              <li><a href="/client-side-sdks/ios-sdk">iOS SDK</a></li>
+              <li><a href="/client-side-sdks/browser-sdk">Browser SDK</a></li>
+              <li role="separator" class="divider"></li>
+              <li><a href="/client-side-sdks">View All</a></li>
+            </ul>
+          </li>
+        </ul>
+
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="//manage.plivo.com/dashboard/" target="_blank">Dashboard</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="two-div">
+    <div class="full container-fluid">
+      <div id="sidebar" class="col-md-2 hidden-sm hidden-xs sidebar">
+        <div id="scroller-anchor"></div>
+        <div class="nav-container">
+          <nav>
+            <ul class="nav nav-stacked">
+              
+              <li>
+                <a href="#a-simple-order-tracking-ivr">A Simple Order tracking IVR</a></li>
+              
+              <li>
+                <a href="#prerequisites">Prerequisites</a></li>
+              
+              <li>
+                <a href="#the-ivr-call-flow">The IVR call flow</a></li>
+              
+              <li>
+                <a href="#further-resources">Further resources</a></li>
+              
+            </ul>
+          </nav>
+        </div>
+        </div>
+
+        <section id='content ' class="col-md-10 content">
+          <ol class="breadcrumb">
+              
+                
+                <li><a href="/">Home</a></li>
+              
+              
+                
+                <li><a href="/integrations/">Integrations</a></li>
+              
+              
+                
+                <li>Salesforce SDK</li>
+              
+              
+          </ol>
+          <div class="container full" data-cms-content-wrapper="/_layouts/two-column.html">
+            <h1 id="getting-started-with-ivrs">Getting Started with IVRS</h1>
+<p>This tutorial will help you get started with building a simple Interactive Voice Response System (IVRS). There are three major steps in any IVR.</p>
+<ul>
+  <li>The user calls a number owned by the business.</li>
+  <li>The business then plays an automated voice message and waits for an input from the user.</li>
+  <li>Based on the digit entered by the user further processing of the call will take place.</li>
+</ul>
+
+<h2 id="a-simple-order-tracking-ivr">A Simple Order tracking IVR</h2>
+<p>Let us assume the following scenario for a supermarket which provides home delivery. The company has a number to contact their support team. Whenever a user calls that number, based on the number from which the call is made, the order ID of the recent call is retrieved and the following text is played to the user: “ Thank you for calling supermarket. Press 1 to know the status of your order number <Order ID="">. Press 2 to talk to the delivery agent”</Order></p>
+
+<p>If the user presses 1, the status of the order will be spoken back to the user. In case the user presses 2, then the call will be routed to the number of the agent.</p>
+
+<p>Let us see how we can implement this simple IVRS flow using Plivo.</p>
+
+<h2 id="prerequisites">Prerequisites</h2>
+<ol>
+  <li>We need a Plivo phone number that can receive incoming calls. Refer to our <a href="/getting-started/numbers/">guide on phone numbers</a> to get started with Phone numbers.</li>
+  <li>The phone number should have an Plivo application attached to it. You can read <a href="/getting-started/applications/">more about Plivo applications here</a>.</li>
+  <li>You should be able to serve a valid XML file from a public URL. This URL will be the answer_url in the Plivo application mentioned in the previous step. Please refer to our <a href="/getting-started/setting-up-dev-environment/">tutorial on setting up dev servers</a> for reference.</li>
+</ol>
+
+<h2 id="the-ivr-call-flow">The IVR call flow</h2>
+<p>Building an IVR System consists of eight steps as described in the diagram above. Let us look at each of steps in detail.</p>
+
+<h3 id="step-1-user-calls-a-plivo-phone-number">Step 1: User calls a Plivo phone number</h3>
+<p>When the user calls a Plivo phone number, the application attached to that number will get triggered. The URL mentioned in the <code class="highlighter-rouge">answer_url</code></p>
+
+<h3 id="step-2-request-to-answer-url">Step 2: Request to Answer URL</h3>
+<p>Each application has a <code class="highlighter-rouge">answer_url</code> configured (Check prerequisites section for more information). This <code class="highlighter-rouge">answer_url</code> will be invoked as soon as a incoming call on the number is detected.</p>
+
+<h3 id="step-3-fetch-the-xml-required-to-initiate-the-ivr">Step 3: Fetch the XML required to initiate the IVR</h3>
+<p>The invoked <code class="highlighter-rouge">answer_url</code> is expected to return a valid XML file. For the “Simple Order Tracking IVR” we are building in this tutorial, the <code class="highlighter-rouge">answer_url</code> should return the following XML.</p>
+
+<figure class="highlight"><pre><code class="language-xml" data-lang="xml"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+2
+3
+4
+5</pre></td><td class="code"><pre><span class="nt">&lt;Response&gt;</span>
+    <span class="nt">&lt;GetDigits</span> <span class="na">action=</span><span class="s">"http://c3bb61b6.ngrok.io/action?call_uuid=&lt;call_uuid&gt;"</span> <span class="na">method=</span><span class="s">"POST"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;Speak&gt;</span>Thank you for calling supermarket. Press 1 to know the status of your order number 12345. Press 2 to talk to the delivery agent<span class="nt">&lt;/Speak&gt;</span>
+    <span class="nt">&lt;/GetDigits&gt;</span>
+<span class="nt">&lt;/Response&gt;</span><span class="w">
+</span></pre></td></tr></tbody></table></code></pre></figure>
+
+<p>This XML can be returned from the answer_url using the following Flask code. For a more detailed guide please refer to our <a href="/getting-started/setting-up-dev-environment/">tutorial on setting up dev servers</a>.</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18</pre></td><td class="code"><pre><span class="n">order_info</span> <span class="o">=</span> <span class="p">{</span><span class="s">"14252150094"</span><span class="p">:</span> <span class="p">[</span><span class="s">"12345"</span><span class="p">,</span> <span class="s">"Shipped"</span><span class="p">]}</span>
+<span class="n">from_numbers</span> <span class="o">=</span> <span class="p">{}</span>
+
+<span class="nd">@app.route</span><span class="p">(</span><span class="s">'/ivrs'</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s">'GET'</span><span class="p">,</span> <span class="s">'POST'</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">IVR_responseXML</span><span class="p">():</span>
+    <span class="s">'''Creating a dummy data to mimic order ID and order status'''</span>
+    <span class="n">number</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">'From'</span><span class="p">)</span>
+
+    <span class="n">call_uuid</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">'CallUUID'</span><span class="p">)</span>
+    <span class="n">from_numbers</span><span class="p">[</span><span class="n">call_uuid</span><span class="p">]</span> <span class="o">=</span> <span class="n">number</span>
+    <span class="n">order_id</span> <span class="o">=</span> <span class="n">order_info</span><span class="p">[</span><span class="n">number</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">resp</span> <span class="o">=</span> <span class="s">'&lt;Response&gt;&lt;GetDigits action='</span>
+    <span class="s">'"http://c3bb61b6.ngrok.io/action?call_uuid={call_uuid}" method="POST"&gt;'</span>
+    <span class="s">'&lt;Speak&gt;Thank you for calling supermarket. Press 1 to know the status of '</span>
+    <span class="s">'your order number {order_id}. Press 2 to talk to the delivery agent'</span>
+    <span class="s">'&lt;/Speak&gt;&lt;/GetDigits&gt;&lt;/Response&gt;'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+        <span class="n">order_id</span><span class="o">=</span><span class="n">order_id</span><span class="p">,</span> <span class="n">call_uuid</span><span class="o">=</span><span class="n">call_uuid</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">Response</span><span class="p">(</span><span class="n">resp</span><span class="p">,</span> <span class="n">mimetype</span><span class="o">=</span><span class="s">'text/xml'</span><span class="p">)</span><span class="w">
+</span></pre></td></tr></tbody></table></code></pre></figure>
+
+<p>Note that the order_info variable is just created to show some dummy data. It has the order ID and the shipping status associated with a phone number.</p>
+
+<h3 id="steps-4-and-5-play-text-and-gather-digits">Steps 4 and 5: Play text and Gather digits</h3>
+<p>This XML when returned instructs Plivo to speak the desired text  “Thank you for calling supermarket. Press 1 to know the status of your order number 12345. Press 2 to talk to the delivery agent”.</p>
+
+<p>Once the user inputs the digit, the digit entered will be POSTed (since the method attribute in <GetDigits> is set to POST) to the URL mentioned in the action parameter of <GetDigits>.</GetDigits></GetDigits></p>
+
+<h3 id="steps-6-7-and-8-fetch-xml-for-further-call-flow-based-on-ivr-choice">Steps 6, 7 and 8: Fetch XML for further call flow based on IVR choice</h3>
+<p>In case the user presses 1, the XML should retrieve the status of the order and speak it back to the user. The XML in this case should look like the one below.</p>
+
+<figure class="highlight"><pre><code class="language-xml" data-lang="xml"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+2
+3</pre></td><td class="code"><pre><span class="nt">&lt;Response&gt;</span>
+    <span class="nt">&lt;Speak&gt;</span>The status of your order is: Shipped<span class="nt">&lt;/Speak&gt;</span>
+<span class="nt">&lt;/Response&gt;</span><span class="w">
+</span></pre></td></tr></tbody></table></code></pre></figure>
+
+<p>In case the user presses 2, the XML should dial the number of the agent and connect the user in call to that number. For that to happen the XML should look like the one below.</p>
+
+<figure class="highlight"><pre><code class="language-xml" data-lang="xml"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+2
+3
+4
+5</pre></td><td class="code"><pre><span class="nt">&lt;Response&gt;</span>
+    <span class="nt">&lt;Dial&gt;</span>
+        <span class="nt">&lt;Number&gt;</span>dest_number<span class="nt">&lt;/Number&gt;</span>
+    <span class="nt">&lt;/Dial&gt;</span>
+<span class="nt">&lt;/Response&gt;</span><span class="w">
+</span></pre></td></tr></tbody></table></code></pre></figure>
+
+<p>The following snippet explains how to return these XML files based on the choice input by user.</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13</pre></td><td class="code"><pre><span class="nd">@app.route</span><span class="p">(</span><span class="s">'/action'</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s">'GET'</span><span class="p">,</span> <span class="s">'POST'</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">action_XML</span><span class="p">():</span>
+    <span class="n">call_uuid</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">'call_uuid'</span><span class="p">)</span>
+    <span class="n">number</span> <span class="o">=</span> <span class="n">from_numbers</span><span class="p">[</span><span class="n">call_uuid</span><span class="p">]</span>
+    <span class="n">digit</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">'Digits'</span><span class="p">)</span>
+    <span class="n">order_status</span> <span class="o">=</span> <span class="n">order_info</span><span class="p">[</span><span class="n">number</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">digit</span> <span class="o">==</span> <span class="s">'1'</span><span class="p">:</span>
+        <span class="n">resp</span> <span class="o">=</span> <span class="s">'&lt;Response&gt;&lt;Speak&gt;The status of your order is: {order_status}&lt;/Speak&gt;&lt;/Response&gt;'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="n">order_status</span><span class="o">=</span><span class="n">order_status</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">Response</span><span class="p">(</span><span class="n">resp</span><span class="p">,</span> <span class="n">mimetype</span><span class="o">=</span><span class="s">'text/xml'</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">digit</span> <span class="o">==</span> <span class="s">'2'</span><span class="p">:</span>
+        <span class="n">resp2</span> <span class="o">=</span> <span class="s">'&lt;Response&gt;&lt;Dial&gt;&lt;Number&gt;”&lt;&lt;Enter destination number here&gt;&gt;”&lt;/Number&gt;&lt;/Dial&gt;&lt;/Response&gt;'</span>
+        <span class="k">return</span> <span class="n">Response</span><span class="p">(</span><span class="n">resp2</span><span class="p">,</span> <span class="n">mimetype</span><span class="o">=</span><span class="s">'text/xml'</span><span class="p">)</span><span class="w">
+</span></pre></td></tr></tbody></table></code></pre></figure>
+
+<h2 id="further-resources">Further resources</h2>
+<p>This tutorial helps in creating a simple IVR. The complete source code of the example used is <a href="">here</a>.  You can explore all the attributes available in <a href="https://api-reference.plivo.com/latest/python/elements/getdigits">GetDigits in Plivo XML documentation</a>.</p>
+
+          </div>
+        </section>
+      </div>
+      <footer id='footer'>
+  <div class="one-fifth">
+    <h6>GETTING STARTED</h6>
+    <ul>
+      <li><a href="/use-cases/2-factor-authentication/">2 Factor Authentication</a></li>
+      <li><a href="/use-cases/ivrs/">IVRS</a></li>
+      <li><a href="/use-cases/voice-otp/">Voice OTP</a></li>
+      <li><a href="/use-cases/voice-alerts-broadcasting/">Voice Alerts &amp; Broadcasting</a></li>
+      <li><a href="/use-cases/number-masking/">Number Masking</a></li>
+      <li><a href="/use-cases/call-tracking/">Call Tracking</a></li>
+    </ul>
+
+  <h6>QUICKSTART GUIDES</h6>
+  <ul>
+    <li><a href="/getting-started/setting-up-dev-environment">Setting up Dev Servers</a></li>
+    <li><a href="/getting-started/signature-validation">Signature Validation</a></li>
+  </ul>
+</div>
+
+  <div class="one-fifth">
+    <h6>PHLO REFERENCES</h6>
+    <ul>
+      <li><a href="/phlo-reference/#phlo-basics">PHLO Basics</a></li>
+      <li><a href="/phlo-reference/#creating-phlos">Creating PHLOs</a></li>
+      <li><a href="/phlo-reference/#connecting-phlo-components">Connecting PHLO Components</a></li>
+      <li><a href="/phlo-reference/#configuring-phlo-components">Configuring PHLO Components</a></li>
+      <li><a href="/phlo-reference/#triggering-a-phlo">Triggering a PHLO</a></li>
+      <li><a href="/phlo-reference/#components-library">Components Library</a></li>
+    </ul>
+
+
+    <h6>PHLO USE CASES</h6>
+    <ul>
+      <li><a href="/use-cases/phlo/voice-notification">Voice Notification</li>
+      <li><a href="/use-cases/phlo/voice-alerts">Voice Alert</li>
+      <li><a href="/use-cases/phlo/sms-alert">SMS Alert</li>
+      <li><a href="/use-cases/phlo/sms-survey">SMS Survey</li>
+      <li><a href="/use-cases/phlo/call-conference">Pinless Conference</li>
+      <li><a href="/use-cases/phlo/conference-with-pin">Conference with PIN</li>
+      <li><a href="/use-cases/phlo/ivr">Phone System IVR</li>
+      <li><a href="/use-cases/phlo/call-forwarding">Call Forwarding</li>
+    </ul>
+
+  </div>
+
+  <div class="one-fifth">
+    <h6>Client-side SDKs</h6>
+    <ul>
+      <li><a href="/client-side-sdks/browser-sdk">Browser SDK</a></li>
+      <li><a href="/client-side-sdks/android-sdk">Android SDK</a></li>
+      <li><a href="/client-side-sdks/ios-sdk">iOS SDK</a></li>
+    </ul>
+
+    <h6>INTEGRATIONS</h6>
+    <ul>
+      <li><a href="/integrations/zapier">Zapier</a></li>
+      <li><a href="/integrations/microsoft-flow">Microsoft Flow</a></li>
+      <li><a href="/integrations/integromat">Integromat</a></li>
+    </ul>
+  </div>
+
+  <div class="one-fifth">
+    <h6>Server-side SDKs</h6>
+    <ul>
+      <li><a href="/server-side-sdks/python-sdk">Python</a></li>
+      <li><a href="/server-side-sdks/node-sdk">NodeJS</a></li>
+      <li><a href="/server-side-sdks/ruby-sdk">Ruby</a></li>
+      <li><a href="/server-side-sdks/java-sdk">Java</a></li>
+      <li><a href="/server-side-sdks/php-sdk">PHP</a></li>
+      <li><a href="/server-side-sdks/net-sdk">.NET (C#)</a></li>
+      <li><a href="/server-side-sdks/go-sdk">Go</a></li>
+    </ul>
+  </div>
+
+  <div class="one-fifth">
+    <h6>API REFERENCE</h6>
+    <ul>
+      <li><a href="https://api-reference.plivo.com/latest/python/resources/account">Account</a></li>
+      <li><a href="https://api-reference.plivo.com/latest/python/resources/account-phone-number">Account Phone Number</a></li>
+      <li><a href="https://api-reference.plivo.com/latest/python/resources/application">Application</a></li>
+      <li><a href="https://api-reference.plivo.com/latest/python/resources/call">Call</a></li>
+      <li><a href="https://api-reference.plivo.com/latest/python/resources/conference">Conference</a></li>
+      <li><a href="https://api-reference.plivo.com/latest/python/resources/endpoint">Endpoint</a></li>
+      <li><a href="https://api-reference.plivo.com/latest/python/resources/incoming-carrier">Incoming Carrier</a></li>
+      <li><a href="https://api-reference.plivo.com/latest/python/resources/message">Message</a></li>
+      <li><a href="https://api-reference.plivo.com/latest/python/resources/phone-number">Phone Number</a></li>
+      <li><a href="https://api-reference.plivo.com/latest/python/resources/pricing">Pricing</a></li>
+      <li><a href="https://api-reference.plivo.com/latest/python/resources/recording">Recording</a></li>
+      <li><a href="https://api-reference.plivo.com/latest/python/resources/subaccount">Subaccount</a></li>
+    </ul>
+  </div>
+</footer>
+
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="/static/js/bootstrap.min.js"></script>
+<script src="/static/js/main.js"></script>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MXJNN5"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+    <script>
+  $(document).ready(function() {
+    $('body').scrollspy({
+      target: '#sidebar',
+      offset: 100
+    })
+
+    function scrollNav() {
+      $('#sidebar .nav a').click(function(e) {
+        //Toggle Class
+        $(".active").removeClass("active");
+        $(this).closest('li').addClass("active");
+        var theClass = $(this).attr("class");
+        $('.' + theClass).parent('li').addClass('active');
+        //Animate
+        $('html, body').stop().animate({
+          scrollTop: $($(this).attr('href')).offset().top - 70
+        }, 10);
+        return false;
+      });
+    }
+    scrollNav();
+    $(".active a").trigger('click');
+
+
+    var stickySidebar = function() {
+      var b = $(window).scrollTop();
+      var d = $("#scroller-anchor").offset().top;
+      var f = $("#footer").offset().top;
+      var c = $(".nav-container");
+      var h = c.height() + 50; // margin
+
+      if (b > 0) {
+        var myTop = $(window).scrollTop();
+        if (myTop > f - h) myTop = f - h;
+        c.css({
+          position: "absolute",
+          top: myTop,
+          bottom: ""
+        })
+      } else {
+        if (b <= d) {
+          c.css({
+            position: "absolute",
+            top: "",
+            bottom: ""
+          })
+        }
+      }
+    };
+    $(window).scroll(stickySidebar);
+    stickySidebar()
+  });
+</script>
+
+  </body>
+</html>

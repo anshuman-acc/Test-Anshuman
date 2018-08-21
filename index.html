@@ -1,16 +1,799 @@
----
-layout: default
----
+<!DOCTYPE html>
+<html>
 
-<div class="posts">
-  {% for post in site.posts %}
-    <article class="post">
+<head>
+  <!--
 
-      <h1><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></h1>
+  -->
 
-      <div class="entry">
-        {{ post.content }}
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>Plivo Developers</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+
+  <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/static/css/highlight/atom-one-light.css">
+  <link rel="stylesheet" href="/static/css/home.css">
+  <script src="/static/js/utils.js"></script>
+
+  
+  <script src="/static/js/highlight/highlight.pack.js"></script>
+  <script src="/static/js/highlight/highlight-line-numbers.min.js"></script>
+  <script>
+    hljs.initHighlightingOnLoad()
+    hljs.initLineNumbersOnLoad();;
+  </script>
+  
+
+  <script src="/static/js/angular.min.js"></script>
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-23474761-11"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-23474761-11');
+  </script>
+
+  <script type="text/javascript">
+    window.heap=window.heap||[],heap.load=function(e,t){window.heap.appid=e,window.heap.config=t=t||{};var r=t.forceSSL||"https:"===document.location.protocol,a=document.createElement("script");a.type="text/javascript",a.async=!0,a.src=(r?"https:":"http:")+"//cdn.heapanalytics.com/js/heap-"+e+".js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(a,n);for(var o=function(e){return function(){heap.push([e].concat(Array.prototype.slice.call(arguments,0)))}},p=["addEventProperties","addUserProperties","clearEventProperties","identify","removeEventProperty","setEventProperties","track","unsetEventProperty"],c=0;c<p.length;c++)heap[p[c]]=o(p[c])};
+      heap.load("1587892843");
+</script><
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-MXJNN5');</script>
+  <!-- End Google Tag Manager -->
+
+</head>
+<body ng-app="plivoDevApp">
+
+  <nav class="navbar navbar-default navbar-fixed-top" ng-controller="plivoDevNavCtrl">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false" ng-click='openMenu()'>
+        <span class="sr-only">Toggle navigation</span>
+        <span ng-show='toggleMenu' class="glyphicon glyphicon-menu-hamburger"></span>
+        <span ng-hide="toggleMenu" class="glyphicon glyphicon-remove"></span>
+      </button>
+        <div class="center">
+          <a class="navbar-brand" href="/">
+            <img src="/static/assets/images/plivo-logo.png" />
+          </a>
+          <a class="navbar-brand" href="/">Docs</a>
+        </div>
       </div>
-    </article>
-  {% endfor %}
+
+      <div class="hideMenu" ng-class="{showMenu: showMenu, hideMenu: !showMenu}">
+        <ul class="nav navbar-nav">
+          <li><a href="/use-cases">Use Cases</a></li>
+          <li><a href="/phlo-reference">PHLO Reference</a></li>
+          <li><a href="https://api-reference.plivo.com" target="_blank">API Reference</a></li>
+
+          <li class="dropdown">
+            <a href="/server-side-sdks" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Server-side SDKs <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="/server-side-sdks/python-sdk/">Python SDK</a></li>
+              <li><a href="/server-side-sdks/node-sdk/">Node JS SDK</a></li>
+              <li><a href="/server-side-sdks/ruby-sdk/">Ruby SDK</a></li>
+              <li><a href="/server-side-sdks/java-sdk/">Java SDK</a></li>
+              <li><a href="/server-side-sdks/php-sdk/">PHP SDK</a></li>
+              <li><a href="/server-side-sdks/net-sdk/">.NET / C# SDK</a></li>
+              <li><a href="/server-side-sdks/go-sdk/">Go SDK</a></li>
+              <li role="separator" class="divider"></li>
+              <li><a href="/server-side-sdks">View All</a></li>
+            </ul>
+          </li>
+
+          <li class="dropdown">
+            <a href="/client-side-sdks" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Client-side SDKs <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="/client-side-sdks/android-sdk">Android SDK</a></li>
+              <li><a href="/client-side-sdks/ios-sdk">iOS SDK</a></li>
+              <li><a href="/client-side-sdks/browser-sdk">Browser SDK</a></li>
+              <li role="separator" class="divider"></li>
+              <li><a href="/client-side-sdks">View All</a></li>
+            </ul>
+          </li>
+        </ul>
+
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="//manage.plivo.com/dashboard/" target="_blank">Dashboard</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <section id="main" ng-controller="plivoDevNavCtrl">
+    <div class="overlay"></div>
+    <h1>Add Voice calls and SMS into your app in minutes</h1>
+
+    <div class="full center" id="icon-list">
+      <div class="eightyPercent">
+        <div class='icon-text'>
+          <a href="/use-cases/phlo/sms-alert/">
+            <img src="/static/assets/images/getting-started/messages.svg" />
+            <span>SMS Alert</span>
+          </a>
+        </div>
+        <div class='icon-text'>
+          <a href="/use-cases/phlo/conference-with-pin/">
+            <img src="/static/assets/images/getting-started/calls.svg" />
+            <span>Conference with Pin</span>
+          </a>
+        </div>
+        <div class='icon-text'>
+          <a href="/use-cases/phlo/call-forwarding/">
+            <img src="/static/assets/images/getting-started/conference.svg" />
+            <span>Call Forwarding</span>
+          </a>
+        </div>
+        <div class='icon-text'>
+          <a href="/use-cases/phlo/ivr/">
+            <img src="/static/assets/images/getting-started/numbers.svg" />
+            <span>Phone System IVR</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <section id="message" ng-controller="plivoDevIconCtrl">
+    <div class="col-sm-6 text">
+      <h2>Send and Receive SMS Messages</h2>
+      <ul class='list'>
+        <li>
+          <span>Step 1:</span>
+          <span>Your app makes an API request to Plivo</span>
+        </li>
+        <li>
+          <span>Step 2:</span>
+          <span>Plivo sends the message to the destination number</span>
+        </li>
+        <li>
+          <span>Step 3:</span>
+          <span>Your end-user receives the text message</span>
+        </li>
+      </ul>
+      <div class="col-sm-7 col-xs-12 center paddingzero">
+        <a href="/getting-started/messages/" class="full"><button class="full">Get Started with Text Messages</button></a>
+      </div>
+      <div class="col-sm-5 col-xs-12 center-text link">
+        <a href="https://api-reference.plivo.com/latest/python/resources/message" target="_blank">View API Reference</a>
+      </div>
+    </div>
+
+    <div class="col-sm-6 code">
+      <div class="code-wrapper">
+        <ul class="nav nav-tabs">
+          <li class="active"><a data-toggle="tab" href="#m-python">Python</a></li>
+          <li><a data-toggle="tab" href="#m-ruby">Ruby</a></li>
+          <li><a data-toggle="tab" href="#m-node">Node</a></li>
+          <li><a data-toggle="tab" href="#m-php">PHP</a></li>
+          <li><a data-toggle="tab" href="#m-java">Java</a></li>
+          <li><a data-toggle="tab" href="#m-net">.NET (C#)</a></li>
+          <li><a data-toggle="tab" href="#m-go">Go</a></li>
+        </ul>
+
+        <div class="tab-content">
+          <div id="m-python" class="tab-pane fade in active"><pre><code class="python">import plivo
+
+client = plivo.RestClient()
+message_created = client.messages.create(
+    src='the_source_number',
+    dst='the_destination_number',
+    text='Hello, world!')
+</code></pre></div>
+          <div id="m-ruby" class="tab-pane fade"><pre><code class="ruby">require 'rubygems'
+require 'plivo'
+
+include Plivo
+
+client = RestClient.new
+message_created = client.messages.create(
+  'your_source_number',
+  ['your_destination_number'],
+  'Hello, world!'
+)
+</code></pre></div>
+          <div id="m-node" class="tab-pane fade"><pre><code class="javascript">let plivo = require('plivo');
+let client = new plivo.Client();
+
+client.messages.create(
+  'your_source_number',
+  'your_destination_number',
+  'Hello, world!'
+).then(function(message_created) {
+  console.log(message_created)
+});
+</code></pre></div>
+          <div id="m-php" class="tab-pane fade"><pre><code class="php">require 'vendor/autoload.php';
+use Plivo\RestClient;
+
+$client = new RestClient();
+$message_created = $client->messages->create(
+    'the_source_number',
+    ['the_destination_number'],
+    'Hello, world!'
+);
+</code></pre></div>
+          <div id="m-java" class="tab-pane fade"><pre><code class="java">package com.plivo.api.samples.message;
+
+import java.io.IOException;
+import java.util.Collections;
+
+import com.plivo.api.Plivo;
+import com.plivo.api.exceptions.PlivoRestException;
+import com.plivo.api.models.message.Message;
+import com.plivo.api.models.message.MessageCreateResponse;
+
+class MessageCreate {
+    public static void main(String [] args) {
+        Plivo.init();
+        try {
+            MessageCreateResponse response = Message.creator(
+                "the_source_number",
+                Collections.singletonList("the_destination_number"),
+                "Hello, world!")
+                    .create();
+
+            System.out.println(response);
+        } catch (PlivoRestException | IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
+</code></pre></div>
+          <div id="m-net" class="tab-pane fade"><pre><code class="cs">using System;
+using System.Collections.Generic;
+using Plivo;
+using Plivo.Exception;
+
+namespace PlivoExamples
+{
+    internal class Program
+    {
+        public static void Main(string[] args)
+        {
+            var api = new PlivoApi("your_auth_id", "your_auth_token");
+            var response = api.Message.Create(
+                src:"the_source_number",
+                dst:new List<String>{"the_destination_number"},
+                text:"Hello, world!"
+            );
+            Console.WriteLine(response);
+        }
+    }
+}
+</code></pre></div>
+          <div id="m-go" class="tab-pane fade"><pre><code class="go">package main
+
+import "github.com/plivo/plivo-go/plivo"
+
+func main()  {
+  client, err := plivo.NewClient("", "", &plivo.ClientOptions{})
+  if err != nil {
+    panic(err)
+  }
+  client.Messages.Create(plivo.MessageCreateParams{
+    Src: "the_source_number",
+    Dst: "the_destination_number",
+    Text: "Hello, world!",
+  })
+}
+</code></pre></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="voice" ng-controller="plivoDevIconCtrl">
+    <div class="col-sm-6 code">
+      <div class="code-wrapper">
+        <ul class="nav nav-tabs">
+          <li class="active"><a data-toggle="tab" href="#v-python">Python</a></li>
+          <li><a data-toggle="tab" href="#v-ruby">Ruby</a></li>
+          <li><a data-toggle="tab" href="#v-node">Node</a></li>
+          <li><a data-toggle="tab" href="#v-php">PHP</a></li>
+          <li><a data-toggle="tab" href="#v-java">Java</a></li>
+          <li><a data-toggle="tab" href="#v-net">.NET (C#)</a></li>
+          <li><a data-toggle="tab" href="#v-go">Go</a></li>
+        </ul>
+
+        <div class="tab-content">
+          <div id="v-python" class="tab-pane fade in active"><pre><code class="python">import plivo
+
+client = plivo.RestClient()
+call_made = client.calls.create(
+    from_='the_from_number',
+    to_='the_to_number',
+    answer_url='https://s3.amazonaws.com/static.plivo.com/answer.xml',
+    answer_method='GET')
+</code></pre></div>
+          <div id="v-ruby" class="tab-pane fade"><pre><code class="ruby">require 'rubygems'
+require 'plivo'
+
+include Plivo
+
+client = RestClient.new
+call_made = client.calls.create(
+  'your_source_number',
+  ['your_destination_number'],
+  'https://s3.amazonaws.com/static.plivo.com/answer.xml',
+  'GET'
+)
+</code></pre></div>
+          <div id="v-node" class="tab-pane fade"><pre><code class="javascript">let plivo = require('plivo');
+let client = new plivo.Client();
+
+client.calls.create(
+  'your_source_number',
+  'your_destination_number',
+  'https://s3.amazonaws.com/static.plivo.com/answer.xml', {
+    'answer_method': 'GET'
+  }
+).then(function(call_created) {
+  console.log(call_created)
+});
+</code></pre></div>
+          <div id="v-php" class="tab-pane fade"><pre><code class="php">require 'vendor/autoload.php';
+use Plivo\RestClient;
+
+$client = new RestClient();
+$call_made = $client->calls->create(
+    'the_source_number',
+    ['the_destination_number'],
+    'https://s3.amazonaws.com/static.plivo.com/answer.xml',
+    'GET'
+);
+</code></pre></div>
+          <div id="v-java" class="tab-pane fade"><pre><code class="java">package com.plivo.api.samples.call;
+
+import java.io.IOException;
+import java.util.Collections;
+
+import com.plivo.api.Plivo;
+import com.plivo.api.exceptions.PlivoRestException;
+import com.plivo.api.models.call.Call;
+import com.plivo.api.models.call.CallCreateResponse;
+
+/**
+* Example for Call create
+*/
+class CallCreate {
+    public static void main(String [] args) {
+        Plivo.init();
+        try {
+            CallCreateResponse response = Call.creator("the_from_number",
+                Collections.singletonList("the_to_number"),
+                "http://s3.amazonaws.com/static.plivo.com/answer.xml")
+                    .answerMethod("GET")
+                    .create();
+
+            System.out.println(response);
+        } catch (PlivoRestException | IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
+</code></pre></div>
+          <div id="v-net" class="tab-pane fade"><pre><code class="cs">using System;
+using System.Collections.Generic;
+using Plivo;
+using Plivo.Exception;
+
+namespace PlivoExamples
+{
+    internal class Program
+    {
+        public static void Main(string[] args)
+        {
+            var api = new PlivoApi("your_auth_id", "your_auth_token");
+            var response = api.Call.Create(
+                to:new List<String>{"the_to_number"},
+                from:"the_from_number",
+                answerMethod:"GET",
+                answerUrl:"http://s3.amazonaws.com/static.plivo.com/answer.xml"
+            );
+            Console.WriteLine(response);
+        }
+    }
+}
+</code></pre></div>
+          <div id="v-go" class="tab-pane fade"><pre><code class="go">package main
+
+import "github.com/plivo/plivo-go/plivo"
+
+func main()  {
+  client, err := plivo.NewClient("", "", &plivo.ClientOptions{})
+  if err != nil {
+    panic(err)
+  }
+  client.Calls.Create(plivo.CallCreateParams{
+    From: "the_source_number",
+    To: "the_destination_number",
+    AnswerURL: "https://s3.amazonaws.com/static.plivo.com/answer.xml",
+    AnswerMethod: "GET",
+  })
+}
+</code></pre></div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6 text">
+      <h2>Make and Receive Voice Calls</h2>
+      <ul class='list'>
+        <li>
+          <span>Step 1:</span>
+          <span>Your app makes an API request to Plivo</span>
+        </li>
+        <li>
+          <span>Step 2:</span>
+          <span>Plivo Calls the destination number</span>
+        </li>
+        <li>
+          <span>Step 3:</span>
+          <span>Your end-user picks up the call</span>
+        </li>
+        <li>
+          <span>Step 4:</span>
+          <span>Plivo requests XML from answer URL to control the call</span>
+        </li>
+        <li>
+          <span>Step 5:</span>
+          <span>Plivo executes all of the XML and hangs up</span>
+        </li>
+      </ul>
+      <div class="col-sm-7 col-xs-12 center paddingzero">
+        <a href="/getting-started/calls" class="full"><button class="green full">Get Started with Voice Calls</button></a>
+      </div>
+      <div class="col-sm-5 col-xs-12 center-text link">
+        <a href="https://api-reference.plivo.com/latest/python/resources/call" target="_blank">View API Reference</a>
+      </div>
+    </div>
+  </section>
+
+  <section id='usecases' class="section-only" ng-controller="plivoDevIconCtrl">
+    <h2>Our most popular Use-Cases</h2>
+    <p>See how they are built using PHLO. Create your own in minutes.</p>
+    <div class='cards'>
+      <div class="card col-md-4 col-sm-6">
+        <div class="card-wrapper">
+          <a href="/use-cases/phlo/voice-notification">
+            <div class="col-xs-10">
+              <h3>
+                <span>Voice Notification</span>
+              </h3>
+              <p>Send audio notifications using Voice Calls.</p>
+            </div>
+            <div class="col-xs-2">
+              <img src="/static/assets/images/use-cases/voice-notification.svg" alt="" />
+            </div>
+          </a>
+        </div>
+      </div>
+      <div class="card col-md-4 col-sm-6">
+        <div class="card-wrapper">
+          <a href="/use-cases/phlo/voice-alerts">
+            <div class="col-xs-10">
+              <h3>
+                <span>Voice Alert</span>
+              </h3>
+              <p>Alert users immediately using a Voice Call.</p>
+            </div>
+            <div class="col-xs-2">
+              <img src="/static/assets/images/use-cases/voice-alert.svg" alt="" />
+            </div>
+          </a>
+        </div>
+      </div>
+      <div class="card col-md-4 col-sm-6">
+        <div class="card-wrapper">
+          <a href="/use-cases/phlo/call-conference">
+            <div class="col-xs-10">
+              <h3>
+                <span>Pinless Conference</span>
+              </h3>
+              <p>Connect multiple people over one Voice Call.</p>
+            </div>
+            <div class="col-xs-2">
+              <img src="/static/assets/images/use-cases/conference.svg" alt="" />
+            </div>
+          </a>
+        </div>
+      </div>
+      <div class="card col-md-4 col-sm-6">
+        <div class="card-wrapper">
+          <a href="/use-cases/phlo/sms-alert">
+            <div class="col-xs-10">
+              <h3>
+                <span>SMS Alert</span>
+              </h3>
+              <p>Notify users with regular updates using SMS.</p>
+            </div>
+            <div class="col-xs-2">
+              <img src="/static/assets/images/use-cases/sms-notification.svg" alt="" />
+            </div>
+          </a>
+        </div>
+      </div>
+      <div class="card col-md-4 col-sm-6">
+        <div class="card-wrapper">
+          <a href="/use-cases/phlo/conference-with-pin">
+            <div class="col-xs-10">
+              <h3>
+                <span>Conference with Pin</span>
+              </h3>
+              <p>Connect multiple people over a secured Voice Call.</p>
+            </div>
+            <div class="col-xs-2">
+              <img src="/static/assets/images/use-cases/conference.svg" alt="" />
+            </div>
+          </a>
+        </div>
+      </div>
+      <div class="card col-md-4 col-sm-6">
+        <div class="card-wrapper">
+          <a href="/use-cases/phlo/sms-survey">
+            <div class="col-xs-10">
+              <h3>
+                <span>SMS Survey</span>
+              </h3>
+              <p>Send and receive SMS, and conduct Surveys.</p>
+            </div>
+            <div class="col-xs-2">
+              <img src="/static/assets/images/use-cases/2-way-sms.svg" alt="" />
+            </div>
+          </a>
+        </div>
+      </div>
+      <div class="card col-md-4 col-sm-6">
+        <div class="card-wrapper">
+          <a href="/use-cases/phlo/ivr">
+            <div class="col-xs-10">
+              <h3>
+                <span>Phone System IVR</span>
+              </h3>
+              <p>Deliver focused services based on customer inputs.</p>
+            </div>
+            <div class="col-xs-2">
+              <img src="/static/assets/images/use-cases/ivr.svg" alt="" />
+            </div>
+          </a>
+        </div>
+      </div>
+      <div class="card col-md-4 col-sm-6">
+        <div class="card-wrapper">
+          <a href="/use-cases/phlo/call-forwarding">
+            <div class="col-xs-10">
+              <h3>
+                <span>Call Forwarding</span>
+              </h3>
+              <p>Redirect incoming calls to another phone number.</p>
+            </div>
+            <div class="col-xs-2">
+              <img src="/static/assets/images/use-cases/call-forwarding.svg" alt="" />
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+    <p class="mobileOnly center-text"><a ng-click="toggleCards()" class="toggleButton">View More</a></p>
+  </section>
+
+  <section id='integrations' ng-controller="plivoDevIconCtrl">
+  <h2>Looking for Integrations? We got you covered!</h2>
+      <div class='cards'>
+        <div class="card col-md-4 col-sm-6">
+          <div class="card-wrapper">
+            <a href="/integrations/zapier">
+              <div class="col-xs-10">
+                <h3>
+                  <span>Zapier</span>
+                </h3>
+                <p>Instantly integrate Plivo with 750+ other apps on Zapier.</p>
+              </div>
+              <div class="col-xs-2">
+                <img src="/static/assets/images/integrations/zapier.png" alt="" />
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <div class="card col-md-4 col-sm-6">
+          <div class="card-wrapper">
+            <a href="/integrations/microsoft-flow">
+              <div class="col-xs-10">
+                <h3>
+                  <span>Microsoft Flow</span>
+                </h3>
+                <p>Connect Plivo with 200+ connectors in MS Flow.</p>
+              </div>
+              <div class="col-xs-2">
+                <img src="/static/assets/images/integrations/flow.png" alt="" />
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <div class="card col-md-4 col-sm-6">
+          <div class="card-wrapper">
+            <a href="/integrations/integromat">
+              <div class="col-xs-10">
+                <h3>
+                  <span>Integromat</span>
+                </h3>
+                <p>Add communications to your Integromat scenarios.</p>
+              </div>
+              <div class="col-xs-2">
+                <img src="/static/assets/images/integrations/integromat.png" alt="" />
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+      <p class="mobileOnly center-text"><a ng-click="toggleCards()" class="toggleButton">View More</a></p>
+
+      <p class="center-text full div-footer">Don't see an integration you need? <a href="https://support.plivo.com" target="_blank">Let us know about it</a>, and we can build one soon.</p>
+    </section>
+
+  <section id='sdks' ng-controller="plivoDevIconCtrl">
+    <h2>You can use Plivo's APIs in any language that can send HTTPS requests.</h2>
+    <p>For starters, we have server-side SDKs for the following 7 languages.</p>
+    <div class="full" id="icon-list">
+      <div class='icon-text sdk-language'>
+        <a href="/server-side-sdks/python-sdk">
+          <img src="/static/assets/images/sdks/python.svg" />
+          <span>Python SDK</span>
+        </a>
+      </div>
+      <div class='icon-text sdk-language'>
+        <a href="/server-side-sdks/node-sdk">
+          <img src="/static/assets/images/sdks/node.svg" />
+          <span>Node JS SDK</span>
+        </a>
+      </div>
+      <div class='icon-text sdk-language'>
+        <a href="/server-side-sdks/ruby-sdk">
+          <img src="/static/assets/images/sdks/ruby.svg" />
+          <span>Ruby SDK</span>
+        </a>
+      </div>
+      <div class='icon-text sdk-language'>
+        <a href="/server-side-sdks/java-sdk">
+          <img src="/static/assets/images/sdks/java.svg" />
+          <span>Java SDK</span>
+        </a>
+      </div>
+      <div class='icon-text sdk-language'>
+        <a href="/server-side-sdks/php-sdk">
+          <img src="/static/assets/images/sdks/php.svg" />
+          <span>PHP SDK</span>
+        </a>
+      </div>
+      <div class='icon-text sdk-language'>
+        <a href="/server-side-sdks/net-sdk">
+          <img src="/static/assets/images/sdks/net.svg" />
+          <span>.NET SDK</span>
+        </a>
+      </div>
+      <div class='icon-text sdk-language'>
+        <a href="/server-side-sdks/go-sdk">
+            <img src="/static/assets/images/sdks/go.svg" />
+            <span>Go SDK</span>
+        </a>
+      </div>
+    </div>
+    <p class="mobileOnly center-text"><a ng-click="toggleIcons()" class="toggleButton">View More</a></p>
+    <p class="center-text full div-footer">We also have a <a href="/client-side-sdks/browser-sdk">Browser SDK</a>, an <a href="/client-side-sdks/ios-sdk">iOS SDK</a> and an <a href="/client-side-sdks/android-sdk">Android SDK</a></p>
+  </section>
+
+  <footer id='footer'>
+  <div class="one-fifth">
+    <h6>GETTING STARTED</h6>
+    <ul>
+      <li><a href="/use-cases/2-factor-authentication/">2 Factor Authentication</a></li>
+      <li><a href="/use-cases/ivrs/">IVRS</a></li>
+      <li><a href="/use-cases/voice-otp/">Voice OTP</a></li>
+      <li><a href="/use-cases/voice-alerts-broadcasting/">Voice Alerts &amp; Broadcasting</a></li>
+      <li><a href="/use-cases/number-masking/">Number Masking</a></li>
+      <li><a href="/use-cases/call-tracking/">Call Tracking</a></li>
+    </ul>
+
+  <h6>QUICKSTART GUIDES</h6>
+  <ul>
+    <li><a href="/getting-started/setting-up-dev-environment">Setting up Dev Servers</a></li>
+    <li><a href="/getting-started/signature-validation">Signature Validation</a></li>
+  </ul>
 </div>
+
+  <div class="one-fifth">
+    <h6>PHLO REFERENCES</h6>
+    <ul>
+      <li><a href="/phlo-reference/#phlo-basics">PHLO Basics</a></li>
+      <li><a href="/phlo-reference/#creating-phlos">Creating PHLOs</a></li>
+      <li><a href="/phlo-reference/#connecting-phlo-components">Connecting PHLO Components</a></li>
+      <li><a href="/phlo-reference/#configuring-phlo-components">Configuring PHLO Components</a></li>
+      <li><a href="/phlo-reference/#triggering-a-phlo">Triggering a PHLO</a></li>
+      <li><a href="/phlo-reference/#components-library">Components Library</a></li>
+    </ul>
+
+
+    <h6>PHLO USE CASES</h6>
+    <ul>
+      <li><a href="/use-cases/phlo/voice-notification">Voice Notification</li>
+      <li><a href="/use-cases/phlo/voice-alerts">Voice Alert</li>
+      <li><a href="/use-cases/phlo/sms-alert">SMS Alert</li>
+      <li><a href="/use-cases/phlo/sms-survey">SMS Survey</li>
+      <li><a href="/use-cases/phlo/call-conference">Pinless Conference</li>
+      <li><a href="/use-cases/phlo/conference-with-pin">Conference with PIN</li>
+      <li><a href="/use-cases/phlo/ivr">Phone System IVR</li>
+      <li><a href="/use-cases/phlo/call-forwarding">Call Forwarding</li>
+    </ul>
+
+  </div>
+
+  <div class="one-fifth">
+    <h6>Client-side SDKs</h6>
+    <ul>
+      <li><a href="/client-side-sdks/browser-sdk">Browser SDK</a></li>
+      <li><a href="/client-side-sdks/android-sdk">Android SDK</a></li>
+      <li><a href="/client-side-sdks/ios-sdk">iOS SDK</a></li>
+    </ul>
+
+    <h6>INTEGRATIONS</h6>
+    <ul>
+      <li><a href="/integrations/zapier">Zapier</a></li>
+      <li><a href="/integrations/microsoft-flow">Microsoft Flow</a></li>
+      <li><a href="/integrations/integromat">Integromat</a></li>
+    </ul>
+  </div>
+
+  <div class="one-fifth">
+    <h6>Server-side SDKs</h6>
+    <ul>
+      <li><a href="/server-side-sdks/python-sdk">Python</a></li>
+      <li><a href="/server-side-sdks/node-sdk">NodeJS</a></li>
+      <li><a href="/server-side-sdks/ruby-sdk">Ruby</a></li>
+      <li><a href="/server-side-sdks/java-sdk">Java</a></li>
+      <li><a href="/server-side-sdks/php-sdk">PHP</a></li>
+      <li><a href="/server-side-sdks/net-sdk">.NET (C#)</a></li>
+      <li><a href="/server-side-sdks/go-sdk">Go</a></li>
+    </ul>
+  </div>
+
+  <div class="one-fifth">
+    <h6>API REFERENCE</h6>
+    <ul>
+      <li><a href="https://api-reference.plivo.com/latest/python/resources/account">Account</a></li>
+      <li><a href="https://api-reference.plivo.com/latest/python/resources/account-phone-number">Account Phone Number</a></li>
+      <li><a href="https://api-reference.plivo.com/latest/python/resources/application">Application</a></li>
+      <li><a href="https://api-reference.plivo.com/latest/python/resources/call">Call</a></li>
+      <li><a href="https://api-reference.plivo.com/latest/python/resources/conference">Conference</a></li>
+      <li><a href="https://api-reference.plivo.com/latest/python/resources/endpoint">Endpoint</a></li>
+      <li><a href="https://api-reference.plivo.com/latest/python/resources/incoming-carrier">Incoming Carrier</a></li>
+      <li><a href="https://api-reference.plivo.com/latest/python/resources/message">Message</a></li>
+      <li><a href="https://api-reference.plivo.com/latest/python/resources/phone-number">Phone Number</a></li>
+      <li><a href="https://api-reference.plivo.com/latest/python/resources/pricing">Pricing</a></li>
+      <li><a href="https://api-reference.plivo.com/latest/python/resources/recording">Recording</a></li>
+      <li><a href="https://api-reference.plivo.com/latest/python/resources/subaccount">Subaccount</a></li>
+    </ul>
+  </div>
+</footer>
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="/static/js/bootstrap.min.js"></script>
+<script src="/static/js/main.js"></script>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MXJNN5"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+</body>
+
+
+</html>

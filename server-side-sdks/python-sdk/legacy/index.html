@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!--
+
+  -->
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>Get started with Python SDK (legacy version) | Plivo Developers</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+
+  <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/static/css/highlight/atom-one-light.css">
+  <link rel="stylesheet" href="/static/css/home.css">
+  <script src="/static/js/utils.js"></script>
+
+  
+  <link rel="stylesheet" href="/static/css/mini-home.css">
+  
+
+  <script src="/static/js/angular.min.js"></script>
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-23474761-11"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-23474761-11');
+  </script>
+
+  <script type="text/javascript">
+    window.heap=window.heap||[],heap.load=function(e,t){window.heap.appid=e,window.heap.config=t=t||{};var r=t.forceSSL||"https:"===document.location.protocol,a=document.createElement("script");a.type="text/javascript",a.async=!0,a.src=(r?"https:":"http:")+"//cdn.heapanalytics.com/js/heap-"+e+".js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(a,n);for(var o=function(e){return function(){heap.push([e].concat(Array.prototype.slice.call(arguments,0)))}},p=["addEventProperties","addUserProperties","clearEventProperties","identify","removeEventProperty","setEventProperties","track","unsetEventProperty"],c=0;c<p.length;c++)heap[p[c]]=o(p[c])};
+      heap.load("1587892843");
+</script><
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-MXJNN5');</script>
+  <!-- End Google Tag Manager -->
+
+  <link rel="stylesheet" href="/static/css/two-column.css" />
+  <link rel="stylesheet" href="/static/css/syntax.css" < head />
+
+</head><body class="ng-scope" ng-app="plivoDevApp">
+    <nav class="navbar navbar-default navbar-fixed-top" ng-controller="plivoDevNavCtrl">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false" ng-click='openMenu()'>
+        <span class="sr-only">Toggle navigation</span>
+        <span ng-show='toggleMenu' class="glyphicon glyphicon-menu-hamburger"></span>
+        <span ng-hide="toggleMenu" class="glyphicon glyphicon-remove"></span>
+      </button>
+        <div class="center">
+          <a class="navbar-brand" href="/">
+            <img src="/static/assets/images/plivo-logo.png" />
+          </a>
+          <a class="navbar-brand" href="/">Docs</a>
+        </div>
+      </div>
+
+      <div class="hideMenu" ng-class="{showMenu: showMenu, hideMenu: !showMenu}">
+        <ul class="nav navbar-nav">
+          <li><a href="/use-cases">Use Cases</a></li>
+          <li><a href="/phlo-reference">PHLO Reference</a></li>
+          <li><a href="https://api-reference.plivo.com" target="_blank">API Reference</a></li>
+
+          <li class="dropdown">
+            <a href="/server-side-sdks" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Server-side SDKs <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="/server-side-sdks/python-sdk/">Python SDK</a></li>
+              <li><a href="/server-side-sdks/node-sdk/">Node JS SDK</a></li>
+              <li><a href="/server-side-sdks/ruby-sdk/">Ruby SDK</a></li>
+              <li><a href="/server-side-sdks/java-sdk/">Java SDK</a></li>
+              <li><a href="/server-side-sdks/php-sdk/">PHP SDK</a></li>
+              <li><a href="/server-side-sdks/net-sdk/">.NET / C# SDK</a></li>
+              <li><a href="/server-side-sdks/go-sdk/">Go SDK</a></li>
+              <li role="separator" class="divider"></li>
+              <li><a href="/server-side-sdks">View All</a></li>
+            </ul>
+          </li>
+
+          <li class="dropdown">
+            <a href="/client-side-sdks" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Client-side SDKs <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="/client-side-sdks/android-sdk">Android SDK</a></li>
+              <li><a href="/client-side-sdks/ios-sdk">iOS SDK</a></li>
+              <li><a href="/client-side-sdks/browser-sdk">Browser SDK</a></li>
+              <li role="separator" class="divider"></li>
+              <li><a href="/client-side-sdks">View All</a></li>
+            </ul>
+          </li>
+        </ul>
+
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="//manage.plivo.com/dashboard/" target="_blank">Dashboard</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="two-div">
+    <div class="full container-fluid">
+      <div id="sidebar" class="col-md-2 hidden-sm hidden-xs sidebar">
+        <div id="scroller-anchor"></div>
+        <div class="nav-container">
+          <nav>
+            <ul class="nav nav-stacked">
+              
+              <li>
+                <a href="#prerequisites">Prerequisites</a></li>
+              
+              <li>
+                <a href="#installation">Installation</a></li>
+              
+              <li>
+                <a href="#using-the-library">Using the library</a></li>
+              
+              <li>
+                <a href="#examples">Examples</a></li>
+              
+              <li>
+                <a href="#reporting-issues">Reporting Issues</a></li>
+              
+              <li>
+                <a href="#license">License</a></li>
+              
+            </ul>
+          </nav>
+        </div>
+        </div>
+
+        <section id='content ' class="col-md-10 content">
+          <ol class="breadcrumb">
+              
+                
+                <li><a href="/">Home</a></li>
+              
+              
+                
+                <li><a href="/server-side-sdks">Server-side SDKs</a></li>
+              
+              
+                
+                <li>Python SDK (legacy)</li>
+              
+              
+          </ol>
+          <div class="container full" data-cms-content-wrapper="/_layouts/two-column.html">
+            <h1 id="python-helper">Python Helper</h1>
+<p>The Plivo Python helper simplifies the process of making Plivo API calls and generating Plivo XML. Please note that this is the <code class="highlighter-rouge">legacy</code> version.</p>
+
+<p>If you are looking for the <code class="highlighter-rouge">latest</code> version, you can <a href="/server-side-sdks/python-sdk/">get it here</a>.</p>
+
+<h2 id="prerequisites">Prerequisites</h2>
+<ul>
+  <li><a href="https://www.python.org/downloads/">Python</a> &gt;= 2.5</li>
+  <li><a href="http://pip.readthedocs.org/en/stable/installing/">Pip</a> - a tool for installing and managing Python packages.</li>
+</ul>
+
+<h2 id="installation">Installation</h2>
+<h3 id="quick-installation">Quick Installation</h3>
+<p>Run the following command for a quick installation of the Python helper.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ pip install plivo
+</code></pre>
+</div>
+
+<h3 id="manual-installation">Manual Installation</h3>
+<p>Install the helper manually from <a href="https://github.com/plivo/plivo-python">Github</a>.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ git clone git://github.com/plivo/plivo-python.git
+$ python setup.py install
+</code></pre>
+</div>
+
+<h2 id="using-the-library">Using the library</h2>
+
+<h3 id="initializing-the-restapi-client">Initializing the RestAPI client</h3>
+<p>You can use <code class="highlighter-rouge">plivo.RestAPI</code> to initialize a REST client that can make API requests to Plivo.</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+2
+3</pre></td><td class="code"><pre><span class="n">auth_id</span> <span class="o">=</span> <span class="s">"Your AUTH_ID"</span>
+<span class="n">auth_token</span> <span class="o">=</span> <span class="s">"Your AUTH_TOKEN"</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">plivo</span><span class="o">.</span><span class="n">RestAPI</span><span class="p">(</span><span class="n">auth_id</span><span class="p">,</span> <span class="n">auth_token</span><span class="p">)</span><span class="w">
+</span></pre></td></tr></tbody></table></code></pre></figure>
+
+<h3 id="send-an-sms">Send an SMS</h3>
+<p>The snippet below shows how you can send an SMS.</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+2
+3
+4
+5
+6
+7</pre></td><td class="code"><pre><span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s">'src'</span><span class="p">:</span> <span class="s">'1111111111'</span><span class="p">,</span>
+    <span class="s">'dst'</span> <span class="p">:</span> <span class="s">'2222222222'</span><span class="p">,</span>
+    <span class="s">'text'</span> <span class="p">:</span> <span class="s">u"Hello, how are you?"</span>
+<span class="p">}</span>
+
+<span class="n">response</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">send_message</span><span class="p">(</span><span class="n">params</span><span class="p">)</span><span class="w">
+</span></pre></td></tr></tbody></table></code></pre></figure>
+
+<p>Check out <a href="https://api-reference.plivo.com/legacy/python/resources/message">Message API</a> documentation for more details.</p>
+
+<h3 id="make-an-outbound-phone-call">Make an Outbound Phone Call</h3>
+<p>You can make outbound phone calls to landlines, mobiles, and SIP endpoints (e.g., softphones), in any of our <a href="https://www.plivo.com/international-coverage">200+ coverage countries</a></p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8</pre></td><td class="code"><pre><span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s">'to'</span><span class="p">:</span> <span class="s">'2222222222'</span><span class="p">,</span>
+    <span class="s">'from'</span> <span class="p">:</span> <span class="s">'1111111111'</span><span class="p">,</span>
+    <span class="s">'answer_url'</span> <span class="p">:</span> <span class="s">"https://s3.amazonaws.com/static.plivo.com/answer.xml"</span><span class="p">,</span>
+    <span class="s">'answer_method'</span> <span class="p">:</span> <span class="s">"GET"</span>
+<span class="p">}</span>
+
+<span class="n">response</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">make_call</span><span class="p">(</span><span class="n">params</span><span class="p">)</span><span class="w">
+</span></pre></td></tr></tbody></table></code></pre></figure>
+
+<p>Check out <a href="https://api-reference.plivo.com/legacy/python/resources/call">Call API</a> documentation for more details.</p>
+
+<h2 id="examples">Examples</h2>
+<p>Take a look at the <a href="https://github.com/plivo/plivo-examples-python">Python examples</a> on GitHub.</p>
+
+<h2 id="reporting-issues">Reporting Issues</h2>
+<p>Please report issues or submit patches using the <a href="https://github.com/plivo/plivo-python/issues">Github Issue Tracker</a> or <a href="https://www.plivo.com/contact/support">Customer Support</a>.</p>
+
+<h2 id="license">License</h2>
+<p>The Plivo Python Helper Library is written by the Plivo Team and is distributed under the MIT License.</p>
+
+          </div>
+        </section>
+      </div>
+      <footer id='footer'>
+  <div class="one-fifth">
+    <h6>GETTING STARTED</h6>
+    <ul>
+      <li><a href="/use-cases/2-factor-authentication/">2 Factor Authentication</a></li>
+      <li><a href="/use-cases/ivrs/">IVRS</a></li>
+      <li><a href="/use-cases/voice-otp/">Voice OTP</a></li>
+      <li><a href="/use-cases/voice-alerts-broadcasting/">Voice Alerts &amp; Broadcasting</a></li>
+      <li><a href="/use-cases/number-masking/">Number Masking</a></li>
+      <li><a href="/use-cases/call-tracking/">Call Tracking</a></li>
+    </ul>
+
+  <h6>QUICKSTART GUIDES</h6>
+  <ul>
+    <li><a href="/getting-started/setting-up-dev-environment">Setting up Dev Servers</a></li>
+    <li><a href="/getting-started/signature-validation">Signature Validation</a></li>
+  </ul>
+</div>
+
+  <div class="one-fifth">
+    <h6>PHLO REFERENCES</h6>
+    <ul>
+      <li><a href="/phlo-reference/#phlo-basics">PHLO Basics</a></li>
+      <li><a href="/phlo-reference/#creating-phlos">Creating PHLOs</a></li>
+      <li><a href="/phlo-reference/#connecting-phlo-components">Connecting PHLO Components</a></li>
+      <li><a href="/phlo-reference/#configuring-phlo-components">Configuring PHLO Components</a></li>
+      <li><a href="/phlo-reference/#triggering-a-phlo">Triggering a PHLO</a></li>
+      <li><a href="/phlo-reference/#components-library">Components Library</a></li>
+    </ul>
+
+
+    <h6>PHLO USE CASES</h6>
+    <ul>
+      <li><a href="/use-cases/phlo/voice-notification">Voice Notification</li>
+      <li><a href="/use-cases/phlo/voice-alerts">Voice Alert</li>
+      <li><a href="/use-cases/phlo/sms-alert">SMS Alert</li>
+      <li><a href="/use-cases/phlo/sms-survey">SMS Survey</li>
+      <li><a href="/use-cases/phlo/call-conference">Pinless Conference</li>
+      <li><a href="/use-cases/phlo/conference-with-pin">Conference with PIN</li>
+      <li><a href="/use-cases/phlo/ivr">Phone System IVR</li>
+      <li><a href="/use-cases/phlo/call-forwarding">Call Forwarding</li>
+    </ul>
+
+  </div>
+
+  <div class="one-fifth">
+    <h6>Client-side SDKs</h6>
+    <ul>
+      <li><a href="/client-side-sdks/browser-sdk">Browser SDK</a></li>
+      <li><a href="/client-side-sdks/android-sdk">Android SDK</a></li>
+      <li><a href="/client-side-sdks/ios-sdk">iOS SDK</a></li>
+    </ul>
+
+    <h6>INTEGRATIONS</h6>
+    <ul>
+      <li><a href="/integrations/zapier">Zapier</a></li>
+      <li><a href="/integrations/microsoft-flow">Microsoft Flow</a></li>
+      <li><a href="/integrations/integromat">Integromat</a></li>
+    </ul>
+  </div>
+
+  <div class="one-fifth">
+    <h6>Server-side SDKs</h6>
+    <ul>
+      <li><a href="/server-side-sdks/python-sdk">Python</a></li>
+      <li><a href="/server-side-sdks/node-sdk">NodeJS</a></li>
+      <li><a href="/server-side-sdks/ruby-sdk">Ruby</a></li>
+      <li><a href="/server-side-sdks/java-sdk">Java</a></li>
+      <li><a href="/server-side-sdks/php-sdk">PHP</a></li>
+      <li><a href="/server-side-sdks/net-sdk">.NET (C#)</a></li>
+      <li><a href="/server-side-sdks/go-sdk">Go</a></li>
+    </ul>
+  </div>
+
+  <div class="one-fifth">
+    <h6>API REFERENCE</h6>
+    <ul>
+      <li><a href="https://api-reference.plivo.com/latest/python/resources/account">Account</a></li>
+      <li><a href="https://api-reference.plivo.com/latest/python/resources/account-phone-number">Account Phone Number</a></li>
+      <li><a href="https://api-reference.plivo.com/latest/python/resources/application">Application</a></li>
+      <li><a href="https://api-reference.plivo.com/latest/python/resources/call">Call</a></li>
+      <li><a href="https://api-reference.plivo.com/latest/python/resources/conference">Conference</a></li>
+      <li><a href="https://api-reference.plivo.com/latest/python/resources/endpoint">Endpoint</a></li>
+      <li><a href="https://api-reference.plivo.com/latest/python/resources/incoming-carrier">Incoming Carrier</a></li>
+      <li><a href="https://api-reference.plivo.com/latest/python/resources/message">Message</a></li>
+      <li><a href="https://api-reference.plivo.com/latest/python/resources/phone-number">Phone Number</a></li>
+      <li><a href="https://api-reference.plivo.com/latest/python/resources/pricing">Pricing</a></li>
+      <li><a href="https://api-reference.plivo.com/latest/python/resources/recording">Recording</a></li>
+      <li><a href="https://api-reference.plivo.com/latest/python/resources/subaccount">Subaccount</a></li>
+    </ul>
+  </div>
+</footer>
+
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="/static/js/bootstrap.min.js"></script>
+<script src="/static/js/main.js"></script>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MXJNN5"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+    <script>
+  $(document).ready(function() {
+    $('body').scrollspy({
+      target: '#sidebar',
+      offset: 100
+    })
+
+    function scrollNav() {
+      $('#sidebar .nav a').click(function(e) {
+        //Toggle Class
+        $(".active").removeClass("active");
+        $(this).closest('li').addClass("active");
+        var theClass = $(this).attr("class");
+        $('.' + theClass).parent('li').addClass('active');
+        //Animate
+        $('html, body').stop().animate({
+          scrollTop: $($(this).attr('href')).offset().top - 70
+        }, 10);
+        return false;
+      });
+    }
+    scrollNav();
+    $(".active a").trigger('click');
+
+
+    var stickySidebar = function() {
+      var b = $(window).scrollTop();
+      var d = $("#scroller-anchor").offset().top;
+      var f = $("#footer").offset().top;
+      var c = $(".nav-container");
+      var h = c.height() + 50; // margin
+
+      if (b > 0) {
+        var myTop = $(window).scrollTop();
+        if (myTop > f - h) myTop = f - h;
+        c.css({
+          position: "absolute",
+          top: myTop,
+          bottom: ""
+        })
+      } else {
+        if (b <= d) {
+          c.css({
+            position: "absolute",
+            top: "",
+            bottom: ""
+          })
+        }
+      }
+    };
+    $(window).scroll(stickySidebar);
+    stickySidebar()
+  });
+</script>
+
+  </body>
+</html>

@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!--
+
+  -->
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>Get started with Number Masking | Plivo Developers</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+
+  <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/static/css/highlight/atom-one-light.css">
+  <link rel="stylesheet" href="/static/css/home.css">
+  <script src="/static/js/utils.js"></script>
+
+  
+  <link rel="stylesheet" href="/static/css/mini-home.css">
+  
+
+  <script src="/static/js/angular.min.js"></script>
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-23474761-11"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-23474761-11');
+  </script>
+
+  <script type="text/javascript">
+    window.heap=window.heap||[],heap.load=function(e,t){window.heap.appid=e,window.heap.config=t=t||{};var r=t.forceSSL||"https:"===document.location.protocol,a=document.createElement("script");a.type="text/javascript",a.async=!0,a.src=(r?"https:":"http:")+"//cdn.heapanalytics.com/js/heap-"+e+".js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(a,n);for(var o=function(e){return function(){heap.push([e].concat(Array.prototype.slice.call(arguments,0)))}},p=["addEventProperties","addUserProperties","clearEventProperties","identify","removeEventProperty","setEventProperties","track","unsetEventProperty"],c=0;c<p.length;c++)heap[p[c]]=o(p[c])};
+      heap.load("1587892843");
+</script><
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-MXJNN5');</script>
+  <!-- End Google Tag Manager -->
+
+  <link rel="stylesheet" href="/static/css/two-column.css" />
+  <link rel="stylesheet" href="/static/css/syntax.css" < head />
+
+</head><body class="ng-scope" ng-app="plivoDevApp">
+    <nav class="navbar navbar-default navbar-fixed-top" ng-controller="plivoDevNavCtrl">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false" ng-click='openMenu()'>
+        <span class="sr-only">Toggle navigation</span>
+        <span ng-show='toggleMenu' class="glyphicon glyphicon-menu-hamburger"></span>
+        <span ng-hide="toggleMenu" class="glyphicon glyphicon-remove"></span>
+      </button>
+        <div class="center">
+          <a class="navbar-brand" href="/">
+            <img src="/static/assets/images/plivo-logo.png" />
+          </a>
+          <a class="navbar-brand" href="/">Docs</a>
+        </div>
+      </div>
+
+      <div class="hideMenu" ng-class="{showMenu: showMenu, hideMenu: !showMenu}">
+        <ul class="nav navbar-nav">
+          <li><a href="/use-cases">Use Cases</a></li>
+          <li><a href="/phlo-reference">PHLO Reference</a></li>
+          <li><a href="https://api-reference.plivo.com" target="_blank">API Reference</a></li>
+
+          <li class="dropdown">
+            <a href="/server-side-sdks" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Server-side SDKs <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="/server-side-sdks/python-sdk/">Python SDK</a></li>
+              <li><a href="/server-side-sdks/node-sdk/">Node JS SDK</a></li>
+              <li><a href="/server-side-sdks/ruby-sdk/">Ruby SDK</a></li>
+              <li><a href="/server-side-sdks/java-sdk/">Java SDK</a></li>
+              <li><a href="/server-side-sdks/php-sdk/">PHP SDK</a></li>
+              <li><a href="/server-side-sdks/net-sdk/">.NET / C# SDK</a></li>
+              <li><a href="/server-side-sdks/go-sdk/">Go SDK</a></li>
+              <li role="separator" class="divider"></li>
+              <li><a href="/server-side-sdks">View All</a></li>
+            </ul>
+          </li>
+
+          <li class="dropdown">
+            <a href="/client-side-sdks" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Client-side SDKs <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="/client-side-sdks/android-sdk">Android SDK</a></li>
+              <li><a href="/client-side-sdks/ios-sdk">iOS SDK</a></li>
+              <li><a href="/client-side-sdks/browser-sdk">Browser SDK</a></li>
+              <li role="separator" class="divider"></li>
+              <li><a href="/client-side-sdks">View All</a></li>
+            </ul>
+          </li>
+        </ul>
+
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="//manage.plivo.com/dashboard/" target="_blank">Dashboard</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="two-div">
+    <div class="full container-fluid">
+      <div id="sidebar" class="col-md-2 hidden-sm hidden-xs sidebar">
+        <div id="scroller-anchor"></div>
+        <div class="nav-container">
+          <nav>
+            <ul class="nav nav-stacked">
+              
+              <li>
+                <a href="#a-simple-number-masking-example">A simple Number Masking example</a></li>
+              
+              <li>
+                <a href="#implementing-number-masking">Implementing Number Masking</a></li>
+              
+            </ul>
+          </nav>
+        </div>
+        </div>
+
+        <section id='content ' class="col-md-10 content">
+          <ol class="breadcrumb">
+              
+                
+                <li><a href="/">Home</a></li>
+              
+              
+                
+                <li><a href="/use-cases/">Use Cases</a></li>
+              
+              
+                
+                <li>Number Masking</li>
+              
+              
+          </ol>
+          <div class="container full" data-cms-content-wrapper="/_layouts/two-column.html">
+            <h1 id="getting-started-with-number-masking">Getting Started with Number Masking</h1>
+<p>Often there is a requirement, where you want to connect two people on a call without revealing their original phone numbers. Some common examples of this are in two sided marketplaces such as ride sharing companies, stay booking sites and E-commerce websites.</p>
+
+<p>This process of establishing a call between two users without revealing their contact information is what is termed as number masking.</p>
+
+<h2 id="a-simple-number-masking-example">A simple Number Masking example</h2>
+<p>In this example we will build a simple Number Masking application for a Pizza delivery company. Assume that the company does not want to reveal the numbers of the agents to the customers and vice versa. We will be implementing the following example.</p>
+
+<ol>
+  <li>There is a Plivo number owned by the company. Whenever the customer calls this number, he will be connected to an agent who is free.</li>
+  <li>When the Agent calls the Plivo number, his call will be connected to the customer.</li>
+  <li>In both of the above cases the customer will not know the real phone number of the agent and the agent will not know the phone number of the customer.</li>
+</ol>
+
+<h2 id="implementing-number-masking">Implementing Number Masking</h2>
+<p><strong>Step 1:</strong> Let us first create a couple of agents using the following code snippet.</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22</pre></td><td class="code"><pre><span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span><span class="p">,</span> <span class="n">Response</span><span class="p">,</span> <span class="n">request</span>
+
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="n">__name__</span><span class="p">)</span>
+
+
+<span class="c"># Let's assume I have two delivery agents with me, and both of them are</span>
+<span class="c"># available for pizza delivery now. As and when there is a new order, we</span>
+<span class="c"># then map the customer to the delivery agent.</span>
+
+
+<span class="n">agent_customer_mapping</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s">'1415000001'</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s">'customer_number'</span><span class="p">:</span> <span class="bp">None</span><span class="p">,</span>
+        <span class="s">'customer_masked_number'</span><span class="p">:</span> <span class="bp">None</span>
+    <span class="p">},</span>
+    <span class="s">'1415000000'</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s">'customer_number'</span><span class="p">:</span> <span class="bp">None</span><span class="p">,</span>
+        <span class="s">'customer_masked_number'</span><span class="p">:</span> <span class="bp">None</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="n">agent_customer_reverse_mapping</span> <span class="o">=</span> <span class="p">{}</span><span class="w">
+</span></pre></td></tr></tbody></table></code></pre></figure>
+
+<p><strong>Step 2:</strong> Let us implement a couple of functions that would return an XML that we want for speaking and dialing out to a number.</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12</pre></td><td class="code"><pre><span class="k">def</span> <span class="nf">speak</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">Response</span><span class="p">(</span>
+        <span class="s">'&lt;Response&gt;&lt;Speak&gt;{text}&lt;/Speak&gt;&lt;/Response&gt;'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="n">text</span><span class="p">),</span>
+        <span class="n">mimetype</span><span class="o">=</span><span class="s">'text/xml'</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">call_and_connect_number</span><span class="p">(</span><span class="n">caller_id</span><span class="p">,</span> <span class="n">to_number</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">Response</span><span class="p">(</span>
+        <span class="s">"&lt;Response&gt;&lt;Dial callerId='{from_number}'&gt;&lt;Number&gt;{to_number}&lt;/Number&gt;"</span>
+        <span class="s">"&lt;/Dial&gt;&lt;/Response&gt;"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="n">from_number</span><span class="o">=</span><span class="n">caller_id</span><span class="p">,</span> <span class="n">to_number</span><span class="o">=</span><span class="n">to_number</span><span class="p">),</span>
+        <span class="n">mimetype</span><span class="o">=</span><span class="s">'text/xml'</span><span class="p">)</span><span class="w">
+</span></pre></td></tr></tbody></table></code></pre></figure>
+
+<p><strong>Step 3:</strong> Let us next implement a function to handle inbound calls on the Plivo phone number. When an incoming call is received on the Plivo number it can either be from the customer or from an agent.</p>
+
+<p>If the call is from an Agent</p>
+<ol>
+  <li>We check if there are any customers assigned to the agent. In case there are no customers assigned we Speak a message stating that no customer is assigned.</li>
+  <li>In case there is a customer assigned, then we initiate a call to the customer with the masked number</li>
+</ol>
+
+<p>If the call is from a Customer</p>
+<ol>
+  <li>We check if the customer has an existing order with the company and has an agent assigned.</li>
+  <li>In case an agent is assigned, we will forward the call to the agent with the masked caller ID. Otherwise if there is no agent assigned, we are checking if there are any available agents and routing the call to the assigned agent by masking the caller ID.</li>
+  <li>In case there are no agents, then we Speak a message stating that No agents are available.</li>
+</ol>
+
+<p>Here is the code snippet for the above behaviour.</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76</pre></td><td class="code"><pre><span class="k">def</span> <span class="nf">handle_inbound_calls</span><span class="p">(</span><span class="n">from_number</span><span class="p">,</span> <span class="n">masked_number</span><span class="p">):</span>
+    <span class="c"># Let's first check if the from_number is an agent number</span>
+    <span class="k">if</span> <span class="n">from_number</span> <span class="ow">in</span> <span class="n">agent_customer_mapping</span><span class="p">:</span>
+        <span class="n">customer_number</span> <span class="o">=</span> <span class="n">agent_customer_mapping</span><span class="p">[</span><span class="n">from_number</span><span class="p">][</span>
+            <span class="s">'customer_number'</span><span class="p">]</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">customer_number</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">speak</span><span class="p">(</span>
+                <span class="s">'No customer is currently assigned to you. We will call you '</span>
+                <span class="s">'back once we have someone requesting for a new delivery.'</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">call_and_connect_number</span><span class="p">(</span>
+            <span class="n">caller_id</span><span class="o">=</span><span class="n">masked_number</span><span class="p">,</span> <span class="n">to_number</span><span class="o">=</span><span class="n">customer_number</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">from_number</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">agent_customer_reverse_mapping</span><span class="p">:</span>
+        <span class="c"># You will usually have some business logic here to retrieve or place</span>
+        <span class="c"># an order</span>
+        <span class="n">selected_agent</span> <span class="o">=</span> <span class="bp">None</span>
+
+        <span class="c"># Let's select an agent now</span>
+        <span class="k">for</span> <span class="n">agent</span> <span class="ow">in</span> <span class="n">agent_customer_mapping</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">agent_customer_mapping</span><span class="p">[</span><span class="n">agent</span><span class="p">][</span><span class="s">'customer_number'</span><span class="p">]:</span>
+                <span class="n">selected_agent</span> <span class="o">=</span> <span class="n">agent</span>
+                <span class="k">break</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">selected_agent</span><span class="p">:</span>  <span class="c"># We are busy!</span>
+            <span class="k">return</span> <span class="n">speak</span><span class="p">(</span>
+                <span class="s">'All agents are currently busy. We will call you back '</span>
+                <span class="s">'once we have someone available to deliver your order'</span><span class="p">)</span>
+
+        <span class="n">agent_customer_mapping</span><span class="p">[</span><span class="n">selected_agent</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s">'customer_number'</span><span class="p">:</span> <span class="n">from_number</span><span class="p">,</span>
+            <span class="s">'customer_masked_number'</span><span class="p">:</span> <span class="n">masked_number</span>
+        <span class="p">}</span>
+
+        <span class="n">agent_customer_reverse_mapping</span><span class="p">[</span><span class="n">from_number</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s">'agent_number'</span><span class="p">:</span> <span class="n">selected_agent</span><span class="p">,</span>
+            <span class="s">'agent_masked_number'</span><span class="p">:</span> <span class="n">masked_number</span>
+        <span class="p">}</span>
+
+        <span class="n">agent_number</span> <span class="o">=</span> <span class="n">selected_agent</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">cust_reverse_mapping</span> <span class="o">=</span> <span class="n">agent_customer_reverse_mapping</span><span class="p">[</span><span class="n">from_number</span><span class="p">]</span>
+        <span class="n">agent_number</span> <span class="o">=</span> <span class="n">cust_reverse_mapping</span><span class="p">[</span><span class="s">'agent_number'</span><span class="p">]</span>
+        <span class="n">agent_masked_number</span> <span class="o">=</span> <span class="n">cust_reverse_mapping</span><span class="p">[</span><span class="s">'agent_masked_number'</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="n">agent_masked_number</span> <span class="o">!=</span> <span class="n">masked_number</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">speak</span><span class="p">(</span><span class="s">'You have called an incorrect number. '</span>
+                         <span class="s">'Please try again calling the correct number.'</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">call_and_connect_number</span><span class="p">(</span>
+        <span class="n">caller_id</span><span class="o">=</span><span class="n">masked_number</span><span class="p">,</span> <span class="n">to_number</span><span class="o">=</span><span class="n">agent_number</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">handle_outbound_calls</span><span class="p">(</span><span class="n">from_number</span><span class="p">,</span> <span class="n">to_number</span><span class="p">):</span>
+    <span class="c"># Not handling outbound calls for now</span>
+    <span class="k">return</span> <span class="n">Response</span><span class="p">(</span><span class="s">'&lt;Response&gt;'</span><span class="p">,</span> <span class="n">mimetype</span><span class="o">=</span><span class="s">'text/xml'</span><span class="p">)</span>
+
+
+<span class="nd">@app.route</span><span class="p">(</span><span class="s">'/handle_incoming_calls'</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s">'POST'</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">index</span><span class="p">():</span>
+    <span class="n">print_request_details</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+
+    <span class="c"># Let's see who is calling</span>
+    <span class="n">from_number</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">'From'</span><span class="p">)</span>
+    <span class="n">to_number</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">'To'</span><span class="p">)</span>
+    <span class="n">direction</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">'Direction'</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">direction</span> <span class="o">==</span> <span class="s">'inbound'</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">handle_inbound_calls</span><span class="p">(</span><span class="n">from_number</span><span class="p">,</span> <span class="n">to_number</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">direction</span> <span class="o">==</span> <span class="s">'outbound'</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">handle_outbound_calls</span><span class="p">(</span><span class="n">from_number</span><span class="p">,</span> <span class="n">to_number</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="nb">Exception</span><span class="p">(</span><span class="s">'Unknown direction found: '</span> <span class="o">+</span> <span class="n">direction</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">'__main__'</span><span class="p">:</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">run</span><span class="p">()</span><span class="w">
+</span></pre></td></tr></tbody></table></code></pre></figure>
+
+<p>Here is the Github Repo that has the <a href="">complete source code</a> of this tutorial.</p>
+
+          </div>
+        </section>
+      </div>
+      <footer id='footer'>
+  <div class="one-fifth">
+    <h6>GETTING STARTED</h6>
+    <ul>
+      <li><a href="/use-cases/2-factor-authentication/">2 Factor Authentication</a></li>
+      <li><a href="/use-cases/ivrs/">IVRS</a></li>
+      <li><a href="/use-cases/voice-otp/">Voice OTP</a></li>
+      <li><a href="/use-cases/voice-alerts-broadcasting/">Voice Alerts &amp; Broadcasting</a></li>
+      <li><a href="/use-cases/number-masking/">Number Masking</a></li>
+      <li><a href="/use-cases/call-tracking/">Call Tracking</a></li>
+    </ul>
+
+  <h6>QUICKSTART GUIDES</h6>
+  <ul>
+    <li><a href="/getting-started/setting-up-dev-environment">Setting up Dev Servers</a></li>
+    <li><a href="/getting-started/signature-validation">Signature Validation</a></li>
+  </ul>
+</div>
+
+  <div class="one-fifth">
+    <h6>PHLO REFERENCES</h6>
+    <ul>
+      <li><a href="/phlo-reference/#phlo-basics">PHLO Basics</a></li>
+      <li><a href="/phlo-reference/#creating-phlos">Creating PHLOs</a></li>
+      <li><a href="/phlo-reference/#connecting-phlo-components">Connecting PHLO Components</a></li>
+      <li><a href="/phlo-reference/#configuring-phlo-components">Configuring PHLO Components</a></li>
+      <li><a href="/phlo-reference/#triggering-a-phlo">Triggering a PHLO</a></li>
+      <li><a href="/phlo-reference/#components-library">Components Library</a></li>
+    </ul>
+
+
+    <h6>PHLO USE CASES</h6>
+    <ul>
+      <li><a href="/use-cases/phlo/voice-notification">Voice Notification</li>
+      <li><a href="/use-cases/phlo/voice-alerts">Voice Alert</li>
+      <li><a href="/use-cases/phlo/sms-alert">SMS Alert</li>
+      <li><a href="/use-cases/phlo/sms-survey">SMS Survey</li>
+      <li><a href="/use-cases/phlo/call-conference">Pinless Conference</li>
+      <li><a href="/use-cases/phlo/conference-with-pin">Conference with PIN</li>
+      <li><a href="/use-cases/phlo/ivr">Phone System IVR</li>
+      <li><a href="/use-cases/phlo/call-forwarding">Call Forwarding</li>
+    </ul>
+
+  </div>
+
+  <div class="one-fifth">
+    <h6>Client-side SDKs</h6>
+    <ul>
+      <li><a href="/client-side-sdks/browser-sdk">Browser SDK</a></li>
+      <li><a href="/client-side-sdks/android-sdk">Android SDK</a></li>
+      <li><a href="/client-side-sdks/ios-sdk">iOS SDK</a></li>
+    </ul>
+
+    <h6>INTEGRATIONS</h6>
+    <ul>
+      <li><a href="/integrations/zapier">Zapier</a></li>
+      <li><a href="/integrations/microsoft-flow">Microsoft Flow</a></li>
+      <li><a href="/integrations/integromat">Integromat</a></li>
+    </ul>
+  </div>
+
+  <div class="one-fifth">
+    <h6>Server-side SDKs</h6>
+    <ul>
+      <li><a href="/server-side-sdks/python-sdk">Python</a></li>
+      <li><a href="/server-side-sdks/node-sdk">NodeJS</a></li>
+      <li><a href="/server-side-sdks/ruby-sdk">Ruby</a></li>
+      <li><a href="/server-side-sdks/java-sdk">Java</a></li>
+      <li><a href="/server-side-sdks/php-sdk">PHP</a></li>
+      <li><a href="/server-side-sdks/net-sdk">.NET (C#)</a></li>
+      <li><a href="/server-side-sdks/go-sdk">Go</a></li>
+    </ul>
+  </div>
+
+  <div class="one-fifth">
+    <h6>API REFERENCE</h6>
+    <ul>
+      <li><a href="https://api-reference.plivo.com/latest/python/resources/account">Account</a></li>
+      <li><a href="https://api-reference.plivo.com/latest/python/resources/account-phone-number">Account Phone Number</a></li>
+      <li><a href="https://api-reference.plivo.com/latest/python/resources/application">Application</a></li>
+      <li><a href="https://api-reference.plivo.com/latest/python/resources/call">Call</a></li>
+      <li><a href="https://api-reference.plivo.com/latest/python/resources/conference">Conference</a></li>
+      <li><a href="https://api-reference.plivo.com/latest/python/resources/endpoint">Endpoint</a></li>
+      <li><a href="https://api-reference.plivo.com/latest/python/resources/incoming-carrier">Incoming Carrier</a></li>
+      <li><a href="https://api-reference.plivo.com/latest/python/resources/message">Message</a></li>
+      <li><a href="https://api-reference.plivo.com/latest/python/resources/phone-number">Phone Number</a></li>
+      <li><a href="https://api-reference.plivo.com/latest/python/resources/pricing">Pricing</a></li>
+      <li><a href="https://api-reference.plivo.com/latest/python/resources/recording">Recording</a></li>
+      <li><a href="https://api-reference.plivo.com/latest/python/resources/subaccount">Subaccount</a></li>
+    </ul>
+  </div>
+</footer>
+
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="/static/js/bootstrap.min.js"></script>
+<script src="/static/js/main.js"></script>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MXJNN5"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+    <script>
+  $(document).ready(function() {
+    $('body').scrollspy({
+      target: '#sidebar',
+      offset: 100
+    })
+
+    function scrollNav() {
+      $('#sidebar .nav a').click(function(e) {
+        //Toggle Class
+        $(".active").removeClass("active");
+        $(this).closest('li').addClass("active");
+        var theClass = $(this).attr("class");
+        $('.' + theClass).parent('li').addClass('active');
+        //Animate
+        $('html, body').stop().animate({
+          scrollTop: $($(this).attr('href')).offset().top - 70
+        }, 10);
+        return false;
+      });
+    }
+    scrollNav();
+    $(".active a").trigger('click');
+
+
+    var stickySidebar = function() {
+      var b = $(window).scrollTop();
+      var d = $("#scroller-anchor").offset().top;
+      var f = $("#footer").offset().top;
+      var c = $(".nav-container");
+      var h = c.height() + 50; // margin
+
+      if (b > 0) {
+        var myTop = $(window).scrollTop();
+        if (myTop > f - h) myTop = f - h;
+        c.css({
+          position: "absolute",
+          top: myTop,
+          bottom: ""
+        })
+      } else {
+        if (b <= d) {
+          c.css({
+            position: "absolute",
+            top: "",
+            bottom: ""
+          })
+        }
+      }
+    };
+    $(window).scroll(stickySidebar);
+    stickySidebar()
+  });
+</script>
+
+  </body>
+</html>

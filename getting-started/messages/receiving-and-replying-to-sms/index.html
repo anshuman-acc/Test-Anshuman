@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!--
+
+  -->
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>Receiving and Replying to Incoming SMS | Plivo Developers</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+
+  <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/static/css/highlight/atom-one-light.css">
+  <link rel="stylesheet" href="/static/css/home.css">
+  <script src="/static/js/utils.js"></script>
+
+  
+  <link rel="stylesheet" href="/static/css/mini-home.css">
+  
+
+  <script src="/static/js/angular.min.js"></script>
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-23474761-11"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-23474761-11');
+  </script>
+
+  <script type="text/javascript">
+    window.heap=window.heap||[],heap.load=function(e,t){window.heap.appid=e,window.heap.config=t=t||{};var r=t.forceSSL||"https:"===document.location.protocol,a=document.createElement("script");a.type="text/javascript",a.async=!0,a.src=(r?"https:":"http:")+"//cdn.heapanalytics.com/js/heap-"+e+".js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(a,n);for(var o=function(e){return function(){heap.push([e].concat(Array.prototype.slice.call(arguments,0)))}},p=["addEventProperties","addUserProperties","clearEventProperties","identify","removeEventProperty","setEventProperties","track","unsetEventProperty"],c=0;c<p.length;c++)heap[p[c]]=o(p[c])};
+      heap.load("1587892843");
+</script><
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-MXJNN5');</script>
+  <!-- End Google Tag Manager -->
+
+  <link rel="stylesheet" href="/static/css/two-column.css" />
+  <link rel="stylesheet" href="/static/css/syntax.css" < head />
+
+</head><body class="ng-scope" ng-app="plivoDevApp">
+    <nav class="navbar navbar-default navbar-fixed-top" ng-controller="plivoDevNavCtrl">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false" ng-click='openMenu()'>
+        <span class="sr-only">Toggle navigation</span>
+        <span ng-show='toggleMenu' class="glyphicon glyphicon-menu-hamburger"></span>
+        <span ng-hide="toggleMenu" class="glyphicon glyphicon-remove"></span>
+      </button>
+        <div class="center">
+          <a class="navbar-brand" href="/">
+            <img src="/static/assets/images/plivo-logo.png" />
+          </a>
+          <a class="navbar-brand" href="/">Docs</a>
+        </div>
+      </div>
+
+      <div class="hideMenu" ng-class="{showMenu: showMenu, hideMenu: !showMenu}">
+        <ul class="nav navbar-nav">
+          <li><a href="/use-cases">Use Cases</a></li>
+          <li><a href="/phlo-reference">PHLO Reference</a></li>
+          <li><a href="https://api-reference.plivo.com" target="_blank">API Reference</a></li>
+
+          <li class="dropdown">
+            <a href="/server-side-sdks" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Server-side SDKs <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="/server-side-sdks/python-sdk/">Python SDK</a></li>
+              <li><a href="/server-side-sdks/node-sdk/">Node JS SDK</a></li>
+              <li><a href="/server-side-sdks/ruby-sdk/">Ruby SDK</a></li>
+              <li><a href="/server-side-sdks/java-sdk/">Java SDK</a></li>
+              <li><a href="/server-side-sdks/php-sdk/">PHP SDK</a></li>
+              <li><a href="/server-side-sdks/net-sdk/">.NET / C# SDK</a></li>
+              <li><a href="/server-side-sdks/go-sdk/">Go SDK</a></li>
+              <li role="separator" class="divider"></li>
+              <li><a href="/server-side-sdks">View All</a></li>
+            </ul>
+          </li>
+
+          <li class="dropdown">
+            <a href="/client-side-sdks" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Client-side SDKs <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="/client-side-sdks/android-sdk">Android SDK</a></li>
+              <li><a href="/client-side-sdks/ios-sdk">iOS SDK</a></li>
+              <li><a href="/client-side-sdks/browser-sdk">Browser SDK</a></li>
+              <li role="separator" class="divider"></li>
+              <li><a href="/client-side-sdks">View All</a></li>
+            </ul>
+          </li>
+        </ul>
+
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="//manage.plivo.com/dashboard/" target="_blank">Dashboard</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="two-div">
+    <div class="full container-fluid">
+      <div id="sidebar" class="col-md-2 hidden-sm hidden-xs sidebar">
+        <div id="scroller-anchor"></div>
+        <div class="nav-container">
+          <nav>
+            <ul class="nav nav-stacked">
+              
+              <li>
+                <a href="#receiving-incoming-sms-messages">Receiving Incoming SMS Messages</a></li>
+              
+              <li>
+                <a href="#replying-to--forwarding-incoming-sms-messages">Replying To / Forwarding Incoming SMS Messages</a></li>
+              
+              <li>
+                <a href="#related-links">Related Links</a></li>
+              
+            </ul>
+          </nav>
+        </div>
+        </div>
+
+        <section id='content ' class="col-md-10 content">
+          <ol class="breadcrumb">
+              
+                
+                <li><a href="/">Home</a></li>
+              
+              
+                
+                <li><a href="/getting-started">Getting Started</a></li>
+              
+              
+                
+                <li><a href="/getting-started/messages">Messages</a></li>
+              
+              
+                
+                <li>Receiving and Replying to SMS</li>
+              
+              
+          </ol>
+          <div class="container full" data-cms-content-wrapper="/_layouts/two-column.html">
+            <h1 id="receiving-and-replying-to-incoming-sms-messages">Receiving and replying to incoming SMS messages</h1>
+<p>When an SMS is received on your Plivo phone number, Plivo can forward the message text and other details to your application server.</p>
+
+<p>Once you’ve received the message on your application server, you could trigger workflows in your application, reply to incoming message or forward the message to another phone number.</p>
+
+<p>In this guide, we’ll learn to implement all of the above.</p>
+
+<h2 id="receiving-incoming-sms-messages">Receiving Incoming SMS Messages</h2>
+<p>Plivo forwards incoming SMS messages to your server using webhooks. A webhook is essentially an HTTP request endpoint which is invoked every time a specific event occurs. In this case, that event is ‘an incoming SMS message on your Plivo number’.</p>
+
+<p>When a message arrives on your Plivo number, Plivo looks up if the number is associated with a Plivo application, and whether a Message URL (the webhook endpoint) has been configured for the application. The message details are then forwarded to this Message URL.</p>
+
+<p>Here are the steps you need to follow to start receiving incoming messages.</p>
+
+<h3 id="setting-up-a-web-server">Setting Up A Web Server</h3>
+<p>You must have a live web server to receive incoming messages.</p>
+
+<p>Let’s assume your web server is located at <code class="highlighter-rouge">http://example.com</code>.</p>
+
+<p>Create a new service endpoint exclusively to receive incoming messages from Plivo. For example: <code class="highlighter-rouge">/receive-sms-messages</code>.</p>
+
+<p>The sample code below is for a service endpoint that accepts the incoming request from Plivo, parses the message body, and prints the <code class="highlighter-rouge">from</code> number, <code class="highlighter-rouge">to</code> number and the message <code class="highlighter-rouge">text</code>.</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23</pre></td><td class="code"><pre><span class="kn">import</span> <span class="nn">plivo</span>
+<span class="kn">import</span> <span class="nn">plivoxml</span>
+<span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span><span class="p">,</span> <span class="n">request</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="n">__name__</span><span class="p">)</span>
+
+
+<span class="nd">@app.route</span><span class="p">(</span><span class="s">"/receive_sms/"</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s">'GET'</span><span class="p">,</span> <span class="s">'POST'</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">receive_sms</span><span class="p">():</span>
+    <span class="c"># Sender's phone numer</span>
+    <span class="n">from_number</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">'From'</span><span class="p">)</span>
+    <span class="c"># Receiver's phone number - Plivo number</span>
+    <span class="n">to_number</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">'To'</span><span class="p">)</span>
+    <span class="c"># The text which was received</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">'Text'</span><span class="p">)</span>
+
+    <span class="c"># Print the message</span>
+    <span class="k">print</span> <span class="s">'Message received - From: </span><span class="si">%</span><span class="s">s, To: </span><span class="si">%</span><span class="s">s, Text: </span><span class="si">%</span><span class="s">s'</span> <span class="o">%</span> <span class="p">(</span><span class="n">from_number</span><span class="p">,</span> <span class="n">to_number</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="s">"Message received"</span><span class="p">,</span> <span class="mi">200</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">"__main__"</span><span class="p">:</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="s">'0.0.0.0'</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">80</span><span class="p">)</span><span class="w">
+</span></pre></td></tr></tbody></table></code></pre></figure>
+
+<h3 id="creating-a-plivo-application">Creating A Plivo Application</h3>
+<p>Now that we have our service endpoint up and running, it’s time to set up Plivo to forward incoming messages to this endpoint. This is where Plivo Applications come into the picture.</p>
+
+<p><a href="/getting-started/applications">Plivo Applications</a> help to you logically group your Plivo numbers, and configure distinct Voice/SMS related webhooks for these logical sets of numbers.</p>
+
+<p>Let’s start by navigating to the Applications section of your Plivo Management Console. We shall then create a new Application by clicking on the ‘New Application’ button.</p>
+
+<!-- ![Creating an application](/static/assets/images/getting-started/messages/create_application.png) -->
+<p><img src="/static/assets/images/getting-started/messages/create_application.png" style="max-height:none; width:50%;" /></p>
+
+<p>We shall call our Application - ‘Supreme SMS Receiver’ :)</p>
+
+<p>For our use case of forwarding incoming messages to an external application server, we are specifically interested in the <code class="highlighter-rouge">Message URL</code> and <code class="highlighter-rouge">Message Method</code> properties of an application.</p>
+
+<ul>
+  <li>The ‘Message URL’ is the service endpoint to be invoked. We shall set this to the web service endpoint we created in the previous step.</li>
+  <li>The ‘Message Method’ is the HTTP method to be invoked on the given ‘Message URL’. The default is ‘POST’, while ‘GET’ is also supported.</li>
+</ul>
+
+<p><strong>Tip:</strong> If your webservice is running on your local machine, and not accessible over the internet, we suggest using ngrok to configure an HTTP tunnel from an external endpoint to your local service. Learn more about ngrok here.</p>
+
+<p>Applications can be created, updated, and deleted using the Applications API as well. Click here to read more about Plivo Applications.</p>
+
+<h3 id="associating-numbers-with-plivo-application">Associating Numbers With Plivo Application</h3>
+<p>We’re almost there! The last step is to associate your Plivo numbers with the Supreme SMS Receiver application we just created.</p>
+
+<p>You can do this by navigating to the Number section of your Plivo dashboard. Once there, click on the Plivo number you wish to assign to this application.</p>
+
+<p>Select ‘Supreme SMS Receiver’ from the applications dropdown and click on ‘Update’.</p>
+
+<h3 id="test-it-out">Test It Out</h3>
+<p>That’s it, we’re now ready to test our integration out!</p>
+
+<p>Send an SMS to your Plivo number using a regular mobile phone. Plivo will send a request to your Message URL with the parameters listed in the API documentation <a href="https://api-reference.plivo.com/latest/python/resources/message/handling-incoming-messages">here</a>.</p>
+
+<h2 id="replying-to--forwarding-incoming-sms-messages">Replying To / Forwarding Incoming SMS Messages</h2>
+<p>Now that we’re receiving all incoming messages on our web service, we can trigger our own customized workflows based on the message content, from number, destination number etc.</p>
+
+<p>It is possible to reply to an incoming message, or forward it to another phone number using <a href="https://api-reference.plivo.com/latest/python/plivo-xml/overview">Plivo XML</a>.</p>
+
+<p>This is essentially done by responding to the incoming HTTP request with a Plivo XML with the <code class="highlighter-rouge">&lt;Message&gt;</code> tag.</p>
+
+<p>Let’s build on the application web-server code we wrote earlier by incorporating this workflow.</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31</pre></td><td class="code"><pre><span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">Response</span>
+<span class="kn">import</span> <span class="nn">plivo</span><span class="o">,</span> <span class="nn">plivoxml</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="n">__name__</span><span class="p">)</span>
+
+<span class="nd">@app.route</span><span class="p">(</span><span class="s">'/reply_to_sms/'</span><span class="p">,</span><span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s">'GET'</span><span class="p">,</span><span class="s">'POST'</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">inbound_sms</span><span class="p">():</span>
+    <span class="c"># Sender's phone number</span>
+    <span class="n">from_number</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">'From'</span><span class="p">)</span>
+    <span class="c"># Receiver's phone number - Plivo number</span>
+    <span class="n">to_number</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">'To'</span><span class="p">)</span>
+    <span class="c"># The text which was received</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">'Text'</span><span class="p">)</span>
+
+    <span class="k">print</span> <span class="s">'Message received - From: </span><span class="si">%</span><span class="s">s, To: </span><span class="si">%</span><span class="s">s, Text: </span><span class="si">%</span><span class="s">s'</span> <span class="o">%</span> <span class="p">(</span><span class="n">from_number</span><span class="p">,</span> <span class="n">to_number</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
+
+    <span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+      <span class="s">"src"</span><span class="p">:</span> <span class="n">to_number</span><span class="p">,</span>
+      <span class="s">"dst"</span><span class="p">:</span> <span class="n">from_number</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="n">body</span> <span class="o">=</span> <span class="s">"Thanks, we've received your message."</span>
+
+    <span class="c"># Generate a Message XML with the details of</span>
+    <span class="c"># the reply to be sent.</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">plivoxml</span><span class="o">.</span><span class="n">Response</span><span class="p">()</span>
+    <span class="n">r</span><span class="o">.</span><span class="n">addMessage</span><span class="p">(</span><span class="n">body</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">)</span>
+    <span class="k">print</span> <span class="n">r</span><span class="o">.</span><span class="n">to_xml</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">Response</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">r</span><span class="p">),</span><span class="n">mimetype</span><span class="o">=</span><span class="s">'text/xml'</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">"__main__"</span><span class="p">:</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="s">'0.0.0.0'</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">80</span><span class="p">)</span><span class="w">
+</span></pre></td></tr></tbody></table></code></pre></figure>
+
+<p>As we can see, we could reply to the SMS sender by simply setting the <code class="highlighter-rouge">from</code> number received in the request as the <code class="highlighter-rouge">dst</code> number in the Message XML we return.</p>
+
+<p>To forward the message to another number, we would simply set it as <code class="highlighter-rouge">dst</code> number in the Message XML.</p>
+
+<p>The features we discussed above can be used to build powerful applications like ‘Number Masking’, where conversations between entities are anonymized by a mediator in the middle. Ride hailing apps do this to protect the identities of drivers and passengers.</p>
+
+<h2 id="related-links">Related Links</h2>
+<ul>
+  <li><a href="/getting-started/messages/subscribing-to-sms-delivery-reports">Subscribing to SMS message delivery reports</a></li>
+  <li><a href="https://api-reference.plivo.com/latest/python/resources/message/bulk-messaging">Sending bulk SMS messages</a></li>
+</ul>
+
+          </div>
+        </section>
+      </div>
+      <footer id='footer'>
+  <div class="one-fifth">
+    <h6>GETTING STARTED</h6>
+    <ul>
+      <li><a href="/use-cases/2-factor-authentication/">2 Factor Authentication</a></li>
+      <li><a href="/use-cases/ivrs/">IVRS</a></li>
+      <li><a href="/use-cases/voice-otp/">Voice OTP</a></li>
+      <li><a href="/use-cases/voice-alerts-broadcasting/">Voice Alerts &amp; Broadcasting</a></li>
+      <li><a href="/use-cases/number-masking/">Number Masking</a></li>
+      <li><a href="/use-cases/call-tracking/">Call Tracking</a></li>
+    </ul>
+
+  <h6>QUICKSTART GUIDES</h6>
+  <ul>
+    <li><a href="/getting-started/setting-up-dev-environment">Setting up Dev Servers</a></li>
+    <li><a href="/getting-started/signature-validation">Signature Validation</a></li>
+  </ul>
+</div>
+
+  <div class="one-fifth">
+    <h6>PHLO REFERENCES</h6>
+    <ul>
+      <li><a href="/phlo-reference/#phlo-basics">PHLO Basics</a></li>
+      <li><a href="/phlo-reference/#creating-phlos">Creating PHLOs</a></li>
+      <li><a href="/phlo-reference/#connecting-phlo-components">Connecting PHLO Components</a></li>
+      <li><a href="/phlo-reference/#configuring-phlo-components">Configuring PHLO Components</a></li>
+      <li><a href="/phlo-reference/#triggering-a-phlo">Triggering a PHLO</a></li>
+      <li><a href="/phlo-reference/#components-library">Components Library</a></li>
+    </ul>
+
+
+    <h6>PHLO USE CASES</h6>
+    <ul>
+      <li><a href="/use-cases/phlo/voice-notification">Voice Notification</li>
+      <li><a href="/use-cases/phlo/voice-alerts">Voice Alert</li>
+      <li><a href="/use-cases/phlo/sms-alert">SMS Alert</li>
+      <li><a href="/use-cases/phlo/sms-survey">SMS Survey</li>
+      <li><a href="/use-cases/phlo/call-conference">Pinless Conference</li>
+      <li><a href="/use-cases/phlo/conference-with-pin">Conference with PIN</li>
+      <li><a href="/use-cases/phlo/ivr">Phone System IVR</li>
+      <li><a href="/use-cases/phlo/call-forwarding">Call Forwarding</li>
+    </ul>
+
+  </div>
+
+  <div class="one-fifth">
+    <h6>Client-side SDKs</h6>
+    <ul>
+      <li><a href="/client-side-sdks/browser-sdk">Browser SDK</a></li>
+      <li><a href="/client-side-sdks/android-sdk">Android SDK</a></li>
+      <li><a href="/client-side-sdks/ios-sdk">iOS SDK</a></li>
+    </ul>
+
+    <h6>INTEGRATIONS</h6>
+    <ul>
+      <li><a href="/integrations/zapier">Zapier</a></li>
+      <li><a href="/integrations/microsoft-flow">Microsoft Flow</a></li>
+      <li><a href="/integrations/integromat">Integromat</a></li>
+    </ul>
+  </div>
+
+  <div class="one-fifth">
+    <h6>Server-side SDKs</h6>
+    <ul>
+      <li><a href="/server-side-sdks/python-sdk">Python</a></li>
+      <li><a href="/server-side-sdks/node-sdk">NodeJS</a></li>
+      <li><a href="/server-side-sdks/ruby-sdk">Ruby</a></li>
+      <li><a href="/server-side-sdks/java-sdk">Java</a></li>
+      <li><a href="/server-side-sdks/php-sdk">PHP</a></li>
+      <li><a href="/server-side-sdks/net-sdk">.NET (C#)</a></li>
+      <li><a href="/server-side-sdks/go-sdk">Go</a></li>
+    </ul>
+  </div>
+
+  <div class="one-fifth">
+    <h6>API REFERENCE</h6>
+    <ul>
+      <li><a href="https://api-reference.plivo.com/latest/python/resources/account">Account</a></li>
+      <li><a href="https://api-reference.plivo.com/latest/python/resources/account-phone-number">Account Phone Number</a></li>
+      <li><a href="https://api-reference.plivo.com/latest/python/resources/application">Application</a></li>
+      <li><a href="https://api-reference.plivo.com/latest/python/resources/call">Call</a></li>
+      <li><a href="https://api-reference.plivo.com/latest/python/resources/conference">Conference</a></li>
+      <li><a href="https://api-reference.plivo.com/latest/python/resources/endpoint">Endpoint</a></li>
+      <li><a href="https://api-reference.plivo.com/latest/python/resources/incoming-carrier">Incoming Carrier</a></li>
+      <li><a href="https://api-reference.plivo.com/latest/python/resources/message">Message</a></li>
+      <li><a href="https://api-reference.plivo.com/latest/python/resources/phone-number">Phone Number</a></li>
+      <li><a href="https://api-reference.plivo.com/latest/python/resources/pricing">Pricing</a></li>
+      <li><a href="https://api-reference.plivo.com/latest/python/resources/recording">Recording</a></li>
+      <li><a href="https://api-reference.plivo.com/latest/python/resources/subaccount">Subaccount</a></li>
+    </ul>
+  </div>
+</footer>
+
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="/static/js/bootstrap.min.js"></script>
+<script src="/static/js/main.js"></script>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MXJNN5"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+    <script>
+  $(document).ready(function() {
+    $('body').scrollspy({
+      target: '#sidebar',
+      offset: 100
+    })
+
+    function scrollNav() {
+      $('#sidebar .nav a').click(function(e) {
+        //Toggle Class
+        $(".active").removeClass("active");
+        $(this).closest('li').addClass("active");
+        var theClass = $(this).attr("class");
+        $('.' + theClass).parent('li').addClass('active');
+        //Animate
+        $('html, body').stop().animate({
+          scrollTop: $($(this).attr('href')).offset().top - 70
+        }, 10);
+        return false;
+      });
+    }
+    scrollNav();
+    $(".active a").trigger('click');
+
+
+    var stickySidebar = function() {
+      var b = $(window).scrollTop();
+      var d = $("#scroller-anchor").offset().top;
+      var f = $("#footer").offset().top;
+      var c = $(".nav-container");
+      var h = c.height() + 50; // margin
+
+      if (b > 0) {
+        var myTop = $(window).scrollTop();
+        if (myTop > f - h) myTop = f - h;
+        c.css({
+          position: "absolute",
+          top: myTop,
+          bottom: ""
+        })
+      } else {
+        if (b <= d) {
+          c.css({
+            position: "absolute",
+            top: "",
+            bottom: ""
+          })
+        }
+      }
+    };
+    $(window).scroll(stickySidebar);
+    stickySidebar()
+  });
+</script>
+
+  </body>
+</html>

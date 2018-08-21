@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!--
+
+  -->
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>Create a live poll with Plivo SMS and Google Sheets | Plivo Developers</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+
+  <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/static/css/highlight/atom-one-light.css">
+  <link rel="stylesheet" href="/static/css/home.css">
+  <script src="/static/js/utils.js"></script>
+
+  
+  <link rel="stylesheet" href="/static/css/mini-home.css">
+  
+
+  <script src="/static/js/angular.min.js"></script>
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-23474761-11"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-23474761-11');
+  </script>
+
+  <script type="text/javascript">
+    window.heap=window.heap||[],heap.load=function(e,t){window.heap.appid=e,window.heap.config=t=t||{};var r=t.forceSSL||"https:"===document.location.protocol,a=document.createElement("script");a.type="text/javascript",a.async=!0,a.src=(r?"https:":"http:")+"//cdn.heapanalytics.com/js/heap-"+e+".js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(a,n);for(var o=function(e){return function(){heap.push([e].concat(Array.prototype.slice.call(arguments,0)))}},p=["addEventProperties","addUserProperties","clearEventProperties","identify","removeEventProperty","setEventProperties","track","unsetEventProperty"],c=0;c<p.length;c++)heap[p[c]]=o(p[c])};
+      heap.load("1587892843");
+</script><
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-MXJNN5');</script>
+  <!-- End Google Tag Manager -->
+
+  <link rel="stylesheet" href="/static/css/two-column.css" />
+  <link rel="stylesheet" href="/static/css/syntax.css" < head />
+
+</head><body class="ng-scope" ng-app="plivoDevApp">
+    <nav class="navbar navbar-default navbar-fixed-top" ng-controller="plivoDevNavCtrl">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false" ng-click='openMenu()'>
+        <span class="sr-only">Toggle navigation</span>
+        <span ng-show='toggleMenu' class="glyphicon glyphicon-menu-hamburger"></span>
+        <span ng-hide="toggleMenu" class="glyphicon glyphicon-remove"></span>
+      </button>
+        <div class="center">
+          <a class="navbar-brand" href="/">
+            <img src="/static/assets/images/plivo-logo.png" />
+          </a>
+          <a class="navbar-brand" href="/">Docs</a>
+        </div>
+      </div>
+
+      <div class="hideMenu" ng-class="{showMenu: showMenu, hideMenu: !showMenu}">
+        <ul class="nav navbar-nav">
+          <li><a href="/use-cases">Use Cases</a></li>
+          <li><a href="/phlo-reference">PHLO Reference</a></li>
+          <li><a href="https://api-reference.plivo.com" target="_blank">API Reference</a></li>
+
+          <li class="dropdown">
+            <a href="/server-side-sdks" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Server-side SDKs <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="/server-side-sdks/python-sdk/">Python SDK</a></li>
+              <li><a href="/server-side-sdks/node-sdk/">Node JS SDK</a></li>
+              <li><a href="/server-side-sdks/ruby-sdk/">Ruby SDK</a></li>
+              <li><a href="/server-side-sdks/java-sdk/">Java SDK</a></li>
+              <li><a href="/server-side-sdks/php-sdk/">PHP SDK</a></li>
+              <li><a href="/server-side-sdks/net-sdk/">.NET / C# SDK</a></li>
+              <li><a href="/server-side-sdks/go-sdk/">Go SDK</a></li>
+              <li role="separator" class="divider"></li>
+              <li><a href="/server-side-sdks">View All</a></li>
+            </ul>
+          </li>
+
+          <li class="dropdown">
+            <a href="/client-side-sdks" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Client-side SDKs <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="/client-side-sdks/android-sdk">Android SDK</a></li>
+              <li><a href="/client-side-sdks/ios-sdk">iOS SDK</a></li>
+              <li><a href="/client-side-sdks/browser-sdk">Browser SDK</a></li>
+              <li role="separator" class="divider"></li>
+              <li><a href="/client-side-sdks">View All</a></li>
+            </ul>
+          </li>
+        </ul>
+
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="//manage.plivo.com/dashboard/" target="_blank">Dashboard</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="two-div">
+    <div class="full container-fluid">
+      <div id="sidebar" class="col-md-2 hidden-sm hidden-xs sidebar">
+        <div id="scroller-anchor"></div>
+        <div class="nav-container">
+          <nav>
+            <ul class="nav nav-stacked">
+              
+              <li>
+                <a href="#getting-started">Getting started</a></li>
+              
+              <li>
+                <a href="#step-1-setup-plivo">Step 1: Setup Plivo</a></li>
+              
+              <li>
+                <a href="#step-2-setup-google-sheets">Step 2: Setup Google Sheets</a></li>
+              
+              <li>
+                <a href="#step-3-test-the-scenario">Step 3: Test the scenario</a></li>
+              
+              <li>
+                <a href="#step-4-create-a-chart-in-google-sheets">Step 4: Create a chart in Google Sheets</a></li>
+              
+              <li>
+                <a href="#step-5-go-live">Step 5: Go live</a></li>
+              
+            </ul>
+          </nav>
+        </div>
+        </div>
+
+        <section id='content ' class="col-md-10 content">
+          <ol class="breadcrumb">
+              
+                
+                <li><a href="/">Home</a></li>
+              
+              
+                
+                <li><a href="/integrations/">Integrations</a></li>
+              
+              
+                
+                <li><a href="/integrations/integromat/">Integromat</a></li>
+              
+              
+                
+                <li>Live Poll with SMS and Google Sheets</li>
+              
+              
+          </ol>
+          <div class="container full" data-cms-content-wrapper="/_layouts/two-column.html">
+            <h1 id="getting-started">Getting Started</h1>
+<p>Here’s what you will need to start building the live-poll using Plivo SMS and Google Sheets:</p>
+<ul>
+  <li>A <a href="https://console.plivo.com/accounts/register/" target="_blank">Plivo account</a></li>
+  <li>A Plivo number you want to use. You can buy one by visiting <a href="https://console.plivo.com/phone-numbers/search/" target="_blank">https://console.plivo.com/phone-numbers/search/</a> or using the <a href="https://api-reference.plivo.com/latest/python/resources/phone-number" target="_blank">PhoneNumbers API</a></li>
+  <li>A paid or trial <a href="https://www.integromat.com/en/register?ref=plivo-devdocs" target="_blank">Integromat account</a></li>
+  <li>A <a href="https://accounts.google.com/SignUp?ref=plivo-devdocs" target="_blank">Google account</a></li>
+</ul>
+
+<h1 id="step-1-setup-plivo">Step 1: Setup Plivo</h1>
+<ul>
+  <li>Login to your Integromat account</li>
+  <li>Click on “Create a new scenario” on the top-right of the screen</li>
+  <li>In the next screen, search for “Plivo”</li>
+</ul>
+
+<p><img src="/static/assets/images/integrations/integromat/live-poll-with-sheets/step-1-search-for-plivo.png" style="width:100%; max-height:none;" /></p>
+
+<ul>
+  <li>Select the Plivo integration and click on “Continue”</li>
+  <li>You will be taken to the screen where you can create a scenario from scratch</li>
+  <li>Click on the big “?” area to start adding modules to the scenario. You should see something like this:</li>
+</ul>
+
+<p><img src="/static/assets/images/integrations/integromat/live-poll-with-sheets/step-1-scenario-creation.png" style="width:100%; max-height:none;" /></p>
+
+<ul>
+  <li>Click on “Plivo” module and you will see the possible triggers and actions as follows:</li>
+</ul>
+
+<p><img src="/static/assets/images/integrations/integromat/live-poll-with-sheets/step-1-select-trigger.png" style="width:100%; max-height:none;" /></p>
+
+<ul>
+  <li>Select “SMS received <span class="label customLabel">INSTANT</span>” and you will see an interface to set up the webhook. Click on “Add” beside the drop down so you can add a new webhook:</li>
+</ul>
+
+<p><img src="/static/assets/images/integrations/integromat/live-poll-with-sheets/step-1-add-webhook.png" style="width:100%; max-height:none;" /></p>
+
+<ul>
+  <li>Give this webhook a name. In this example, we gave it the name “Poll”.</li>
+  <li>Select the Plivo connection you want to use next. If this is your first time, or if you want to add a new connection, click on “Add”.</li>
+  <li>In the next form give the connection a name, enter your Plivo Auth ID and Auth Token and click on “Continue”. You can find your Plivo auth credentials in your <a href="https://console.plivo.com/dashboard/" target="_blank">Plivo dashboard</a></li>
+</ul>
+
+<p><img src="/static/assets/images/integrations/integromat/live-poll-with-sheets/step-1-add-connection.png" style="width:100%; max-height:none;" /></p>
+
+<ul>
+  <li>Awesome! Now you will have to select the number you want to use for this scenario. Since this scenario will be triggered instantly using webhooks, any application that might be using this number for webhooks will break.</li>
+  <li>Give this application a name and select the number you want to use. Click on “Save”</li>
+</ul>
+
+<p><img src="/static/assets/images/integrations/integromat/live-poll-with-sheets/step-1-save-trigger.png" style="width:100%; max-height:none;" /></p>
+
+<ul>
+  <li>Super! We now have a trigger that will be auto-triggered whenever there is a new incoming message to the Plivo number you specified.</li>
+</ul>
+
+<h1 id="step-2-setup-google-sheets">Step 2: Setup Google Sheets</h1>
+<ul>
+  <li>Open <a href="https://drive.google.com" target="_blank">Google Drive</a>. If you are asked to sign in, use the Google account you want to use and sign in. Note that we will connect this Google account to Integromat later.</li>
+  <li>Create a blank spreadsheet</li>
+  <li>Add the column headers and give this sheet a name. In this example, we named the sheet as “Integromat Poll” and added “From Number” &amp; “Choice Selected” as the column headers.</li>
+</ul>
+
+<p><img src="/static/assets/images/integrations/integromat/live-poll-with-sheets/step-2-add-column-headers.png" style="width:100%; max-height:none;" /></p>
+
+<ul>
+  <li>Super awesome. We are now ready to add Google connection to Integromat! So, heading back to the Integromat scenario creation. Click on the big “?” area and search for Google Sheets.</li>
+</ul>
+
+<p><img src="/static/assets/images/integrations/integromat/live-poll-with-sheets/step-2-search-for-google-sheets.png" style="width:100%; max-height:none;" /></p>
+
+<ul>
+  <li>Select Google Sheets to add the module to the scenario. Now click on the added module to see the possible triggers and actions.</li>
+</ul>
+
+<p><img src="/static/assets/images/integrations/integromat/live-poll-with-sheets/step-2-select-action.png" style="width:100%; max-height:none;" /></p>
+
+<ul>
+  <li>Select “Add a row” action. You will now be asked to select a connection. You can either choose an existing connection or create a new connection by clicking “Add”. Once you click “Add” you will be taken to a Google login page (or directly to the permissions page asking for permissions to access your spreadsheets).</li>
+</ul>
+
+<p><img src="/static/assets/images/integrations/integromat/live-poll-with-sheets/step-2-give-permissions.png" style="width:100%; max-height:none;" /></p>
+
+<ul>
+  <li>Once you log in and give the required permissions, you will then have to select the sheet you created earlier. Integromat will automatically detect the column headers and gives you an option to select which data needs to go to which column. Select the relevant data and click “OK”</li>
+</ul>
+
+<p><img src="/static/assets/images/integrations/integromat/live-poll-with-sheets/step-2-configure-fields.png" style="width:100%; max-height:none;" /></p>
+
+<ul>
+  <li>Super! The scenario is now ready! Let’s test this now!</li>
+</ul>
+
+<h1 id="step-3-test-the-scenario">Step 3: Test the scenario</h1>
+<ul>
+  <li>To test this scenario, click on “Run once” and the scenario goes into a listening mode.</li>
+  <li>Now send a text message to the Plivo number you configured earlier. You can either use your mobile phone to do this or the Plivo Messages API to send the message. We sent the text “Option A” to the Plivo number we configured and the scenario ran successfully.</li>
+</ul>
+
+<p><img src="/static/assets/images/integrations/integromat/live-poll-with-sheets/step-3-running-the-scenario.png" style="width:100%; max-height:none;" /></p>
+
+<ul>
+  <li>To also check if this really ran successfully, just open the spreadsheet you created earlier and you should see a new row added, like this:</li>
+</ul>
+
+<p><img src="/static/assets/images/integrations/integromat/live-poll-with-sheets/step-3-checking-google-sheets.png" style="width:100%; max-height:none;" /></p>
+
+<ul>
+  <li>Good job! The scenario works, but it is kind of boring to just see a huge table with results. Let’s add a nice chart in the next step.</li>
+</ul>
+
+<h1 id="step-4-create-a-chart-in-google-sheets">Step 4: Create a chart in Google Sheets</h1>
+<ul>
+  <li>Select the Column B completely and go to Insert &gt; Chart as follows:</li>
+</ul>
+
+<p><img src="/static/assets/images/integrations/integromat/live-poll-with-sheets/step-4-insert-chart.png" style="width:100%; max-height:none;" /></p>
+
+<ul>
+  <li>This should draw a chart which says “No Data”. Select “Use row 1 as headers” and “Aggregate column B”. This should bring up a nice column chart as follows:</li>
+</ul>
+
+<p><img src="/static/assets/images/integrations/integromat/live-poll-with-sheets/step-4-edit-chart.png" style="width:100%; max-height:none;" /></p>
+
+<ul>
+  <li>You can also make the first row <strong>bold</strong> so the table looks better.</li>
+  <li>And… we are ready to go live! Whenever someone sends a text message to your Plivo number that is configured with this scenario, a new row would be added and the chart gets updated!</li>
+</ul>
+
+<h1 id="step-5-go-live">Step 5: Go live</h1>
+<ul>
+  <li>To make the scenario live, click on the back button near “Integration Plivo, Google Sheets” on the top-left. Save the scenario if such a prompt comes up.</li>
+  <li>In the scenario summary screen, you can see the overview of the scenario you just created and the run history.</li>
+</ul>
+
+<p><img src="/static/assets/images/integrations/integromat/live-poll-with-sheets/step-5-integration-summary.png" style="width:100%; max-height:none;" /></p>
+
+<ul>
+  <li>Use the toggle button on the top-right to turn the scenario “ON” (also known as activating the scenario).</li>
+  <li>Select “immediately” from the dropdown displayed and click on “Activate”.</li>
+</ul>
+
+<p><img src="/static/assets/images/integrations/integromat/live-poll-with-sheets/step-5-activate-scenario.png" style="width:100%; max-height:none;" /></p>
+
+<ul>
+  <li>And, that’s a wrap! Your poll application is now live and you will now be able to see the results populated in the Google Sheet whenever you receive a text message.</li>
+</ul>
+
+<p><img src="/static/assets/images/integrations/integromat/live-poll-with-sheets/step-5-summary-after-activation.png" style="width:100%; max-height:none;" /></p>
+
+<ul>
+  <li>Send out a few text messages to see the magic! This is how looks when people start sending their opinions on the poll.</li>
+</ul>
+
+<p><img src="/static/assets/images/integrations/integromat/live-poll-with-sheets/step-5-google-sheets-live.png" style="width:100%; max-height:none;" /></p>
+
+<ul>
+  <li>Congratulations! You just built a great application!</li>
+</ul>
+
+          </div>
+        </section>
+      </div>
+      <footer id='footer'>
+  <div class="one-fifth">
+    <h6>GETTING STARTED</h6>
+    <ul>
+      <li><a href="/use-cases/2-factor-authentication/">2 Factor Authentication</a></li>
+      <li><a href="/use-cases/ivrs/">IVRS</a></li>
+      <li><a href="/use-cases/voice-otp/">Voice OTP</a></li>
+      <li><a href="/use-cases/voice-alerts-broadcasting/">Voice Alerts &amp; Broadcasting</a></li>
+      <li><a href="/use-cases/number-masking/">Number Masking</a></li>
+      <li><a href="/use-cases/call-tracking/">Call Tracking</a></li>
+    </ul>
+
+  <h6>QUICKSTART GUIDES</h6>
+  <ul>
+    <li><a href="/getting-started/setting-up-dev-environment">Setting up Dev Servers</a></li>
+    <li><a href="/getting-started/signature-validation">Signature Validation</a></li>
+  </ul>
+</div>
+
+  <div class="one-fifth">
+    <h6>PHLO REFERENCES</h6>
+    <ul>
+      <li><a href="/phlo-reference/#phlo-basics">PHLO Basics</a></li>
+      <li><a href="/phlo-reference/#creating-phlos">Creating PHLOs</a></li>
+      <li><a href="/phlo-reference/#connecting-phlo-components">Connecting PHLO Components</a></li>
+      <li><a href="/phlo-reference/#configuring-phlo-components">Configuring PHLO Components</a></li>
+      <li><a href="/phlo-reference/#triggering-a-phlo">Triggering a PHLO</a></li>
+      <li><a href="/phlo-reference/#components-library">Components Library</a></li>
+    </ul>
+
+
+    <h6>PHLO USE CASES</h6>
+    <ul>
+      <li><a href="/use-cases/phlo/voice-notification">Voice Notification</li>
+      <li><a href="/use-cases/phlo/voice-alerts">Voice Alert</li>
+      <li><a href="/use-cases/phlo/sms-alert">SMS Alert</li>
+      <li><a href="/use-cases/phlo/sms-survey">SMS Survey</li>
+      <li><a href="/use-cases/phlo/call-conference">Pinless Conference</li>
+      <li><a href="/use-cases/phlo/conference-with-pin">Conference with PIN</li>
+      <li><a href="/use-cases/phlo/ivr">Phone System IVR</li>
+      <li><a href="/use-cases/phlo/call-forwarding">Call Forwarding</li>
+    </ul>
+
+  </div>
+
+  <div class="one-fifth">
+    <h6>Client-side SDKs</h6>
+    <ul>
+      <li><a href="/client-side-sdks/browser-sdk">Browser SDK</a></li>
+      <li><a href="/client-side-sdks/android-sdk">Android SDK</a></li>
+      <li><a href="/client-side-sdks/ios-sdk">iOS SDK</a></li>
+    </ul>
+
+    <h6>INTEGRATIONS</h6>
+    <ul>
+      <li><a href="/integrations/zapier">Zapier</a></li>
+      <li><a href="/integrations/microsoft-flow">Microsoft Flow</a></li>
+      <li><a href="/integrations/integromat">Integromat</a></li>
+    </ul>
+  </div>
+
+  <div class="one-fifth">
+    <h6>Server-side SDKs</h6>
+    <ul>
+      <li><a href="/server-side-sdks/python-sdk">Python</a></li>
+      <li><a href="/server-side-sdks/node-sdk">NodeJS</a></li>
+      <li><a href="/server-side-sdks/ruby-sdk">Ruby</a></li>
+      <li><a href="/server-side-sdks/java-sdk">Java</a></li>
+      <li><a href="/server-side-sdks/php-sdk">PHP</a></li>
+      <li><a href="/server-side-sdks/net-sdk">.NET (C#)</a></li>
+      <li><a href="/server-side-sdks/go-sdk">Go</a></li>
+    </ul>
+  </div>
+
+  <div class="one-fifth">
+    <h6>API REFERENCE</h6>
+    <ul>
+      <li><a href="https://api-reference.plivo.com/latest/python/resources/account">Account</a></li>
+      <li><a href="https://api-reference.plivo.com/latest/python/resources/account-phone-number">Account Phone Number</a></li>
+      <li><a href="https://api-reference.plivo.com/latest/python/resources/application">Application</a></li>
+      <li><a href="https://api-reference.plivo.com/latest/python/resources/call">Call</a></li>
+      <li><a href="https://api-reference.plivo.com/latest/python/resources/conference">Conference</a></li>
+      <li><a href="https://api-reference.plivo.com/latest/python/resources/endpoint">Endpoint</a></li>
+      <li><a href="https://api-reference.plivo.com/latest/python/resources/incoming-carrier">Incoming Carrier</a></li>
+      <li><a href="https://api-reference.plivo.com/latest/python/resources/message">Message</a></li>
+      <li><a href="https://api-reference.plivo.com/latest/python/resources/phone-number">Phone Number</a></li>
+      <li><a href="https://api-reference.plivo.com/latest/python/resources/pricing">Pricing</a></li>
+      <li><a href="https://api-reference.plivo.com/latest/python/resources/recording">Recording</a></li>
+      <li><a href="https://api-reference.plivo.com/latest/python/resources/subaccount">Subaccount</a></li>
+    </ul>
+  </div>
+</footer>
+
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="/static/js/bootstrap.min.js"></script>
+<script src="/static/js/main.js"></script>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MXJNN5"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+    <script>
+  $(document).ready(function() {
+    $('body').scrollspy({
+      target: '#sidebar',
+      offset: 100
+    })
+
+    function scrollNav() {
+      $('#sidebar .nav a').click(function(e) {
+        //Toggle Class
+        $(".active").removeClass("active");
+        $(this).closest('li').addClass("active");
+        var theClass = $(this).attr("class");
+        $('.' + theClass).parent('li').addClass('active');
+        //Animate
+        $('html, body').stop().animate({
+          scrollTop: $($(this).attr('href')).offset().top - 70
+        }, 10);
+        return false;
+      });
+    }
+    scrollNav();
+    $(".active a").trigger('click');
+
+
+    var stickySidebar = function() {
+      var b = $(window).scrollTop();
+      var d = $("#scroller-anchor").offset().top;
+      var f = $("#footer").offset().top;
+      var c = $(".nav-container");
+      var h = c.height() + 50; // margin
+
+      if (b > 0) {
+        var myTop = $(window).scrollTop();
+        if (myTop > f - h) myTop = f - h;
+        c.css({
+          position: "absolute",
+          top: myTop,
+          bottom: ""
+        })
+      } else {
+        if (b <= d) {
+          c.css({
+            position: "absolute",
+            top: "",
+            bottom: ""
+          })
+        }
+      }
+    };
+    $(window).scroll(stickySidebar);
+    stickySidebar()
+  });
+</script>
+
+  </body>
+</html>
